@@ -1,0 +1,459 @@
+/* ===== RESPONSIVE MOBILE ===== */
+
+/* Tablet (max-width: 992px) */
+@media screen and (max-width: 992px) {
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .visi-misi-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .profil-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .profil-image {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+}
+
+/* Mobile Landscape & Tablet Portrait (max-width: 768px) */
+@media screen and (max-width: 768px) {
+    /* Navbar */
+    .navbar-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        padding: 20px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        z-index: 1000;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+    
+    .navbar-menu.active {
+        display: block;
+    }
+    
+    .navbar-menu ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .navbar-menu li {
+        width: 100%;
+        position: relative;
+    }
+    
+    .navbar-menu a {
+        display: block;
+        padding: 12px 15px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 8px;
+        text-align: center;
+    }
+    
+    /* Dropdown Mobile */
+    .dropdown-menu {
+        position: static;
+        width: 100%;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        box-shadow: none;
+        background: rgba(0,0,0,0.2);
+        margin-top: 5px;
+        display: none;
+    }
+    
+    .dropdown.active .dropdown-menu {
+        display: block;
+    }
+    
+    .dropdown-menu li {
+        margin: 5px 0;
+    }
+    
+    .dropdown-menu a {
+        padding: 10px;
+        background: rgba(255,255,255,0.05);
+    }
+    
+    .navbar-toggle {
+        display: block;
+    }
+    
+    /* Hero */
+    .hero {
+        height: auto;
+        min-height: 500px;
+        padding: 80px 0;
+    }
+    
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-content p {
+        font-size: 1rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    /* Section Header */
+    .section-header h2 {
+        font-size: 2rem;
+    }
+    
+    /* Visi Misi */
+    .visi-card, .misi-card {
+        padding: 25px 20px;
+    }
+    
+    .visi-points .point {
+        flex-direction: column;
+        text-align: center;
+        gap: 5px;
+    }
+    
+    .misi-item {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .misi-number {
+        margin: 0 auto 10px;
+    }
+    
+    /* Tujuan Grid */
+    .tujuan-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+    
+    /* Jurnal Cards */
+    .jurnal-cards {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .jurnal-card {
+        padding: 25px 20px;
+    }
+    
+    .jurnal-card.featured {
+        transform: scale(1);
+    }
+    
+    .jurnal-card.featured:hover {
+        transform: translateY(-10px);
+    }
+    
+    .card-features {
+        gap: 8px;
+    }
+    
+    .card-features span {
+        font-size: 0.8rem;
+        padding: 4px 10px;
+    }
+    
+    /* Stats Grid */
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+    
+    .stat-item {
+        padding: 20px 15px;
+    }
+    
+    .stat-item i {
+        font-size: 2rem;
+    }
+    
+    .stat-item h3 {
+        font-size: 1.5rem;
+    }
+    
+    .stat-item p {
+        font-size: 0.9rem;
+    }
+    
+    /* Profil */
+    .profil-info-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+    
+    .profil-info-item {
+        padding: 15px;
+    }
+    
+    .profil-info-item i {
+        font-size: 1.5rem;
+    }
+    
+    .profil-info-item h4 {
+        font-size: 0.9rem;
+    }
+    
+    .profil-info-item p {
+        font-size: 0.9rem;
+    }
+    
+    /* Sosmed Grid */
+    .sosmed-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .sosmed-card {
+        padding: 20px;
+    }
+    
+    /* Footer */
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .footer-info {
+        text-align: center;
+    }
+    
+    .footer-sosmed {
+        justify-content: center;
+    }
+    
+    .footer-links {
+        text-align: center;
+    }
+    
+    .footer-contact p {
+        justify-content: center;
+    }
+}
+
+/* Smartphone (max-width: 576px) */
+@media screen and (max-width: 576px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+    
+    .section-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .section-header p {
+        font-size: 0.9rem;
+    }
+    
+    .visi-card h3, .misi-card h3 {
+        font-size: 1.3rem;
+    }
+    
+    .visi-points .point span {
+        font-size: 0.9rem;
+    }
+    
+    .misi-item p {
+        font-size: 0.9rem;
+    }
+    
+    .tujuan-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .tujuan-item {
+        padding: 15px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .profil-info-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .profil-text h2 {
+        font-size: 1.8rem;
+    }
+    
+    .profil-text p {
+        font-size: 0.9rem;
+    }
+    
+    .btn {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+    }
+    
+    .back-to-top {
+        bottom: 15px;
+        right: 15px;
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+}
+
+/* Small Mobile (max-width: 375px) */
+@media screen and (max-width: 375px) {
+    .navbar-logo img {
+        height: 35px;
+    }
+    
+    .logo-text h2 {
+        font-size: 1rem;
+    }
+    
+    .logo-text p {
+        font-size: 0.65rem;
+    }
+    
+    .hero-content h1 {
+        font-size: 1.5rem;
+    }
+    
+    .jurnal-card h3 {
+        font-size: 1.2rem;
+    }
+    
+    .card-features span {
+        font-size: 0.75rem;
+    }
+    
+    .footer-bottom p {
+        font-size: 0.75rem;
+    }
+}
+
+/* Dropdown untuk mobile */
+@media screen and (max-width: 768px) {
+    .navbar-menu .dropdown {
+        position: relative;
+    }
+    
+    .navbar-menu .dropdown > a {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .navbar-menu .dropdown > a i {
+        transition: transform 0.3s;
+    }
+    
+    .navbar-menu .dropdown.active > a i {
+        transform: rotate(180deg);
+    }
+    
+    .navbar-menu .dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        box-shadow: none;
+        background: rgba(0,0,0,0.2);
+        margin-top: 5px;
+        display: none;
+        width: 100%;
+    }
+    
+    .navbar-menu .dropdown.active .dropdown-menu {
+        display: block;
+    }
+    
+    .navbar-menu .dropdown-menu li {
+        margin: 5px 0;
+    }
+    
+    .navbar-menu .dropdown-menu a {
+        padding: 10px;
+        background: rgba(255,255,255,0.05);
+        font-size: 0.9rem;
+    }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+    .btn, 
+    .btn-card,
+    .sosmed-card,
+    .jurnal-card,
+    .navbar-menu a {
+        -webkit-tap-highlight-color: rgba(255,215,0,0.3);
+        cursor: pointer;
+    }
+    
+    .btn:active,
+    .btn-card:active {
+        transform: scale(0.98);
+    }
+}
+
+/* Landscape mode */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+    .hero {
+        min-height: 400px;
+        padding: 60px 0;
+    }
+    
+    .navbar-menu.active {
+        max-height: 90vh;
+    }
+}
+
+/* High resolution displays */
+@media screen and (min-width: 1400px) {
+    .container {
+        max-width: 1320px;
+    }
+    
+    .hero-content h1 {
+        font-size: 3.5rem;
+    }
+}
+
+/* Print styles */
+@media print {
+    .navbar,
+    .hero-buttons,
+    .sosmed-section,
+    .footer,
+    .back-to-top {
+        display: none;
+    }
+    
+    body {
+        background: white;
+        color: black;
+    }
+    
+    .container {
+        max-width: 100%;
+        padding: 0;
+    }
+}
