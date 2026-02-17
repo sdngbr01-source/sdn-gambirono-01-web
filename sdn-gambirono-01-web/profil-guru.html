@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Guru - SDN Gambirono 01</title>
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="images/logo/logo-sdn.png">
+    
+    <style>
+        /* Halaman Guru */
+        .guru-section {
+            padding: 60px 0;
+            background: var(--light);
+        }
+        
+        .guru-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .guru-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .guru-header h1 span {
+            color: var(--accent);
+        }
+        
+        .guru-header p {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+        
+        .guru-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .guru-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+        
+        .guru-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .guru-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .guru-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .guru-card:hover .guru-image img {
+            transform: scale(1.1);
+        }
+        
+        .guru-info {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .guru-info h3 {
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .guru-info .jabatan {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .guru-info .mapel {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .guru-sosmed {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .guru-sosmed a {
+            width: 35px;
+            height: 35px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .guru-sosmed a:hover {
+            background: var(--accent);
+            color: var(--white);
+        }
+        
+        @media screen and (max-width: 768px) {
+            .guru-header h1 {
+                font-size: 2rem;
+            }
+            
+            .guru-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 20px;
+            }
+            
+            .guru-image {
+                height: 200px;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .guru-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-logo">
+                <img src="images/logo/logo-sdn.png" alt="Logo SDN Gambirono 01">
+                <div class="logo-text">
+                    <h2>SDN Gambirono 01</h2>
+                    <p>Membentuk Generasi Hebat & Berkarakter</p>
+                </div>
+            </div>
+            
+            <div class="navbar-menu" id="navbarMenu">
+                <ul>
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="profil-sekolah.html">Profil Sekolah</a></li>
+                    <li><a href="profil-guru.html" class="active">Guru & Tenaga Pendidik</a></li>
+                    <li><a href="galeri.html">Galeri</a></li>
+                </ul>
+            </div>
+            
+            <div class="navbar-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Guru Section -->
+    <section class="guru-section">
+        <div class="container">
+            <div class="guru-header">
+                <h1>Guru & <span>Tenaga Pendidik</span></h1>
+                <p>Tenaga pendidik profesional yang berdedikasi untuk mencerdaskan generasi bangsa</p>
+            </div>
+            
+            <div class="guru-grid">
+                <!-- Guru 1 - Kepala Sekolah -->
+                <div class="guru-card">
+                    <div class="guru-image">
+                        <img src="images/guru/guru-1.jpg" alt="Kepala Sekolah">
+                    </div>
+                    <div class="guru-info">
+                        <h3>Drs. H. Ahmad Fauzi, M.Pd</h3>
+                        <p class="jabatan">Kepala Sekolah</p>
+                        <p class="mapel">NIP. 19680515 199403 1 005</p>
+                        <div class="guru-sosmed">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-facebook"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Guru 2 - Wakil Kepala -->
+                <div class="guru-card">
+                    <div class="guru-image">
+                        <img src="images/guru/guru-2.jpg" alt="Wakil Kepala">
+                    </div>
+                    <div class="guru-info">
+                        <h3>Dra. Siti Aminah</h3>
+                        <p class="jabatan">Wakil Kepala Sekolah</p>
+                        <p class="mapel">NIP. 19700812 199512 2 003</p>
+                        <div class="guru-sosmed">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-facebook"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Guru 3 -->
+                <div class="guru-card">
+                    <div class="guru-image">
+                        <img src="images/guru/guru-3.jpg" alt="Guru Kelas 1">
+                    </div>
+                    <div class="guru-info">
+                        <h3>Muhammad Rizki, S.Pd</h3>
+                        <p class="jabatan">Guru Kelas 1A</p>
+                        <p class="mapel">Wali Kelas 1A</p>
+                        <div class="guru-sosmed">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-facebook"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Lanjutkan untuk 17 guru lainnya... -->
+                <!-- Guru 4 - 20 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-info">
+                    <img src="images/logo/logo-sdn.png" alt="Logo" class="footer-logo">
+                    <h3>SDN Gambirono 01</h3>
+                    <p>Membentuk Generasi Hebat & Berkarakter melalui pendidikan berkualitas dan pembiasaan positif.</p>
+                    <div class="footer-sosmed">
+                        <a href="https://www.tiktok.com/@sdn.gambirono.01" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.instagram.com/sdngambirono_01" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://youtube.com/@sdngambirono0143" target="_blank"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.facebook.com/GAMBIRONOSATU" target="_blank"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Menu Utama</h4>
+                    <ul>
+                        <li><a href="index.html">Beranda</a></li>
+                        <li><a href="profil-sekolah.html">Profil Sekolah</a></li>
+                        <li><a href="profil-guru.html">Guru & Tenaga Pendidik</a></li>
+                        <li><a href="galeri.html">Galeri</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Aplikasi</h4>
+                    <ul>
+                        <li><a href="https://7-kaih-sdngbr01.vercel.app/index.html" target="_blank">7 Kebiasaan Anak Hebat</a></li>
+                        <li><a href="login.html">Jurnal Ramadhan 1447 H</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Kontak Kami</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Jl. Raya Gambirono No. 01, Malang</p>
+                    <p><i class="fas fa-phone"></i> (0341) 123456</p>
+                    <p><i class="fas fa-envelope"></i> sdn.gambirono01@sch.id</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 SDN Gambirono 01. All rights reserved. | Smart School with Digital Culture</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
