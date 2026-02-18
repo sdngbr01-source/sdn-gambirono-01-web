@@ -909,7 +909,9 @@ section {
     height: 60px;
     object-fit: contain;
     margin-bottom: 15px;
-    filter: brightness(0) invert(1);
+    filter: brightness(0) invert(1); /* Ubah putih jadi hitam */
+    /* atau */
+    filter: drop-shadow(0 0 2px black); /* Kasih bayangan */
 }
 
 .footer-logo h3 {
@@ -1203,4 +1205,12 @@ section {
         flex-wrap: wrap;
         justify-content: center;
     }
+}
+.logo-img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    filter: brightness(0) invert(1); /* Ubah putih jadi hitam */
+    /* atau */
+    filter: drop-shadow(0 0 2px black); /* Kasih bayangan */
 }
