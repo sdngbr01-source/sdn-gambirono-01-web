@@ -457,3 +457,96 @@
         padding: 0;
     }
 }
+/* ============================================ */
+/* TRYOUT TKA SECTION - SUPER SIMPLE */
+/* ============================================ */
+.tryout-tka {
+    padding: 80px 0;
+    background: #f8f9fa;
+}
+
+.tryout-card {
+    background: white;
+    border-radius: 20px;
+    padding: 50px 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    transition: all 0.3s;
+}
+
+.tryout-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.tryout-icon {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+}
+
+.tryout-icon i {
+    font-size: 50px;
+    color: white;
+}
+
+.tryout-card h3 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.tryout-card p {
+    color: #666;
+    margin-bottom: 30px;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+/* TOMBOL MENUJU LINK */
+.btn-tryout-link {
+    display: inline-block;
+    padding: 15px 40px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 18px;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+.btn-tryout-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+}
+
+.btn-tryout-link i {
+    margin-right: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .tryout-card {
+        padding: 30px 20px;
+    }
+    
+    .tryout-card h3 {
+        font-size: 24px;
+    }
+    
+    .btn-tryout-link {
+        padding: 12px 30px;
+        font-size: 16px;
+    }
+}
