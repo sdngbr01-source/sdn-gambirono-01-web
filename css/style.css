@@ -1213,4 +1213,435 @@ section {
     filter: brightness(0) invert(1); /* Ubah putih jadi hitam */
     /* atau */
     filter: drop-shadow(0 0 2px black); /* Kasih bayangan */
+
+/* ============================================ */
+/* TRYOUT TKA SECTION STYLES */
+/* ============================================ */
+
+.tryout-tka {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.tryout-tka .section-header h2,
+.tryout-tka .section-header p {
+    color: white;
+}
+
+.tryout-tka .section-header p {
+    opacity: 0.9;
+}
+
+.tryout-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 40px;
+    margin-top: 50px;
+}
+
+.tryout-info {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.tryout-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.tryout-badge i {
+    margin-right: 8px;
+}
+
+.tryout-info h3 {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.tryout-info p {
+    margin-bottom: 25px;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+.tryout-features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.feature-item i {
+    width: 30px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.tryout-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stat-mini {
+    text-align: center;
+}
+
+.stat-mini h4 {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.stat-mini p {
+    font-size: 14px;
+    margin-bottom: 0;
+    opacity: 0.8;
+}
+
+.tryout-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    color: #333;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.tryout-card.featured::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 150px;
+    height: 150px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    opacity: 0.1;
+    border-radius: 50%;
+    transform: translate(50px, -50px);
+}
+
+.tryout-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.tryout-icon i {
+    font-size: 40px;
+    color: white;
+}
+
+.tryout-card h3 {
+    font-size: 26px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.tryout-desc {
+    color: #666;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.tryout-packages {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.package-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.package-item:last-child {
+    border-bottom: none;
+}
+
+.package-name {
+    font-weight: 600;
+    color: #495057;
+}
+
+.package-detail {
+    color: #667eea;
+}
+
+.tryout-actions {
+    text-align: center;
+}
+
+.btn-tryout-large {
+    display: inline-block;
+    padding: 15px 40px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 18px;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 15px;
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+.btn-tryout-large:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+}
+
+.btn-tryout-large i {
+    margin-right: 10px;
+}
+
+.tryout-note {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.tryout-note i {
+    color: #667eea;
+    margin-right: 5px;
+}
+
+.tryout-instructions {
+    margin-top: 60px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 30px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.tryout-instructions h4 {
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.tryout-instructions h4 i {
+    margin-right: 10px;
+}
+
+.instructions-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.instruction-step {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    background: white;
+    color: #667eea;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.instruction-step p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.4;
+}
+
+/* Hero section button */
+.btn-tryout {
+    display: inline-block;
+    padding: 12px 30px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 500;
+    transition: all 0.3s;
+    margin-left: 10px;
+    border: 2px solid transparent;
+}
+
+.btn-tryout:hover {
+    background: transparent;
+    border-color: white;
+}
+
+/* Navbar menu update */
+.navbar-menu ul li a[href="#tryout-tka"] {
+    color: #667eea;
+    font-weight: 600;
+}
+
+.navbar-menu ul li a[href="#tryout-tka"].active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .tryout-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .instructions-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .tryout-info,
+    .tryout-card {
+        padding: 30px;
+    }
+    
+    .tryout-features {
+        grid-template-columns: 1fr;
+    }
+    
+    .instructions-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .btn-tryout {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    
+    .hero-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+}
+/* ============================================ */
+/* TRYOUT TKA SECTION - SUPER SIMPLE */
+/* ============================================ */
+.tryout-tka {
+    padding: 80px 0;
+    background: #f8f9fa;
+}
+
+.tryout-card {
+    background: white;
+    border-radius: 20px;
+    padding: 50px 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    transition: all 0.3s;
+}
+
+.tryout-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.tryout-icon {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+}
+
+.tryout-icon i {
+    font-size: 50px;
+    color: white;
+}
+
+.tryout-card h3 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.tryout-card p {
+    color: #666;
+    margin-bottom: 30px;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+/* TOMBOL MENUJU LINK */
+.btn-tryout-link {
+    display: inline-block;
+    padding: 15px 40px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 18px;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+.btn-tryout-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+}
+
+.btn-tryout-link i {
+    margin-right: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .tryout-card {
+        padding: 30px 20px;
+    }
+    
+    .tryout-card h3 {
+        font-size: 24px;
+    }
+    
+    .btn-tryout-link {
+        padding: 12px 30px;
+        font-size: 16px;
+    }
 }
