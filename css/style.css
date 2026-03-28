@@ -1713,4 +1713,389 @@ section {
     .tryout-features {
         grid-template-columns: 1fr;
     }
+}/* DATA SISWA SECTION */
+.data-siswa {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+}
+
+.jumlah-siswa {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.jumlah-siswa h3, .detail-siswa h3 {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.jumlah-siswa h3 i, .detail-siswa h3 i {
+    color: #3498db;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.tabel-jumlah {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1rem;
+}
+
+.tabel-jumlah thead tr {
+    background: linear-gradient(135deg, #2c3e50, #3498db);
+    color: white;
+}
+
+.tabel-jumlah th, .tabel-jumlah td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.tabel-jumlah tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.tabel-jumlah td:first-child {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.loading-text {
+    text-align: center;
+    color: #7f8c8d;
+    padding: 40px !important;
+}
+
+/* Filter Container - Enhanced */
+.filter-container {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: flex-end;
+}
+
+.filter-group {
+    flex: 1;
+    min-width: 200px;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #2c3e50;
+    font-size: 0.9rem;
+}
+
+.filter-group label i {
+    margin-right: 8px;
+    color: #3498db;
+}
+
+.filter-select, .filter-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.filter-select:focus, .filter-input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52,152,219,0.1);
+}
+
+.search-input-wrapper {
+    position: relative;
+}
+
+.filter-input {
+    padding-right: 40px;
+}
+
+.btn-clear {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #95a5a6;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 5px;
+    display: none;
+}
+
+.btn-clear:hover {
+    color: #e74c3c;
+}
+
+.filter-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-cari, .btn-reset {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-cari {
+    background: linear-gradient(135deg, #2c3e50, #3498db);
+    color: white;
+}
+
+.btn-cari:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(52,152,219,0.3);
+}
+
+.btn-reset {
+    background: #ecf0f1;
+    color: #7f8c8d;
+}
+
+.btn-reset:hover {
+    background: #bdc3c7;
+    color: #2c3e50;
+    transform: translateY(-2px);
+}
+
+/* Hasil Siswa */
+.hasil-siswa {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.info-text {
+    text-align: center;
+    color: #7f8c8d;
+    padding: 40px;
+    font-size: 1rem;
+}
+
+/* Tabel Detail Siswa */
+.tabel-siswa {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.tabel-siswa thead tr {
+    background: #2c3e50;
+    color: white;
+}
+
+.tabel-siswa th, .tabel-siswa td {
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.tabel-siswa tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.tabel-siswa td {
+    color: #555;
+}
+
+.tabel-siswa td:first-child {
+    font-weight: 500;
+}
+
+/* Highlight untuk hasil pencarian nama */
+.highlight {
+    background-color: #fff3cd;
+    font-weight: 600;
+    color: #856404;
+}
+
+/* No Data */
+.no-data {
+    text-align: center;
+    padding: 40px !important;
+    color: #7f8c8d;
+}
+
+.no-data i {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* Statistik Kelas */
+.statistik-kelas {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #e8f4fc;
+    border-radius: 10px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.stat-item i {
+    font-size: 1.2rem;
+    color: #3498db;
+}
+
+.stat-item span {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .data-siswa {
+        padding: 50px 0;
+    }
+    
+    .jumlah-siswa, .hasil-siswa {
+        padding: 20px;
+    }
+    
+    .tabel-jumlah th, .tabel-jumlah td,
+    .tabel-siswa th, .tabel-siswa td {
+        padding: 8px 5px;
+        font-size: 0.8rem;
+    }
+    
+    .filter-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .filter-actions {
+        flex-direction: column;
+    }
+    
+    .btn-cari, .btn-reset {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .filter-group {
+        min-width: 100%;
+    }
+}
+/* Total Row Style */
+.tabel-jumlah tfoot.total-row {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    font-weight: bold;
+    border-top: 2px solid #3498db;
+}
+
+.tabel-jumlah tfoot.total-row td {
+    padding: 12px 15px;
+    text-align: center;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+.tabel-jumlah tfoot.total-row td:first-child {
+    text-align: left;
+}
+
+/* Enhanced Tabel Detail Siswa */
+.tabel-siswa {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    min-width: 1000px;
+}
+
+.tabel-siswa thead tr {
+    background: linear-gradient(135deg, #2c3e50, #3498db);
+    color: white;
+    position: sticky;
+    top: 0;
+}
+
+.tabel-siswa th, .tabel-siswa td {
+    padding: 10px 8px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.tabel-siswa th {
+    font-weight: 600;
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+.tabel-siswa tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.tabel-siswa td {
+    color: #555;
+    font-size: 0.8rem;
+}
+
+.tabel-siswa td:first-child {
+    font-weight: 500;
+}
+
+/* Highlight untuk hasil pencarian */
+.highlight {
+    background-color: #fff3cd;
+    font-weight: 600;
+    color: #856404;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+/* Wrapper untuk scroll horizontal */
+.table-wrapper {
+    overflow-x: auto;
+    border-radius: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .tabel-siswa {
+        font-size: 0.7rem;
+        min-width: 800px;
+    }
+    
+    .tabel-siswa th, .tabel-siswa td {
+        padding: 6px 4px;
+    }
 }
