@@ -23,7 +23,7 @@ body {
 }
 
 section {
-    padding: 80px 0;
+    padding: 200px 0;
 }
 
 /* ===== NAVBAR ===== */
@@ -40,12 +40,12 @@ section {
 .navbar .container {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: left;
 }
 
 .navbar-logo {
     display: flex;
-    align-items: center;
+    align-items: left;
     gap: 15px;
 }
 
@@ -255,7 +255,7 @@ section {
     width: 80px;
     height: 80px;
     background: linear-gradient(135deg, #1e3c72, #2a5298);
-    border-radius: 50%;
+    border-radius: 10%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2097,5 +2097,165 @@ section {
     
     .tabel-siswa th, .tabel-siswa td {
         padding: 6px 4px;
+    }
+}/* TRYOUT & ASSESSMENT SECTION */
+.tryout-tka {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+}
+
+.tryout-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.tryout-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.tryout-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+/* Card Tryout TKA - Warna Biru Muda */
+.tryout-card.featured {
+    background: linear-gradient(135deg, #2c3e50, #3498db);
+    color: white;
+}
+
+/* Card Assessment - Warna Hijau Tosca (lebih cerah) */
+.tryout-card.assessment {
+    background: linear-gradient(135deg, #11998e, #38ef7d);
+    color: white;
+}
+
+/* Icon Styling */
+.tryout-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+}
+
+.tryout-icon i {
+    font-size: 40px;
+    color: white;
+}
+
+/* Judul */
+.tryout-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+    color: white;
+}
+
+/* Deskripsi */
+.tryout-card p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: rgba(255,255,255,0.95);
+}
+
+/* Fitur / Tags */
+.tryout-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.tryout-features span {
+    font-size: 0.8rem;
+    padding: 5px 12px;
+    background: rgba(255,255,255,0.25);
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: white;
+    font-weight: 500;
+}
+
+.tryout-features span i {
+    font-size: 0.7rem;
+    color: white;
+}
+
+/* Tombol */
+.btn-tryout-link, .btn-assessment-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 30px;
+    background: white;
+    color: #2c3e50;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.tryout-card.featured .btn-tryout-link,
+.tryout-card.assessment .btn-assessment-link {
+    background: white;
+    color: #2c3e50;
+}
+
+/* Hover Effect Tombol */
+.btn-tryout-link:hover, .btn-assessment-link:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.btn-tryout-link:hover i, .btn-assessment-link:hover i {
+    transform: translateX(5px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .tryout-tka {
+        padding: 50px 0;
+    }
+    
+    .tryout-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .tryout-card {
+        padding: 30px 20px;
+    }
+    
+    .tryout-card h3 {
+        font-size: 1.3rem;
+    }
+    
+    .tryout-features span {
+        font-size: 0.7rem;
+        padding: 4px 10px;
+    }
+    
+    .btn-tryout-link, .btn-assessment-link {
+        padding: 10px 25px;
+        font-size: 0.9rem;
     }
 }
