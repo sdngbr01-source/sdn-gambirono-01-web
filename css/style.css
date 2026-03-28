@@ -2259,3 +2259,83 @@ section {
         font-size: 0.9rem;
     }
 }
+/* WhatsApp Card Style */
+.sosmed-card.whatsapp {
+    background: linear-gradient(135deg, #075e54, #128c7e);
+    color: white;
+}
+
+.sosmed-card.whatsapp .sosmed-icon {
+    background: rgba(255,255,255,0.2);
+}
+
+.sosmed-card.whatsapp .sosmed-icon i {
+    color: white;
+}
+
+.sosmed-card.whatsapp h3,
+.sosmed-card.whatsapp p {
+    color: white;
+}
+
+.sosmed-card.whatsapp .follow-btn {
+    background: white;
+    color: #075e54;
+}
+
+/* Email Card Style */
+.sosmed-card.email {
+    background: linear-gradient(135deg, #d44638, #ea4335);
+    color: white;
+}
+
+.sosmed-card.email .sosmed-icon {
+    background: rgba(255,255,255,0.2);
+}
+
+.sosmed-card.email .sosmed-icon i {
+    color: white;
+}
+
+.sosmed-card.email h3,
+.sosmed-card.email p {
+    color: white;
+}
+
+.sosmed-card.email .follow-btn {
+    background: white;
+    color: #d44638;
+}
+
+/* Hover effect untuk card baru */
+.sosmed-card.whatsapp:hover,
+.sosmed-card.email:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+/* Responsive Grid - 3 kolom untuk desktop */
+@media (min-width: 992px) {
+    .sosmed-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1200px) {
+    .sosmed-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Untuk 2 baris: 3 card atas, 3 card bawah */
+@media (max-width: 991px) {
+    .sosmed-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .sosmed-grid {
+        grid-template-columns: 1fr;
+    }
+}
