@@ -27,8 +27,10 @@
                      <li><a href="#tryout-tka">Tryout TKA 2026</a></li>
                     <li><a href="#profil">Profil Sekolah</a></li>
                     <li><a href="#guru">Guru & Tenaga Pendidik</a></li>
+		      <li><a href="#data-siswa">Data Siswa</a></li>
                     <li><a href="#galeri">Galeri</a></li>
                     <li><a href="#kontak">Kontak</a></li>
+		  
                 </ul>
             </div>
             <div class="navbar-toggle" onclick="toggleMenu()">
@@ -576,7 +578,104 @@
         </div>
     </div>
 </section>
+<!-- DATA SISWA SECTION -->
+<section id="data-siswa" class="data-siswa">
+    <div class="container">
+        <div class="section-header">
+            <h2>Data Siswa</h2>
+            <p>Informasi Jumlah Siswa dan Data Detail Siswa</p>
+        </div>
+        
+        <!-- TABEL JUMLAH SISWA PER KELAS + TOTAL -->
+        <div class="jumlah-siswa">
+            <h3><i class="fas fa-chart-bar"></i> Rekap Jumlah Siswa per Kelas</h3>
+            <div class="table-wrapper">
+                <table class="tabel-jumlah" id="tabelJumlahSiswa">
+                    <thead>
+                        <tr>
+                            <th>Kelas</th>
+                            <th>Laki-laki</th>
+                            <th>Perempuan</th>
+                            <th>Jumlah</th>
+                        </tr>
+                    </thead>
+                    <tbody id="jumlahSiswaBody">
+                        <tr><td colspan="4" class="loading-text"><i class="fas fa-spinner fa-spin"></i> Memuat data...</td></tr>
+                    </tbody>
+                    <tfoot id="jumlahSiswaFooter">
+                        <tr class="total-row">
+                            <td><strong>Jumlah</strong></td>
+                            <td id="totalLaki"><strong>0</strong></td>
+                            <td id="totalPerempuan"><strong>0</strong></td>
+                            <td id="totalSemua"><strong>0</strong></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        
+        <!-- FILTER DAN DETAIL SISWA -->
+        <div class="detail-siswa">
+            <h3><i class="fas fa-search"></i> Cari Data Siswa</h3>
             
+            <!-- FILTER GANDA: KELAS + NAMA -->
+            <div class="filter-container">
+                <div class="filter-group">
+                    <label><i class="fas fa-users"></i> Filter Kelas</label>
+                    <select id="filterKelas" class="filter-select">
+                        <option value="">Semua Kelas</option>
+                        <option value="1A">Kelas 1A</option>
+                        <option value="1B">Kelas 1B</option>
+                        <option value="2A">Kelas 2A</option>
+                        <option value="2B">Kelas 2B</option>
+                        <option value="3A">Kelas 3A</option>
+                        <option value="3B">Kelas 3B</option>
+                        <option value="4A">Kelas 4A</option>
+                        <option value="4B">Kelas 4B</option>
+                        <option value="5A">Kelas 5A</option>
+                        <option value="5B">Kelas 5B</option>
+                        <option value="6A">Kelas 6A</option>
+                        <option value="6B">Kelas 6B</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label><i class="fas fa-user-graduate"></i> Cari Nama Siswa</label>
+                    <div class="search-input-wrapper">
+                        <input type="text" id="filterNama" class="filter-input" placeholder="Ketik nama siswa...">
+                        <button id="btnClearNama" class="btn-clear" onclick="clearNamaFilter()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <label><i class="fas fa-id-card"></i> Cari NIS / NISN</label>
+                    <div class="search-input-wrapper">
+                        <input type="text" id="filterNIS" class="filter-input" placeholder="Ketik NIS atau NISN...">
+                        <button id="btnClearNIS" class="btn-clear" onclick="clearNISFilter()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="filter-actions">
+                    <button id="btnCari" class="btn-cari" onclick="cariSiswa()">
+                        <i class="fas fa-search"></i> Cari
+                    </button>
+                    <button id="btnReset" class="btn-reset" onclick="resetFilter()">
+                        <i class="fas fa-undo-alt"></i> Reset
+                    </button>
+                </div>
+            </div>
+            
+            <!-- HASIL PENCARIAN -->
+            <div id="hasilSiswa" class="hasil-siswa">
+                <p class="info-text"><i class="fas fa-info-circle"></i> Pilih kelas, ketik nama siswa, atau NIS/NISN untuk mencari data</p>
+            </div>
+        </div>
+    </div>
+</section>          
   
     <!-- GALERI SECTION -->
     <section id="galeri" class="galeri">
@@ -780,7 +879,9 @@
                         <li><a href="#jurnal">Jurnal</a></li>
                         <li><a href="#profil">Profil Sekolah</a></li>
                         <li><a href="#guru">Guru & Tenaga Pendidik</a></li>
+			<li><a href="#data-siswa">Data Siswa</a></li>
                         <li><a href="#galeri">Galeri</a></li>
+			
                     </ul>
                 </div>
                 
