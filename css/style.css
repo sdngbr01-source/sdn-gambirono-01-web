@@ -2339,3 +2339,66 @@ section {
         grid-template-columns: 1fr;
     }
 }
+/* ================= GLOBAL FIX ================= */
+section {
+    position: relative;
+    overflow: hidden;
+}
+
+section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+}
+
+section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 1;
+}
+
+section .container {
+    position: relative;
+    z-index: 2;
+}
+
+/* ================= VISI MISI (VISIONER) ================= */
+.visi-misi::before {
+    background-image: url('https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d');
+}
+
+/* ================= JURNAL (KEGIATAN ANAK) ================= */
+.jurnal::before {
+    background-image: url('https://images.unsplash.com/photo-1588072432836-e10032774350');
+}
+
+/* ================= TRYOUT (BELAJAR / UJIAN) ================= */
+.tryout-tka::before {
+    background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644');
+}
+
+/* ================= PROFIL (GEDUNG SEKOLAH) ================= */
+.profil-sekolah::before {
+    background-image: url('https://images.unsplash.com/photo-1596495577886-d920f1fb7238');
+}
+
+/* ================= GURU (MENGAJAR) ================= */
+.guru::before {
+    background-image: url('https://images.unsplash.com/photo-1584697964403-07c7f7e38a54');
+}
+
+/* ================= GALERI (KEGIATAN RAMAI) ================= */
+.galeri::before {
+    background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b');
+}
+
+/* ================= TEXT KONTRAS ================= */
+.section-header h2,
+.section-header p {
+    color: white;
+}
