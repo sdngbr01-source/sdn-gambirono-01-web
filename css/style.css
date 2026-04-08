@@ -26,89 +26,521 @@ section {
     padding: 200px 0;
 }
 
-/* ===== NAVBAR ===== */
+/* ============ NAVBAR VERTIKAL KIRI (DESKTOP) ============ */
 .navbar {
-    background: linear-gradient(135deg, #1e3c72, #2a5298);
-    color: white;
-    padding: 15px 0;
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    width: 280px;
+    height: 100vh;
+    background: linear-gradient(135deg, #1a252f 0%, #2c3e50 100%);
     z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    overflow-y: auto;
+    box-shadow: 2px 0 20px rgba(0,0,0,0.15);
 }
 
 .navbar .container {
     display: flex;
-    justify-content: space-between;
-    align-items: left;
+    flex-direction: column;
+    padding: 30px 20px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
+/* Logo di navbar kiri */
 .navbar-logo {
     display: flex;
-    align-items: left;
-    gap: 15px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
 }
 
-.logo-img {
-    width: 50px;
-    height: 50px;
-    object-fit: contain;
-    filter: brightness(0) invert(1);
+.navbar-logo .logo-img {
+    width: 120px;
+    height: auto;
+    margin-bottom: 15px;
+    background-color: transparen;
+    border-radius: 10px;
+    padding: 5px;
 }
 
-.logo-text h1 {
+.navbar-logo .logo-text h1 {
+    color: white;
     font-size: 1.2rem;
     margin: 0;
-    line-height: 1.2;
 }
 
-.logo-text p {
-    font-size: 0.75rem;
-    opacity: 0.9;
-    margin: 2px 0 0 0;
+.navbar-logo .logo-text p {
+    color: #3498db;
+    font-size: 0.8rem;
+    margin: 5px 0 0;
+}
+
+/* MENU VERTIKAL KE BAWAH */
+.navbar-menu {
+    width: 100%;
 }
 
 .navbar-menu ul {
     display: flex;
+    flex-direction: column;
     list-style: none;
-    gap: 25px;
-}
-
-.navbar-menu a {
-    color: white;
-    text-decoration: none;
-    font-weight: 300;
-    font-size: 0.85rem;
-    transition: all 0.3s;
-    position: relative;
-    padding: 5px 0;
-}
-
-.navbar-menu a:hover,
-.navbar-menu a.active {
-    color: #ffd700;
-}
-
-.navbar-menu a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: #ffd700;
-    transition: width 0.3s;
-}
-
-.navbar-menu a:hover::after,
-.navbar-menu a.active::after {
+    padding: 0;
+    margin: 0;
     width: 100%;
 }
 
+.navbar-menu ul li {
+    width: 100%;
+    margin-bottom: 2px;
+}
+
+.navbar-menu ul li a {
+    display: block;
+    padding: 10px 15px;
+    color: #ecf0f1;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    text-align: left;
+}
+
+.navbar-menu ul li a:hover {
+    background: #3498db;
+    color: white;
+    padding-left: 25px;
+}
+
+.navbar-menu ul li a.active {
+    background: #3498db;
+    color: white;
+}
+
+/* Toggle button (sembunyikan di desktop) */
 .navbar-toggle {
     display: none;
+}
+
+/* ============ KONTEN UTAMA ============ */
+body {
+    margin: 0;
+    padding-left: 280px;
+    background: #f0f2f5;
+}
+
+/* Container dalam konten */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+/* Hero section */
+.hero {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    padding: 80px 0;
+}
+
+/* Footer */
+footer {
+    background: #2c3e50;
+    color: white;
+    margin-left: 0;
+}
+
+/* ============ ABSENSI SECTION ============ */
+.absensi-section {
+    padding: 80px 0;
+    background: #f0f2f5;
+}
+
+.absensi-section .section-header h2 {
+    color: #1e3c72;
+}
+
+.absensi-section .section-header p {
+    color: #666;
+}
+
+.absensi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+    margin-top: 40px;
+}
+
+.loading-absensi, .no-data-absensi {
+    text-align: center;
+    padding: 60px;
+    background: white;
+    border-radius: 20px;
+    font-size: 1.1rem;
+    color: #666;
+    grid-column: 1 / -1;
+}
+
+.no-data-absensi i {
+    font-size: 3rem;
+    color: #f39c12;
+    margin-bottom: 15px;
+}
+
+.absensi-card {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.absensi-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+}
+
+.absensi-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.absensi-card-header h3 {
     font-size: 1.5rem;
-    cursor: pointer;
+    color: #2c3e50;
+    margin: 0;
+}
+
+.badge-kelas {
+    background: #3498db;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* Ringkasan Jumlah Siswa */
+.ringkasan-jumlah {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.ringkasan-jumlah .label {
+    font-size: 0.85rem;
+    color: #7f8c8d;
+    display: block;
+}
+
+.ringkasan-jumlah .value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+/* 3 Kolom Absensi */
+.absensi-tiga-kolom {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.absensi-item {
+    text-align: center;
+    padding: 12px 5px;
+    border-radius: 12px;
+}
+
+.absensi-item.datang {
+    background: #e8f8f5;
+    border-left: 4px solid #27ae60;
+}
+
+.absensi-item.terlambat {
+    background: #fff8e8;
+    border-left: 4px solid #f39c12;
+}
+
+.absensi-item.pulang {
+    background: #e8f0fe;
+    border-left: 4px solid #3498db;
+}
+
+.absensi-item .icon {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.absensi-item.datang .icon { color: #27ae60; }
+.absensi-item.terlambat .icon { color: #f39c12; }
+.absensi-item.pulang .icon { color: #3498db; }
+
+.absensi-item .label {
+    font-size: 0.75rem;
+    color: #7f8c8d;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.absensi-item .value {
+    font-size: 1.6rem;
+    font-weight: 700;
+    display: block;
+}
+
+.absensi-item.datang .value { color: #27ae60; }
+.absensi-item.terlambat .value { color: #f39c12; }
+.absensi-item.pulang .value { color: #3498db; }
+
+/* Prosentase */
+.prosentase-container {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #ecf0f1;
+}
+
+.prosentase-title {
+    font-size: 0.8rem;
+    color: #7f8c8d;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.prosentase-tiga-kolom {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.prosentase-item {
+    text-align: center;
+}
+
+.prosentase-item .label {
+    font-size: 0.7rem;
+    color: #7f8c8d;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.prosentase-item .value {
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: block;
+    padding: 4px 8px;
+    border-radius: 20px;
+}
+
+.prosentase-item.datang .value {
+    background: #27ae60;
+    color: white;
+}
+
+.prosentase-item.terlambat .value {
+    background: #f39c12;
+    color: white;
+}
+
+.prosentase-item.pulang .value {
+    background: #3498db;
+    color: white;
+}
+
+/* Progress bar mini */
+.progress-mini {
+    background: #ecf0f1;
+    border-radius: 10px;
+    height: 4px;
+    margin-top: 5px;
+    overflow: hidden;
+}
+
+.progress-mini-bar {
+    height: 100%;
+    border-radius: 10px;
+}
+
+.progress-mini-bar.datang { background: #27ae60; }
+.progress-mini-bar.terlambat { background: #f39c12; }
+.progress-mini-bar.pulang { background: #3498db; }
+
+/* Footer Status */
+.absensi-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 0.85rem;
+    margin-top: 15px;
+}
+
+.absensi-footer.no-data {
+    background: #f0f0f0;
+    color: #7f8c8d;
+}
+
+.status-baik {
+    background: #d5f5e3;
+    color: #27ae60;
+}
+
+.status-cukup {
+    background: #fef9e7;
+    color: #f39c12;
+}
+
+.status-kurang {
+    background: #fadbd8;
+    color: #e74c3c;
+}
+
+/* ============ RESPONSIVE (MOBILE) - DIPERBAIKI ============ */
+@media (max-width: 768px) {
+    body {
+        padding-left: 0;
+    }
+    
+    /* Navbar tetap di atas saat scroll */
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        background: linear-gradient(135deg, #1a252f 0%, #2c3e50 100%);
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        overflow-y: visible;
+    }
+    
+    .navbar .container {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        height: 100%;
+    }
+    
+    .navbar-logo {
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+    
+    .navbar-logo .logo-img {
+        width: 40px;
+        margin-bottom: 0;
+        margin-right: 10px;
+    }
+    
+    .navbar-logo .logo-text h1 {
+        font-size: 0.9rem;
+    }
+    
+    .navbar-logo .logo-text p {
+        font-size: 0.65rem;
+        margin: 0;
+    }
+    
+    /* Tombol hamburger - selalu terlihat */
+    .navbar-toggle {
+        display: block;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 8px 12px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        z-index: 1001;
+    }
+    
+    .navbar-toggle:hover {
+        background: rgba(255,255,255,0.1);
+    }
+    
+    /* Menu slide dari kiri */
+    .navbar-menu {
+        position: fixed;
+        top: 60px;
+        left: -100%;
+        width: 280px;
+        height: calc(100vh - 60px);
+        background: #2c3e50;
+        transition: left 0.3s ease;
+        z-index: 999;
+        padding: 20px;
+        overflow-y: auto;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+    }
+    
+    .navbar-menu.active {
+        left: 0;
+    }
+    
+    .navbar-menu ul {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .navbar-menu ul li a {
+        padding: 12px 15px;
+        font-size: 0.9rem;
+    }
+    
+    /* Konten diberi padding-top agar tidak tertutup navbar */
+    .hero, .visi-misi, .jurnal, .tryout-tka, 
+    .profil-sekolah, .guru, .data-siswa, .absensi-section, .galeri, .sosmed, footer {
+        margin-left: 0;
+        padding-top: 80px;
+    }
+    
+    /* Hero section khusus */
+    .hero {
+        padding-top: 80px;
+    }
+    
+    .container {
+        padding: 0 20px;
+    }
+    
+    section {
+        padding: 50px 0;
+    }
+    
+    .absensi-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .absensi-card-header h3 {
+        font-size: 1.2rem;
+    }
+    
+    .absensi-item .value {
+        font-size: 1.2rem;
+    }
+    
+    .ringkasan-jumlah .value {
+        font-size: 1.5rem;
+    }
 }
 
 /* ===== HERO SECTION ===== */
