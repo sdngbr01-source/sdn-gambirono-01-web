@@ -375,6 +375,19 @@ document.addEventListener('DOMContentLoaded', function() {
         
         observer.observe(tryoutSection);
     }
+    
+    // ============ PANGGIL FUNGSI ABSENSI ============
+    // Panggil fungsi untuk menampilkan data siswa (jika ada)
+    if (typeof tampilkanJumlahSiswa === 'function') {
+        tampilkanJumlahSiswa();
+    }
+    if (typeof setupRealTimeSearch === 'function') {
+        setupRealTimeSearch();
+    }
+    
+    // Panggil render absensi
+    renderAbsensi();
+    // ================================================
 });
 // ============ DATA SISWA - MENGGUNAKAN PROXY APPS SCRIPT ============
 // Ganti dengan URL dari Apps Script yang sudah dideploy
@@ -700,19 +713,246 @@ function setupRealTimeSearch() {
     }
 }
 
-// Inisialisasi
-document.addEventListener('DOMContentLoaded', function() {
-    tampilkanJumlahSiswa();
-    setupRealTimeSearch();
-    
-    if (APPS_SCRIPT_URL === 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec') {
-        console.warn('⚠️ PERHATIAN: APPS_SCRIPT_URL belum diatur!');
-        console.log('📝 Langkah setup:');
-        console.log('1. Buat Google Apps Script baru');
-        console.log('2. Copy kode Apps Script yang sudah disediakan');
-        console.log('3. Deploy sebagai Web App');
-        console.log('4. Copy URL deployment dan ganti APPS_SCRIPT_URL');
-    } else {
-        console.log('✅ Apps Script URL sudah diatur');
+// ============================================
+// ABSENSI SISWA - SESUAI SPREADSHEET
+// ============================================
+
+// URL Apps Script
+const APPS_SCRIPT_URL_SISWA = 'https://script.google.com/macros/s/AKfycbyILi1afr5ghuHoBJaPflne-m3ZiWw7zLds6s9WaLcfFl0szVrCSEEdYODkwkK8Kk9o/exec';
+const APPS_SCRIPT_URL_ABSENSI = 'https://script.google.com/macros/s/AKfycbxFB9fvp9y2P2BIJeqEdiY7wJm9DUdQ_3D74vrBXxFcpCrYUbq1JaNwk-WPBdPj6MNR/exec';
+
+// Ambil data jumlah siswa dari sheet 'jumlah_siswa'
+async function fetchJumlahSiswa() {
+    try {
+        const url = `${APPS_SCRIPT_URL_SISWA}?sheet=jumlah_siswa`;
+        const response = await fetch(url);
+        const result = await response.json();
+        
+        if (result.error) {
+            console.error('Error fetch jumlah siswa:', result.error);
+            return [];
+        }
+        console.log('✅ Data jumlah siswa:', result.data);
+        return result.data || [];
+    } catch (error) {
+        console.error('Error fetching jumlah_siswa:', error);
+        return [];
     }
-});
+}
+
+// Ambil data absensi hari ini dari sheet 'BACKUP_DATA'
+// STATUS di spreadsheet: 'TEPAT WAKTU', 'TERLAMBAT', 'PULANG'
+async function fetchAbsensiHariIni() {
+    try {
+        const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+        const url = `${APPS_SCRIPT_URL_ABSENSI}?sheet=BACKUP_DATA&tanggal=${today}`;
+        console.log('📡 Fetching absensi dari:', url);
+        
+        const response = await fetch(url);
+        const result = await response.json();
+        
+        console.log('📊 Response absensi:', result);
+        
+        if (!result.success) {
+            console.error('Error fetch absensi:', result.error);
+            return [];
+        }
+        return result.data || [];
+    } catch (error) {
+        console.error('Error fetching absensi:', error);
+        return [];
+    }
+}
+
+// Format tanggal Indonesia
+function formatTanggalIndonesia(date) {
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString('id-ID', options);
+}
+
+// Render grid absensi
+async function renderAbsensi() {
+    const gridContainer = document.getElementById('absensiGrid');
+    if (!gridContainer) {
+        console.log('⚠️ Elemen absensiGrid tidak ditemukan');
+        return;
+    }
+
+    // Tampilkan tanggal hari ini
+    const today = new Date();
+    const tanggalSpan = document.getElementById('tanggalAbsensi');
+    if (tanggalSpan) {
+        tanggalSpan.textContent = formatTanggalIndonesia(today);
+    }
+
+    gridContainer.innerHTML = '<div class="loading-absensi"><i class="fas fa-spinner fa-spin"></i> Memuat data absensi...</div>';
+
+    try {
+        // Ambil data
+        const [jumlahSiswaData, absensiData] = await Promise.all([
+            fetchJumlahSiswa(),
+            fetchAbsensiHariIni()
+        ]);
+
+        console.log('Jumlah siswa data:', jumlahSiswaData);
+        console.log('Absensi data:', absensiData);
+
+        // Buat map jumlah siswa per kelas
+        const jumlahMap = new Map();
+        jumlahSiswaData.forEach(item => {
+            const kelas = item.kelas || item.KELAS;
+            const total = parseInt(item.total || item.TOTAL || 0);
+            if (kelas && total > 0) {
+                jumlahMap.set(kelas, total);
+            }
+        });
+
+        // Buat map absensi per kelas berdasarkan STATUS di spreadsheet
+        // STATUS: 'TEPAT WAKTU', 'TERLAMBAT', 'PULANG'
+        const absensiMap = new Map();
+        absensiData.forEach(item => {
+            const kelas = item.KELAS;
+            const status = item.STATUS;
+            if (!kelas) return;
+            
+            if (!absensiMap.has(kelas)) {
+                absensiMap.set(kelas, { tepatWaktu: 0, terlambat: 0, pulang: 0 });
+            }
+            const stat = absensiMap.get(kelas);
+            
+            // Sesuaikan dengan nilai STATUS di spreadsheet
+            if (status === 'TEPAT WAKTU') {
+                stat.tepatWaktu++;
+            } else if (status === 'TERLAMBAT') {
+                stat.terlambat++;
+            } else if (status === 'PULANG') {
+                stat.pulang++;
+            }
+        });
+
+        // Urutan kelas
+        const urutanKelas = [ '3A', '3B', '4A', '4B', '5A', '5B', '6A', '6B'];
+
+        // Gabungkan data
+        const kelasData = [];
+        for (const kelas of urutanKelas) {
+            const totalSiswa = jumlahMap.get(kelas) || 0;
+            const absen = absensiMap.get(kelas) || { tepatWaktu: 0, terlambat: 0, pulang: 0 };
+            
+            // Hitung prosentase
+            const persenTepatWaktu = totalSiswa > 0 ? Math.round((absen.tepatWaktu / totalSiswa) * 100) : 0;
+            const persenTerlambat = totalSiswa > 0 ? Math.round((absen.terlambat / totalSiswa) * 100) : 0;
+            const persenPulang = totalSiswa > 0 ? Math.round((absen.pulang / totalSiswa) * 100) : 0;
+            
+            kelasData.push({
+                kelas: kelas,
+                totalSiswa: totalSiswa,
+                tepatWaktu: absen.tepatWaktu,
+                terlambat: absen.terlambat,
+                pulang: absen.pulang,
+                persenTepatWaktu: persenTepatWaktu,
+                persenTerlambat: persenTerlambat,
+                persenPulang: persenPulang
+            });
+        }
+
+        // Filter hanya kelas yang punya data jumlah siswa
+        const kelasDenganData = kelasData.filter(k => k.totalSiswa > 0);
+        
+        if (kelasDenganData.length === 0) {
+            gridContainer.innerHTML = '<div class="no-data-absensi"><i class="fas fa-exclamation-triangle"></i> Tidak ada data jumlah siswa. Periksa sheet jumlah_siswa.</div>';
+            return;
+        }
+
+        // Tentukan status keseluruhan berdasarkan prosentase tepat waktu
+        const getStatusClass = (persen) => {
+            if (persen >= 80) return 'status-baik';
+            if (persen >= 60) return 'status-cukup';
+            return 'status-kurang';
+        };
+        
+        const getStatusText = (persen) => {
+            if (persen >= 80) return 'Kehadiran Sangat Baik';
+            if (persen >= 60) return 'Kehadiran Cukup';
+            return 'Kehadiran Perlu Perhatian';
+        };
+
+        // Render grid
+        gridContainer.innerHTML = kelasDenganData.map(k => {
+            const statusClass = getStatusClass(k.persenTepatWaktu);
+            const statusText = getStatusText(k.persenTepatWaktu);
+            
+            return `
+                <div class="absensi-card">
+                    <div class="absensi-card-header">
+                        <h3>Kelas ${k.kelas}</h3>
+                        <span class="badge-kelas">${k.totalSiswa} Siswa</span>
+                    </div>
+                    
+                    <!-- Jumlah Siswa -->
+                    <div class="ringkasan-jumlah">
+                        <span class="label">Jumlah Siswa</span>
+                        <span class="value">${k.totalSiswa}</span>
+                    </div>
+                    
+                    <!-- 3 Kolom Absensi: Tepat Waktu | Terlambat | Pulang -->
+                    <div class="absensi-tiga-kolom">
+                        <div class="absensi-item datang">
+                            <div class="icon"><i class="fas fa-check-circle"></i></div>
+                            <span class="label">Tepat Waktu</span>
+                            <span class="value">${k.tepatWaktu}</span>
+                        </div>
+                        <div class="absensi-item terlambat">
+                            <div class="icon"><i class="fas fa-clock"></i></div>
+                            <span class="label">Terlambat</span>
+                            <span class="value">${k.terlambat}</span>
+                        </div>
+                        <div class="absensi-item pulang">
+                            <div class="icon"><i class="fas fa-home"></i></div>
+                            <span class="label">Pulang</span>
+                            <span class="value">${k.pulang}</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Prosentase -->
+                    <div class="prosentase-container">
+                        <div class="prosentase-title">Prosentase</div>
+                        <div class="prosentase-tiga-kolom">
+                            <div class="prosentase-item datang">
+                                <span class="label">Tepat Waktu</span>
+                                <span class="value">${k.persenTepatWaktu}%</span>
+                                <div class="progress-mini">
+                                    <div class="progress-mini-bar datang" style="width: ${k.persenTepatWaktu}%"></div>
+                                </div>
+                            </div>
+                            <div class="prosentase-item terlambat">
+                                <span class="label">Terlambat</span>
+                                <span class="value">${k.persenTerlambat}%</span>
+                                <div class="progress-mini">
+                                    <div class="progress-mini-bar terlambat" style="width: ${k.persenTerlambat}%"></div>
+                                </div>
+                            </div>
+                            <div class="prosentase-item pulang">
+                                <span class="label">Pulang</span>
+                                <span class="value">${k.persenPulang}%</span>
+                                <div class="progress-mini">
+                                    <div class="progress-mini-bar pulang" style="width: ${k.persenPulang}%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Footer Status -->
+                    <div class="absensi-footer ${statusClass}">
+                        <i class="fas ${k.persenTepatWaktu >= 80 ? 'fa-smile-wink' : (k.persenTepatWaktu >= 60 ? 'fa-meh' : 'fa-frown')}"></i>
+                        ${statusText} (${k.persenTepatWaktu}%)
+                    </div>
+                </div>
+            `;
+        }).join('');
+        
+    } catch (error) {
+        console.error('Error renderAbsensi:', error);
+        gridContainer.innerHTML = '<div class="no-data-absensi"><i class="fas fa-exclamation-triangle"></i> Terjadi kesalahan: ' + error.message + '</div>';
+    }
+}
