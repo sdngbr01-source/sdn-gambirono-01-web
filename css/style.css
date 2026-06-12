@@ -1071,7 +1071,8 @@ footer {
 .guru-img img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain; /* ← ubah ini */
+    background: #f0f0f0; /* biar rapi kalau ada sisi kosong */
     transition: transform 0.5s;
 }
 
