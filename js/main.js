@@ -1018,32 +1018,13 @@ window.cekNISN = async function() {
             const resultNISN = document.getElementById('resultNISN');
             const resultNama = document.getElementById('resultNama');
             const resultTahun = document.getElementById('resultTahun');
-            const resultLink = document.getElementById('resultLink');
             
             if (resultNISN) resultNISN.innerHTML = currentIjazahData.nisn;
             if (resultNama) resultNama.innerHTML = currentIjazahData.nama;
             if (resultTahun) resultTahun.innerHTML = currentIjazahData.tahun;
             
-            // Atur link ijazah
-            if (resultLink) {
-                if (currentIjazahData.link && currentIjazahData.link !== '') {
-                    resultLink.href = currentIjazahData.link;
-                    resultLink.setAttribute('target', '_blank');
-                    resultLink.style.background = '#27ae60';
-                    resultLink.style.cursor = 'pointer';
-                    resultLink.innerHTML = '<i class="fas fa-download"></i> Download / Lihat Ijazah';
-                    resultLink.onclick = null;
-                } else {
-                    resultLink.href = 'javascript:void(0);';
-                    resultLink.style.background = '#95a5a6';
-                    resultLink.style.cursor = 'not-allowed';
-                    resultLink.innerHTML = '<i class="fas fa-clock"></i> Ijazah Belum Tersedia';
-                    resultLink.onclick = function(e) {
-                        e.preventDefault();
-                        alert('Maaf, file ijazah untuk ' + currentIjazahData.nama + ' belum tersedia. Silakan hubungi admin sekolah.');
-                    };
-                }
-            }
+            // Buat ulang tombol link ijazah
+            updateLinkButton();
             
             if (loadingTracking) loadingTracking.style.display = 'none';
             if (hasilTracking) hasilTracking.style.display = 'block';
@@ -1065,6 +1046,28 @@ window.cekNISN = async function() {
     }
 };
 
+// Fungsi untuk update tombol link ijazah
+function updateLinkButton() {
+    const linkContainer = document.getElementById('linkContainer');
+    if (!linkContainer) return;
+    
+    if (currentIjazahData && currentIjazahData.link && currentIjazahData.link !== '') {
+        // Buat tombol link yang bisa diklik
+        linkContainer.innerHTML = `
+            <a href="${currentIjazahData.link}" target="_blank" class="ijazah-link" style="background: #27ae60; cursor: pointer;">
+                <i class="fas fa-download"></i> Download / Lihat Ijazah
+            </a>
+        `;
+    } else {
+        // Tombol disabled
+        linkContainer.innerHTML = `
+            <button class="ijazah-link-disabled" style="background: #95a5a6; cursor: not-allowed; border: none; padding: 10px 24px; border-radius: 30px; color: white; font-weight: 600;">
+                <i class="fas fa-clock"></i> Ijazah Belum Tersedia
+            </button>
+        `;
+    }
+}
+
 // Fungsi Logout / Ganti NISN
 window.logoutTracking = function() {
     const loginForm = document.getElementById('loginForm');
@@ -1079,6 +1082,15 @@ window.logoutTracking = function() {
     currentIjazahData = null;
 };
 
+// Fungsi download langsung (alternatif)
+window.downloadIjazah = function() {
+    if (currentIjazahData && currentIjazahData.link && currentIjazahData.link !== '') {
+        window.open(currentIjazahData.link, '_blank');
+    } else {
+        alert('Maaf, file ijazah belum tersedia. Silakan hubungi admin sekolah.');
+    }
+};
+
 // Cek session saat halaman dimuat
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Tracking Ijazah siap digunakan');
@@ -1088,7 +1100,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const nisnInput = document.getElementById('nisnInput');
         if (nisnInput) {
             nisnInput.value = savedNISN;
-            // Tunggu sebentar lalu cek NISN
             setTimeout(function() {
                 window.cekNISN();
             }, 500);
