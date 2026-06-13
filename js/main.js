@@ -956,24 +956,30 @@ async function renderAbsensi() {
         gridContainer.innerHTML = '<div class="no-data-absensi"><i class="fas fa-exclamation-triangle"></i> Terjadi kesalahan: ' + error.message + '</div>';
     }
 }
-}// ============================================
-// TRACKING IJAZAH - Dengan Google Apps Script
+// ============================================
+// TRACKING IJAZAH SDN GAMBIRONO 01
 // ============================================
 
-// GANTI URL INI DENGAN WEB APP URL ANDA!
+// Ganti dengan Web App URL Anda
 const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzRshWZcPbXfYy_60LPxNW48oQtBif2B57_LhDsZa9M4SNytKWm_9MfolVroOYXmScW/exec';
 
-// Cek NISN ke Google Apps Script
+// Variabel global
+let currentIjazahData = null;
+
+// Fungsi Cek NISN
 async function cekNISN() {
-    const nisn = document.getElementById('nisnInput').value.trim();
+    const nisnInput = document.getElementById('nisnInput');
+    const nisn = nisnInput.value.trim();
     
     if (!nisn) {
-        showError('Mohon masukkan NISN');
+        alert('Mohon masukkan NISN');
+        nisnInput.focus();
         return;
     }
     
     if (nisn.length < 10) {
-        showError('NISN harus 10 digit');
+        alert('NISN harus 10 digit');
+        nisnInput.focus();
         return;
     }
     
@@ -983,109 +989,78 @@ async function cekNISN() {
     document.getElementById('loadingTracking').style.display = 'block';
     
     try {
-        // Panggil Web App
         const response = await fetch(`${WEBAPP_URL}?nisn=${nisn}`);
         const data = await response.json();
         
-        console.log('Response dari server:', data);
-        
         if (data.status === 'found') {
-            displayResult({
+            currentIjazahData = {
                 nisn: data.nisn,
                 nama: data.nama,
                 tahun: data.tahun,
                 link: data.link
-            });
+            };
+            
+            // Tampilkan hasil
+            document.getElementById('resultNISN').innerHTML = currentIjazahData.nisn;
+            document.getElementById('resultNama').innerHTML = currentIjazahData.nama;
+            document.getElementById('resultTahun').innerHTML = currentIjazahData.tahun;
+            
+            // Atur link ijazah
+            const linkEl = document.getElementById('resultLink');
+            if (currentIjazahData.link && currentIjazahData.link !== '') {
+                linkEl.href = currentIjazahData.link;
+                linkEl.target = '_blank';
+                linkEl.style.background = '#27ae60';
+                linkEl.style.cursor = 'pointer';
+                linkEl.innerHTML = '<i class="fas fa-download"></i> Download / Lihat Ijazah';
+            } else {
+                linkEl.href = 'javascript:void(0)';
+                linkEl.style.background = '#95a5a6';
+                linkEl.style.cursor = 'not-allowed';
+                linkEl.innerHTML = '<i class="fas fa-clock"></i> Ijazah Belum Tersedia';
+                linkEl.onclick = function(e) {
+                    e.preventDefault();
+                    alert('Maaf, file ijazah belum tersedia. Silakan hubungi admin sekolah.');
+                };
+            }
+            
             document.getElementById('loadingTracking').style.display = 'none';
             document.getElementById('hasilTracking').style.display = 'block';
             sessionStorage.setItem('tracking_nisn', nisn);
+            
         } else {
             document.getElementById('loadingTracking').style.display = 'none';
             document.getElementById('loginForm').style.display = 'block';
-            showError(`NISN ${nisn} tidak ditemukan. Hubungi admin sekolah.`);
+            alert('NISN ' + nisn + ' tidak ditemukan. Silakan hubungi admin sekolah.');
         }
         
     } catch (error) {
         console.error('Error:', error);
         document.getElementById('loadingTracking').style.display = 'none';
         document.getElementById('loginForm').style.display = 'block';
-        showError('Gagal terhubung ke server. Coba lagi nanti.');
+        alert('Gagal terhubung ke server. Silakan coba lagi.');
     }
 }
 
-// Tampilkan hasil
-// Tampilkan hasil tracking dengan link yang bisa diklik
-function displayResult(siswa) {
-    console.log('Menampilkan data:', siswa);
-    
-    document.getElementById('resultNISN').innerHTML = siswa.nisn;
-    document.getElementById('resultNama').innerHTML = siswa.nama;
-    document.getElementById('resultTahun').innerHTML = siswa.tahun;
-    
-    // Ambil elemen link
-    const linkElement = document.getElementById('resultLink');
-    
-    // Bersihkan event listener lama dengan clone
-    const newLink = linkElement.cloneNode(true);
-    linkElement.parentNode.replaceChild(newLink, linkElement);
-    
-    // Cek apakah link valid
-    if (siswa.link && siswa.link !== '' && siswa.link !== '#' && siswa.link !== 'javascript:void(0)') {
-        // Link valid - bisa diklik
-        newLink.href = siswa.link;
-        newLink.setAttribute('target', '_blank');
-        newLink.setAttribute('rel', 'noopener noreferrer');
-        newLink.style.background = '#27ae60';
-        newLink.style.cursor = 'pointer';
-        newLink.style.pointerEvents = 'auto';
-        newLink.innerHTML = '<i class="fas fa-download"></i> Download / Lihat Ijazah';
-        
-        // Event click untuk memastikan
-        newLink.onclick = function(e) {
-            console.log('Membuka link:', siswa.link);
-            // Biarkan default behavior
-            return true;
-        };
-    } else {
-        // Link tidak tersedia
-        newLink.href = 'javascript:void(0);';
-        newLink.removeAttribute('target');
-        newLink.style.background = '#95a5a6';
-        newLink.style.cursor = 'not-allowed';
-        newLink.style.pointerEvents = 'auto';
-        newLink.innerHTML = '<i class="fas fa-clock"></i> Ijazah Belum Tersedia';
-        
-        newLink.onclick = function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            showError('Maaf, file ijazah untuk ' + siswa.nama + ' belum tersedia. Silakan hubungi admin sekolah.');
-            return false;
-        };
-    }
-    
-    // Update DOM
-    document.getElementById('resultLink').replaceWith(newLink);
-}
-
+// Fungsi Logout / Ganti NISN
 function logoutTracking() {
     document.getElementById('hasilTracking').style.display = 'none';
     document.getElementById('loginForm').style.display = 'block';
     document.getElementById('nisnInput').value = '';
     sessionStorage.removeItem('tracking_nisn');
+    currentIjazahData = null;
 }
 
-function showError(msg) {
-    const errDiv = document.getElementById('loginError');
-    errDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${msg}`;
-    errDiv.style.display = 'block';
-    setTimeout(() => errDiv.style.display = 'none', 3000);
-}
-
-// Cek session saat load
-document.addEventListener('DOMContentLoaded', () => {
-    const saved = sessionStorage.getItem('tracking_nisn');
-    if (saved) {
-        document.getElementById('nisnInput').value = saved;
-        cekNISN();
+// Cek session saat halaman dimuat
+(function() {
+    const savedNISN = sessionStorage.getItem('tracking_nisn');
+    if (savedNISN) {
+        setTimeout(() => {
+            const nisnInput = document.getElementById('nisnInput');
+            if (nisnInput) {
+                nisnInput.value = savedNISN;
+                cekNISN();
+            }
+        }, 500);
     }
-});
+})();
