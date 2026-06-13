@@ -2835,3 +2835,295 @@ section .container {
 .section-header p {
     color: white;
 }
+/* ============================================ */
+/* TRYOUT TKA SECTION - 4 KOTAK 1 BARIS */
+/* ============================================ */
+
+.tryout-tka {
+    padding: 80px 0;
+    background: #f8f9fa;
+}
+
+.tryout-tka .section-header h2 {
+    color: #1e3c72;
+}
+
+.tryout-tka .section-header p {
+    color: #666;
+}
+
+.tryout-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
+
+/* Card Styling */
+.tryout-card {
+    background: white;
+    border-radius: 16px;
+    padding: 25px 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.tryout-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+}
+
+/* Card Featured (Tryout TKA) */
+.tryout-card.featured {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+}
+
+.tryout-card.featured .tryout-icon {
+    background: rgba(255,255,255,0.2);
+}
+
+.tryout-card.featured .tryout-icon i {
+    color: #ffd700;
+}
+
+.tryout-card.featured h3,
+.tryout-card.featured p {
+    color: white;
+}
+
+.tryout-card.featured .tryout-features span {
+    background: rgba(255,255,255,0.2);
+    color: white;
+}
+
+/* Card Assessment */
+.tryout-card.assessment {
+    background: linear-gradient(135deg, #11998e, #38ef7d);
+    color: white;
+}
+
+.tryout-card.assessment .tryout-icon {
+    background: rgba(255,255,255,0.2);
+}
+
+.tryout-card.assessment .tryout-icon i {
+    color: white;
+}
+
+.tryout-card.assessment h3,
+.tryout-card.assessment p {
+    color: white;
+}
+
+.tryout-card.assessment .tryout-features span {
+    background: rgba(255,255,255,0.2);
+    color: white;
+}
+
+/* Card ASA4 */
+.tryout-card.asa4 {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+}
+
+.tryout-card.asa4 .tryout-icon {
+    background: rgba(255,255,255,0.2);
+}
+
+.tryout-card.asa4 .tryout-icon i {
+    color: white;
+}
+
+.tryout-card.asa4 h3,
+.tryout-card.asa4 p {
+    color: white;
+}
+
+.tryout-card.asa4 .tryout-features span {
+    background: rgba(255,255,255,0.2);
+    color: white;
+}
+
+/* Card ASA5 */
+.tryout-card.asa5 {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+}
+
+.tryout-card.asa5 .tryout-icon {
+    background: rgba(255,255,255,0.2);
+}
+
+.tryout-card.asa5 .tryout-icon i {
+    color: white;
+}
+
+.tryout-card.asa5 h3,
+.tryout-card.asa5 p {
+    color: white;
+}
+
+.tryout-card.asa5 .tryout-features span {
+    background: rgba(255,255,255,0.2);
+    color: white;
+}
+
+/* Card ASAJ */
+.tryout-card.asaj {
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+    color: white;
+}
+
+.tryout-card.asaj .tryout-icon {
+    background: rgba(255,255,255,0.2);
+}
+
+.tryout-card.asaj .tryout-icon i {
+    color: white;
+}
+
+.tryout-card.asaj h3,
+.tryout-card.asaj p {
+    color: white;
+}
+
+.tryout-card.asaj .tryout-features span {
+    background: rgba(255,255,255,0.2);
+    color: white;
+}
+
+/* Icon Styling */
+.tryout-icon {
+    width: 70px;
+    height: 70px;
+    background: #f0f2f5;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+}
+
+.tryout-icon i {
+    font-size: 32px;
+    color: #1e3c72;
+}
+
+.tryout-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.tryout-card p {
+    font-size: 0.8rem;
+    margin-bottom: 15px;
+    opacity: 0.9;
+}
+
+/* Features / Mata Pelajaran */
+.tryout-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.tryout-features span {
+    font-size: 0.7rem;
+    padding: 3px 10px;
+    background: #f0f2f5;
+    border-radius: 20px;
+    color: #555;
+}
+
+/* Tombol */
+.btn-tryout-link,
+.btn-assessment-link,
+.btn-asa-link,
+.btn-asaj-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    background: white;
+    color: #2c3e50;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.tryout-card.featured .btn-tryout-link,
+.tryout-card.assessment .btn-assessment-link,
+.tryout-card.asa4 .btn-asa-link,
+.tryout-card.asa5 .btn-asa-link,
+.tryout-card.asaj .btn-asaj-link {
+    background: white;
+    color: #2c3e50;
+}
+
+.tryout-card.asa4 .btn-asa-link { color: #3498db; }
+.tryout-card.asa5 .btn-asa-link { color: #e74c3c; }
+.tryout-card.asaj .btn-asaj-link { color: #f39c12; }
+.tryout-card.featured .btn-tryout-link { color: #1e3c72; }
+.tryout-card.assessment .btn-assessment-link { color: #11998e; }
+
+.btn-tryout-link:hover,
+.btn-assessment-link:hover,
+.btn-asa-link:hover,
+.btn-asaj-link:hover {
+    transform: scale(1.05);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+.btn-tryout-link:hover i,
+.btn-assessment-link:hover i,
+.btn-asa-link:hover i,
+.btn-asaj-link:hover i {
+    transform: translateX(3px);
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .tryout-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 992px) {
+    .tryout-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .tryout-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .tryout-card {
+        padding: 20px 15px;
+    }
+    
+    .tryout-card h3 {
+        font-size: 1.1rem;
+    }
+    
+    .tryout-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .tryout-icon i {
+        font-size: 28px;
+    }
+}
