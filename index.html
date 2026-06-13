@@ -909,58 +909,58 @@
                 </div>
             </div>
             
-            <!-- Hasil Tracking Ijazah -->
-            <div id="hasilTracking" class="hasil-tracking" style="display: none;">
-                <div class="tracking-result-card">
-                    <div class="result-header">
-                        <div class="result-icon">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
-                        <h3>Informasi Ijazah</h3>
-                        <button onclick="logoutTracking()" class="btn-logout">
-                            <i class="fas fa-sign-out-alt"></i> Ganti NISN
-                        </button>
-                    </div>
-                    
-                    <div class="result-body">
-                        <div class="info-row">
-                            <div class="info-label">
-                                <i class="fas fa-id-card"></i> NISN:
-                            </div>
-                            <div class="info-value" id="resultNISN">-</div>
-                        </div>
-                        <div class="info-row">
-                            <div class="info-label">
-                                <i class="fas fa-user"></i> Nama Lengkap:
-                            </div>
-                            <div class="info-value" id="resultNama">-</div>
-                        </div>
-                        <div class="info-row">
-                            <div class="info-label">
-                                <i class="fas fa-calendar-alt"></i> Tahun Lulus:
-                            </div>
-                            <div class="info-value" id="resultTahun">-</div>
-                        </div>
-                        <div class="info-row">
-                            <div class="info-label">
-                                <i class="fas fa-link"></i> Link Ijazah:
-                            </div>
-                            <div class="info-value">
-                                <a href="#" id="resultLink" class="ijazah-link" target="_blank">
-                                    <i class="fas fa-download"></i> Download Ijazah
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="result-footer">
-                        <div class="verified-badge">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Data resmi dari SDN Gambirono 01</span>
-                        </div>
-                    </div>
+          <!-- Hasil Tracking Ijazah -->
+<div id="hasilTracking" class="hasil-tracking" style="display: none;">
+    <div class="tracking-result-card">
+        <div class="result-header">
+            <div class="result-icon">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h3>Informasi Ijazah</h3>
+            <button onclick="logoutTracking()" class="btn-logout">
+                <i class="fas fa-sign-out-alt"></i> Ganti NISN
+            </button>
+        </div>
+        
+        <div class="result-body">
+            <div class="info-row">
+                <div class="info-label">
+                    <i class="fas fa-id-card"></i> NISN:
+                </div>
+                <div class="info-value" id="resultNISN">-</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">
+                    <i class="fas fa-user"></i> Nama Lengkap:
+                </div>
+                <div class="info-value" id="resultNama">-</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">
+                    <i class="fas fa-calendar-alt"></i> Tahun Lulus:
+                </div>
+                <div class="info-value" id="resultTahun">-</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">
+                    <i class="fas fa-download"></i> Ijazah:
+                </div>
+                <div class="info-value" id="linkContainer">
+                    <button class="ijazah-link-disabled" style="background: #95a5a6; cursor: not-allowed; border: none; padding: 10px 24px; border-radius: 30px; color: white; font-weight: 600;">
+                        <i class="fas fa-clock"></i> Belum Tersedia
+                    </button>
                 </div>
             </div>
+        </div>
+        
+        <div class="result-footer">
+            <div class="verified-badge">
+                <i class="fas fa-check-circle"></i>
+                <span>Data resmi dari SDN Gambirono 01</span>
+            </div>
+        </div>
+    </div>
+</div>
             
             <!-- Loading -->
             <div id="loadingTracking" class="tracking-loading" style="display: none;">
