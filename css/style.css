@@ -3519,3 +3519,313 @@ section .container {
     transform: translateY(-2px);
     color: white;
 }
+
+
+/* ============================================ */
+/* BUKU INDUK DIGITAL - KOTAK NILAI */
+/* ============================================ */
+
+.buku-induk {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    position: relative;
+}
+
+.buku-induk .section-header h2,
+.buku-induk .section-header p {
+    color: white;
+}
+
+.buku-induk .section-header h2::after {
+    background: #ffd700;
+}
+
+.buku-induk-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Login Card */
+.buku-login,
+.hasil-buku {
+    animation: fadeInUp 0.5s ease;
+}
+
+.buku-card {
+    background: white;
+    border-radius: 25px;
+    padding: 40px 35px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.buku-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.buku-icon i {
+    font-size: 40px;
+    color: #ffd700;
+}
+
+.buku-card h3 {
+    font-size: 1.6rem;
+    color: #1e3c72;
+    margin-bottom: 10px;
+}
+
+.buku-card p {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 25px;
+}
+
+/* Result Card */
+.buku-result-card {
+    background: white;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}
+
+/* Nama Siswa */
+.nama-siswa-besar {
+    text-align: center;
+    padding: 25px 20px;
+    background: linear-gradient(135deg, #f8f9fa, #fff);
+    border-bottom: 2px solid #ffd700;
+}
+
+.nama-siswa-besar h2 {
+    font-size: 2rem;
+    color: #1e3c72;
+    margin: 0 0 10px 0;
+    font-weight: 700;
+}
+
+.nama-siswa-besar p {
+    color: #666;
+    margin: 0;
+}
+
+.nama-siswa-besar i {
+    color: #ffd700;
+    margin-right: 5px;
+}
+
+/* Riwayat Kotak - Grid untuk setiap semester */
+.riwayat-kotak {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Card per Semester */
+.kotak-semester {
+    background: #f8f9fa;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s;
+}
+
+.kotak-semester:hover {
+    transform: translateY(-5px);
+}
+
+/* Header Semester */
+.semester-header {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.semester-header h3 {
+    margin: 0;
+    font-size: 1.3rem;
+}
+
+.semester-header h3 i {
+    margin-right: 10px;
+    color: #ffd700;
+}
+
+.semester-badge {
+    background: rgba(255,255,255,0.2);
+    padding: 5px 15px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+}
+
+/* Grid Nilai Mata Pelajaran */
+.nilai-grid {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.nilai-item {
+    background: white;
+    border-radius: 12px;
+    padding: 12px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: all 0.3s;
+}
+
+.nilai-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.nilai-item .mapel {
+    font-size: 0.75rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.nilai-item .nilai {
+    font-size: 1.6rem;
+    font-weight: 700;
+    display: block;
+}
+
+.nilai-item .nilai-bagus {
+    color: #27ae60;
+}
+
+.nilai-item .nilai-cukup {
+    color: #f39c12;
+}
+
+.nilai-item .nilai-kurang {
+    color: #e74c3c;
+}
+
+/* Footer Semester */
+.semester-footer {
+    background: #fff;
+    padding: 12px 25px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.semester-footer .jml {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.semester-footer .jml strong {
+    color: #1e3c72;
+}
+
+.semester-footer .rata-rata {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.rata-rata-bagus {
+    color: #27ae60;
+}
+
+.rata-rata-cukup {
+    color: #f39c12;
+}
+
+.rata-rata-kurang {
+    color: #e74c3c;
+}
+
+/* No Data */
+.no-data-buku {
+    text-align: center;
+    padding: 60px;
+    color: #999;
+}
+
+.no-data-buku i {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    display: block;
+}
+
+/* Loading */
+.buku-loading {
+    background: white;
+    border-radius: 25px;
+    padding: 60px;
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .buku-induk {
+        padding: 50px 0;
+    }
+    
+    .buku-card {
+        padding: 30px 25px;
+    }
+    
+    .buku-card h3 {
+        font-size: 1.3rem;
+    }
+    
+    .nama-siswa-besar h2 {
+        font-size: 1.4rem;
+    }
+    
+    .riwayat-kotak {
+        padding: 15px;
+    }
+    
+    .semester-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .nilai-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    
+    .nilai-item .nilai {
+        font-size: 1.2rem;
+    }
+    
+    .semester-footer {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .nilai-grid {
+        grid-template-columns: 1fr;
+    }
+}
