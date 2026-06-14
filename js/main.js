@@ -1117,3 +1117,176 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// ============================================
+// BUKU INDUK DIGITAL
+// ============================================
+
+// Ganti dengan Web App URL Anda
+const BUKU_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbwZzfyg4BUVzAB-OOtUl7-JaQmUiPCUX7gLGvEpv3mjadOwGK-WtpN7zU1mVozm6OV3/exec';
+
+// Fungsi Cek Buku Induk
+window.cekBukuInduk = async function() {
+    const nisnInput = document.getElementById('bukuNisnInput');
+    if (!nisnInput) return;
+    
+    const nisn = nisnInput.value.trim();
+    
+    if (!nisn) {
+        alert('Mohon masukkan NISN');
+        nisnInput.focus();
+        return;
+    }
+    
+    if (nisn.length < 10) {
+        alert('NISN harus 10 digit');
+        nisnInput.focus();
+        return;
+    }
+    
+    // Tampilkan loading
+    document.getElementById('bukuLoginForm').style.display = 'none';
+    document.getElementById('hasilBukuInduk').style.display = 'none';
+    document.getElementById('loadingBuku').style.display = 'block';
+    
+    try {
+        const response = await fetch(BUKU_WEBAPP_URL + '?nisn=' + encodeURIComponent(nisn));
+        const data = await response.json();
+        
+        console.log('Data Buku Induk:', data);
+        
+        if (data.status === 'found') {
+            // Tampilkan nama dan NISN
+            document.getElementById('bukuNama').innerHTML = data.nama;
+            document.getElementById('bukuNISN').innerHTML = data.nisn;
+            
+            // Tampilkan riwayat kotak nilai
+            displayRiwayatKotak(data.riwayat);
+            
+            document.getElementById('loadingBuku').style.display = 'none';
+            document.getElementById('hasilBukuInduk').style.display = 'block';
+            sessionStorage.setItem('buku_nisn', nisn);
+            
+        } else {
+            document.getElementById('loadingBuku').style.display = 'none';
+            document.getElementById('bukuLoginForm').style.display = 'block';
+            alert('NISN ' + nisn + ' tidak ditemukan. Silakan hubungi admin sekolah.');
+        }
+        
+    } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('loadingBuku').style.display = 'none';
+        document.getElementById('bukuLoginForm').style.display = 'block';
+        alert('Gagal terhubung ke server. Silakan coba lagi.');
+    }
+};
+
+// Tampilkan riwayat dalam bentuk kotak-kotak
+function displayRiwayatKotak(riwayatList) {
+    const container = document.getElementById('riwayatKotak');
+    if (!container) return;
+    
+    if (!riwayatList || riwayatList.length === 0) {
+        container.innerHTML = '<div class="no-data-buku"><i class="fas fa-folder-open"></i><p>Belum ada riwayat nilai</p></div>';
+        return;
+    }
+    
+    // Urutkan dari tahun terbaru ke terlama
+    riwayatList.sort((a, b) => {
+        if (a.tahun !== b.tahun) return b.tahun - a.tahun;
+        return b.semester - a.semester;
+    });
+    
+    let html = '';
+    
+    riwayatList.forEach((item, index) => {
+        // Daftar mata pelajaran
+        const mapelList = [
+            { nama: 'PAI', nilai: item.pai },
+            { nama: 'PP', nilai: item.pp },
+            { nama: 'BIN', nilai: item.bin },
+            { nama: 'MTK', nilai: item.mtk },
+            { nama: 'IPAS', nilai: item.ipas },
+            { nama: 'PJOK', nilai: item.pjok },
+            { nama: 'SBdP', nilai: item.sbdp },
+            { nama: 'BIG', nilai: item.big },
+            { nama: 'B. JAWA', nilai: item.bjawa },
+            { nama: 'BTA', nilai: item.bta }
+        ];
+        
+        // Hitung rata-rata jika belum ada
+        const rataRata = item.rt || (item.jml / 10).toFixed(1);
+        
+        // Warna rata-rata
+        let rataClass = '';
+        if (rataRata >= 85) rataClass = 'rata-rata-bagus';
+        else if (rataRata >= 70) rataClass = '';
+        else if (rataRata >= 60) rataClass = 'rata-rata-cukup';
+        else rataClass = 'rata-rata-kurang';
+        
+        html += `
+            <div class="kotak-semester">
+                <div class="semester-header">
+                    <h3><i class="fas fa-calendar-alt"></i> Tahun Ajaran ${item.tahun}</h3>
+                    <div class="semester-badge">
+                        <i class="fas fa-${item.semester === 1 ? 'arrow-up' : 'arrow-down'}"></i>
+                        Semester ${item.semester} - Kelas ${item.kelas}
+                    </div>
+                </div>
+                
+                <div class="nilai-grid">
+        `;
+        
+        // Tampilkan setiap mata pelajaran
+        mapelList.forEach(mapel => {
+            let nilaiClass = '';
+            if (mapel.nilai >= 85) nilaiClass = 'nilai-bagus';
+            else if (mapel.nilai >= 70) nilaiClass = '';
+            else if (mapel.nilai >= 60) nilaiClass = 'nilai-cukup';
+            else nilaiClass = 'nilai-kurang';
+            
+            html += `
+                <div class="nilai-item">
+                    <span class="mapel">${mapel.nama}</span>
+                    <span class="nilai ${nilaiClass}">${mapel.nilai}</span>
+                </div>
+            `;
+        });
+        
+        html += `
+                </div>
+                
+                <div class="semester-footer">
+                    <div class="jml">
+                        <i class="fas fa-chart-simple"></i> Jumlah Nilai: <strong>${item.jml || (mapelList.reduce((sum, m) => sum + m.nilai, 0))}</strong>
+                    </div>
+                    <div class="rata-rata ${rataClass}">
+                        <i class="fas fa-star"></i> Rata-rata: ${rataRata}
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    
+    container.innerHTML = html;
+}
+
+// Logout Buku Induk
+window.logoutBuku = function() {
+    document.getElementById('hasilBukuInduk').style.display = 'none';
+    document.getElementById('bukuLoginForm').style.display = 'block';
+    document.getElementById('bukuNisnInput').value = '';
+    sessionStorage.removeItem('buku_nisn');
+};
+
+// Cek session
+document.addEventListener('DOMContentLoaded', function() {
+    const savedNISN = sessionStorage.getItem('buku_nisn');
+    if (savedNISN) {
+        const nisnInput = document.getElementById('bukuNisnInput');
+        if (nisnInput) {
+            nisnInput.value = savedNISN;
+            setTimeout(() => window.cekBukuInduk(), 500);
+        }
+    }
+});
