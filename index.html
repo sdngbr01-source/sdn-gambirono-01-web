@@ -29,6 +29,7 @@
                     <li><a href="#guru">Guru & Tenaga Pendidik</a></li>
 		      <li><a href="#data-siswa">Data Siswa</a></li>
 			<li><a href="#absensi">E-Absensi</a></li>
+					<li><a href="#buku-induk">Buku Induk</a></li>
 					<li><a href="#tracking-ijazah">Tracking Ijazah</a></li>
                     <li><a href="#galeri">Galeri</a></li>
                     <li><a href="#kontak">Kontak</a></li>
@@ -878,6 +879,86 @@
             </div>
         </div>
     </section>
+	<!-- BUKU INDUK DIGITAL SECTION -->
+<section id="buku-induk" class="buku-induk">
+    <div class="container">
+        <div class="section-header">
+            <h2><i class="fas fa-book"></i> Buku Induk Digital</h2>
+            <p>Riwayat nilai lengkap siswa dari tahun ke tahun</p>
+        </div>
+        
+        <div class="buku-induk-container">
+            <!-- Form Login NISN -->
+            <div id="bukuLoginForm" class="buku-login">
+                <div class="buku-card">
+                    <div class="buku-icon">
+                        <i class="fas fa-id-card"></i>
+                    </div>
+                    <h3>Masukkan NISN</h3>
+                    <p>Masukkan Nomor Induk Siswa Nasional untuk melihat buku induk</p>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-user-graduate"></i>
+                        <input type="text" id="bukuNisnInput" placeholder="Masukkan NISN (10 digit)" maxlength="10" autocomplete="off">
+                    </div>
+                    
+                    <div id="bukuError" class="error-message" style="display: none;">
+                        <i class="fas fa-exclamation-circle"></i> NISN tidak ditemukan
+                    </div>
+                    
+                    <button onclick="cekBukuInduk()" class="btn-track">
+                        <i class="fas fa-search"></i> Lihat Buku Induk
+                    </button>
+                    
+                    <p class="help-text">*Masukkan NISN untuk melihat seluruh riwayat nilai</p>
+                </div>
+            </div>
+            
+            <!-- Hasil Buku Induk -->
+            <div id="hasilBukuInduk" class="hasil-buku" style="display: none;">
+                <div class="buku-result-card">
+                    <div class="result-header">
+                        <div class="result-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Buku Induk Digital</h3>
+                        <button onclick="logoutBuku()" class="btn-logout">
+                            <i class="fas fa-sign-out-alt"></i> Ganti NISN
+                        </button>
+                    </div>
+                    
+                    <div class="result-body">
+                        <!-- Nama Siswa -->
+                        <div class="nama-siswa-besar">
+                            <h2 id="bukuNama">-</h2>
+                            <p><i class="fas fa-id-card"></i> NISN: <strong id="bukuNISN">-</strong></p>
+                        </div>
+                        
+                        <!-- KOTAK KOTAK NILAI PER SEMESTER -->
+                        <div class="riwayat-kotak" id="riwayatKotak">
+                            <p class="loading-text">Memuat data...</p>
+                        </div>
+                    </div>
+                    
+                    <div class="result-footer">
+                        <div class="verified-badge">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Data resmi dari SDN Gambirono 01</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Loading -->
+            <div id="loadingBuku" class="buku-loading" style="display: none;">
+                <div class="loading-spinner">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Memuat data buku induk...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <!-- Ijazah Section -->
 <section id="tracking-ijazah" class="tracking-ijazah">
     <div class="container">
