@@ -1227,10 +1227,10 @@ function displayRiwayatKotak(riwayatList) {
         html += `
             <div class="kotak-semester">
                 <div class="semester-header">
-                    <h3><i class="fas fa-calendar-alt"></i> Tahun Ajaran ${item.tahun}</h3>
+                    <h3><i class="fas fa-calendar-alt"></i> Tahun ${item.tahun}</h3>
                     <div class="semester-badge">
                         <i class="fas fa-${item.semester === 1 ? 'arrow-up' : 'arrow-down'}"></i>
-                        Semester ${item.semester} - Kelas ${item.kelas}
+                        Kelas ${item.kelas} - Semester ${item.semester}
                     </div>
                 </div>
                 
