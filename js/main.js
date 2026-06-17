@@ -1244,10 +1244,7 @@ function displayBiodata(biodata) {
                 <span class="biodata-label"><i class="fas fa-id-card"></i> NIK</span>
                 <span class="biodata-value">${biodata.nik || '-'}</span>
             </div>
-            <div class="biodata-item">
-                <span class="biodata-label"><i class="fas fa-users"></i> Kelas</span>
-                <span class="biodata-value">${biodata.kelas || '-'}</span>
-            </div>
+           
             <div class="biodata-item">
                 <span class="biodata-label"><i class="fas fa-venus-mars"></i> Jenis Kelamin</span>
                 <span class="biodata-value">${jk}</span>
