@@ -4060,3 +4060,10 @@ section .container {
     margin: 0;
     font-size: 14px;
 }
+.biodata-item .fas.fa-calendar-plus {
+    color: #28a745;
+}
+
+.biodata-item .fas.fa-calendar-check {
+    color: #17a2b8;
+}
