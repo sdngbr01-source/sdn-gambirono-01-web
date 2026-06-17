@@ -1189,7 +1189,6 @@ window.cekBukuInduk = async function() {
 };
 
 // Fungsi untuk menampilkan biodata siswa
-// Fungsi untuk menampilkan biodata siswa
 function displayBiodata(biodata) {
     const container = document.getElementById('biodataSiswa');
     if (!container) return;
@@ -1228,66 +1227,77 @@ function displayBiodata(biodata) {
     
     const html = `
         <div class="biodata-grid">
-            <div class="biodata-item">
-                <span class="biodata-label"><i class="fas fa-user"></i> Nama</span>
-                <span class="biodata-value">${biodata.nama || '-'}</span>
+            <!-- Kiri -->
+            <div class="biodata-col">
+                <div class="biodata-item">
+                    <span class="biodata-label"><i class="fas fa-user"></i> Nama</span>
+                    <span class="biodata-value">${biodata.nama || '-'}</span>
+                </div>
+                <div class="biodata-item">
+                    <span class="biodata-label"><i class="fas fa-id-card"></i> NISN</span>
+                    <span class="biodata-value">${biodata.nisn || '-'}</span>
+                </div>
+                <div class="biodata-item">
+                    <span class="biodata-label"><i class="fas fa-id-badge"></i> NIS</span>
+                    <span class="biodata-value">${biodata.nis || '-'}</span>
+                </div>
+                <div class="biodata-item">
+                    <span class="biodata-label"><i class="fas fa-id-card"></i> NIK</span>
+                    <span class="biodata-value">${biodata.nik || '-'}</span>
+                </div>
+               
+                <div class="biodata-item">
+                    <span class="biodata-label"><i class="fas fa-venus-mars"></i> Jenis Kelamin</span>
+                    <span class="biodata-value">${jk}</span>
+                </div>
+                <div class="biodata-item">
+                    <span class="biodata-label"><i class="fas fa-map-pin"></i> Tempat Lahir</span>
+                    <span class="biodata-value">${biodata.tempatLahir || '-'}</span>
+                </div>
             </div>
-            <div class="biodata-item">
-                <span class="biodata-label"><i class="fas fa-id-card"></i> NISN</span>
-                <span class="biodata-value">${biodata.nisn || '-'}</span>
+            
+            <!-- Kanan -->
+            <div class="biodata-col">
+                <div class="biodata-item">
+                    <span class="biodata-label"><i class="fas fa-calendar-alt"></i> Tanggal Lahir</span>
+                    <span class="biodata-value">${tglLahir}</span>
+                </div>
+                <div class="biodata-item">
+                    <span class="biodata-label"><i class="fas fa-user-tie"></i> Nama Ayah</span>
+                    <span class="biodata-value">${biodata.namaAyah || '-'}</span>
+                </div>
+                <div class="biodata-item">
+                    <span class="biodata-label"><i class="fas fa-id-card"></i> NIK Ayah</span>
+                    <span class="biodata-value">${biodata.nikAyah || '-'}</span>
+                </div>
+                <div class="biodata-item">
+                    <span class="biodata-label"><i class="fas fa-user"></i> Nama Ibu</span>
+                    <span class="biodata-value">${biodata.namaIbu || '-'}</span>
+                </div>
+                <div class="biodata-item">
+                    <span class="biodata-label"><i class="fas fa-id-card"></i> NIK Ibu</span>
+                    <span class="biodata-value">${biodata.nikIbu || '-'}</span>
+                </div>
+                <div class="biodata-item">
+                    <span class="biodata-label"><i class="fas fa-phone"></i> Nomor Telepon</span>
+                    <span class="biodata-value">${biodata.nomorTelepon || '-'}</span>
+                </div>
+                <div class="biodata-item">
+                    <span class="biodata-label"><i class="fas fa-map-marker-alt"></i> Alamat</span>
+                    <span class="biodata-value">${biodata.alamat || '-'}</span>
+                </div>
             </div>
-            <div class="biodata-item">
-                <span class="biodata-label"><i class="fas fa-id-badge"></i> NIS</span>
-                <span class="biodata-value">${biodata.nis || '-'}</span>
-            </div>
-            <div class="biodata-item">
-                <span class="biodata-label"><i class="fas fa-id-card"></i> NIK</span>
-                <span class="biodata-value">${biodata.nik || '-'}</span>
-            </div>
-           
-            <div class="biodata-item">
-                <span class="biodata-label"><i class="fas fa-venus-mars"></i> Jenis Kelamin</span>
-                <span class="biodata-value">${jk}</span>
-            </div>
-            <div class="biodata-item">
-                <span class="biodata-label"><i class="fas fa-map-pin"></i> Tempat Lahir</span>
-                <span class="biodata-value">${biodata.tempatLahir || '-'}</span>
-            </div>
-            <div class="biodata-item">
-                <span class="biodata-label"><i class="fas fa-calendar-alt"></i> Tanggal Lahir</span>
-                <span class="biodata-value">${tglLahir}</span>
-            </div>
-            <div class="biodata-item">
-                <span class="biodata-label"><i class="fas fa-calendar-plus"></i> Tahun Masuk</span>
-                <span class="biodata-value">${biodata.tahunMasuk || '-'}</span>
-            </div>
-            <div class="biodata-item">
-                <span class="biodata-label"><i class="fas fa-calendar-check"></i> Tahun Lulus</span>
-                <span class="biodata-value">${biodata.tahunLulus || '-'}</span>
-            </div>
-            <div class="biodata-item">
-                <span class="biodata-label"><i class="fas fa-phone"></i> Nomor Telepon</span>
-                <span class="biodata-value">${biodata.nomorTelepon || '-'}</span>
-            </div>
-            <div class="biodata-item full-width">
-                <span class="biodata-label"><i class="fas fa-user-tie"></i> Nama Ayah</span>
-                <span class="biodata-value">${biodata.namaAyah || '-'}</span>
-            </div>
-            <div class="biodata-item full-width">
-                <span class="biodata-label"><i class="fas fa-id-card"></i> NIK Ayah</span>
-                <span class="biodata-value">${biodata.nikAyah || '-'}</span>
-            </div>
-            <div class="biodata-item full-width">
-                <span class="biodata-label"><i class="fas fa-user"></i> Nama Ibu</span>
-                <span class="biodata-value">${biodata.namaIbu || '-'}</span>
-            </div>
-            <div class="biodata-item full-width">
-                <span class="biodata-label"><i class="fas fa-id-card"></i> NIK Ibu</span>
-                <span class="biodata-value">${biodata.nikIbu || '-'}</span>
-            </div>
-            <div class="biodata-item full-width">
-                <span class="biodata-label"><i class="fas fa-map-marker-alt"></i> Alamat</span>
-                <span class="biodata-value">${biodata.alamat || '-'}</span>
+            
+            <!-- Bawah Full Width: Tahun Masuk & Tahun Lulus -->
+            <div class="biodata-footer">
+                <div class="biodata-item tahun-item">
+                    <span class="biodata-label"><i class="fas fa-calendar-plus"></i> Tahun Masuk</span>
+                    <span class="biodata-value">${biodata.tahunMasuk || '-'}</span>
+                </div>
+                <div class="biodata-item tahun-item">
+                    <span class="biodata-label"><i class="fas fa-calendar-check"></i> Tahun Lulus</span>
+                    <span class="biodata-value">${biodata.tahunLulus || '-'}</span>
+                </div>
             </div>
         </div>
     `;
