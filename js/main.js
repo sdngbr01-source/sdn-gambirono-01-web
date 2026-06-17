@@ -1123,7 +1123,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // ============================================
 
 // Ganti dengan Web App URL Anda
-const BUKU_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbwwb2X1Y5Rk0c_UjylvOjpqx19KHNZYR-NAvPYhJkGm4KdCpXG4FIeFI39gnhD-fGZe/exec';
+const BUKU_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzDBHP0w7Yyvq1PtxJuA_c51yG7T0uexW9dP_8Oo4cVBrNl-3p28JpqRALBEkug1aH8/exec';
 
 // Fungsi Cek Buku Induk
 window.cekBukuInduk = async function() {
@@ -1189,9 +1189,20 @@ window.cekBukuInduk = async function() {
 };
 
 // Fungsi untuk menampilkan biodata siswa
+// Fungsi untuk menampilkan biodata siswa
 function displayBiodata(biodata) {
     const container = document.getElementById('biodataSiswa');
     if (!container) return;
+    
+    if (!biodata || Object.keys(biodata).length === 0) {
+        container.innerHTML = `
+            <div class="no-data-buku">
+                <i class="fas fa-user"></i>
+                <p>Data biodata tidak tersedia</p>
+            </div>
+        `;
+        return;
+    }
     
     // Format tanggal lahir
     let tglLahir = biodata.tanggalLahir || '-';
@@ -1250,8 +1261,12 @@ function displayBiodata(biodata) {
                 <span class="biodata-value">${tglLahir}</span>
             </div>
             <div class="biodata-item">
-                <span class="biodata-label"><i class="fas fa-calendar-check"></i> Tahun Masuk</span>
+                <span class="biodata-label"><i class="fas fa-calendar-plus"></i> Tahun Masuk</span>
                 <span class="biodata-value">${biodata.tahunMasuk || '-'}</span>
+            </div>
+            <div class="biodata-item">
+                <span class="biodata-label"><i class="fas fa-calendar-check"></i> Tahun Lulus</span>
+                <span class="biodata-value">${biodata.tahunLulus || '-'}</span>
             </div>
             <div class="biodata-item">
                 <span class="biodata-label"><i class="fas fa-phone"></i> Nomor Telepon</span>
