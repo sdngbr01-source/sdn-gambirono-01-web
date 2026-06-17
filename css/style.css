@@ -3829,3 +3829,234 @@ section .container {
         grid-template-columns: 1fr;
     }
 }
+/* Style untuk Biodata */
+.biodata-container {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    border-left: 4px solid #2c7be5;
+}
+
+.biodata-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2c7be5;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.biodata-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 30px;
+}
+
+.biodata-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f4f8;
+}
+
+.biodata-item.full-width {
+    grid-column: 1 / -1;
+}
+
+.biodata-label {
+    font-size: 12px;
+    color: #6b7a8f;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.biodata-label i {
+    width: 18px;
+    color: #2c7be5;
+}
+
+.biodata-value {
+    font-size: 14px;
+    color: #1e293b;
+    font-weight: 500;
+    padding-left: 24px;
+}
+
+@media (max-width: 768px) {
+    .biodata-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+    
+    .biodata-item.full-width {
+        grid-column: 1;
+    }
+    
+    .biodata-value {
+        padding-left: 0;
+    }
+}
+/* ============================================
+   STYLE BIODATA
+   ============================================ */
+
+.biodata-section {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 16px 20px 20px 20px;
+    margin: 15px 0 20px 0;
+    border: 1px solid #e2e8f0;
+}
+
+.biodata-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.biodata-header i {
+    font-size: 20px;
+    color: #2c7be5;
+}
+
+.biodata-header h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0;
+}
+
+.biodata-container {
+    /* Container untuk biodata */
+}
+
+.biodata-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 30px;
+}
+
+.biodata-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 6px 0;
+    border-bottom: 1px solid #eef2f6;
+}
+
+.biodata-item.full-width {
+    grid-column: 1 / -1;
+}
+
+.biodata-label {
+    font-size: 11px;
+    color: #64748b;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.biodata-label i {
+    width: 16px;
+    font-size: 12px;
+    color: #2c7be5;
+}
+
+.biodata-value {
+    font-size: 14px;
+    color: #0f172a;
+    font-weight: 500;
+    padding-left: 22px;
+}
+
+/* Responsive biodata */
+@media (max-width: 768px) {
+    .biodata-grid {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+    
+    .biodata-item.full-width {
+        grid-column: 1;
+    }
+    
+    .biodata-value {
+        padding-left: 0;
+        font-size: 13px;
+    }
+}
+
+/* ============================================
+   STYLE RIWAYAT NILAI
+   ============================================ */
+
+.riwayat-section {
+    margin-top: 5px;
+}
+
+.riwayat-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.riwayat-header i {
+    font-size: 20px;
+    color: #2c7be5;
+}
+
+.riwayat-header h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0;
+}
+
+/* ============================================
+   LOADING TEXT
+   ============================================ */
+
+.loading-text {
+    color: #94a3b8;
+    font-size: 14px;
+    text-align: center;
+    padding: 20px 0;
+    margin: 0;
+}
+
+/* ============================================
+   NO DATA
+   ============================================ */
+
+.no-data-buku {
+    text-align: center;
+    padding: 30px 20px;
+    color: #94a3b8;
+}
+
+.no-data-buku i {
+    font-size: 40px;
+    display: block;
+    margin-bottom: 10px;
+    color: #cbd5e1;
+}
+
+.no-data-buku p {
+    margin: 0;
+    font-size: 14px;
+}
