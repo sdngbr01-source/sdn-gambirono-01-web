@@ -1123,7 +1123,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // ============================================
 
 // Ganti dengan Web App URL Anda
-const BUKU_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbwZzfyg4BUVzAB-OOtUl7-JaQmUiPCUX7gLGvEpv3mjadOwGK-WtpN7zU1mVozm6OV3/exec';
+const BUKU_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbwwb2X1Y5Rk0c_UjylvOjpqx19KHNZYR-NAvPYhJkGm4KdCpXG4FIeFI39gnhD-fGZe/exec';
 
 // Fungsi Cek Buku Induk
 window.cekBukuInduk = async function() {
@@ -1156,6 +1156,13 @@ window.cekBukuInduk = async function() {
         console.log('Data Buku Induk:', data);
         
         if (data.status === 'found') {
+            // Tampilkan biodata siswa (gunakan data.biodata)
+            if (data.biodata) {
+                displayBiodata(data.biodata);
+            } else {
+                document.getElementById('biodataSiswa').innerHTML = '<p style="padding:10px;color:#666;">Data biodata tidak tersedia</p>';
+            }
+            
             // Tampilkan nama dan NISN
             document.getElementById('bukuNama').innerHTML = data.nama;
             document.getElementById('bukuNISN').innerHTML = data.nisn;
@@ -1180,6 +1187,101 @@ window.cekBukuInduk = async function() {
         alert('Gagal terhubung ke server. Silakan coba lagi.');
     }
 };
+
+// Fungsi untuk menampilkan biodata siswa
+function displayBiodata(biodata) {
+    const container = document.getElementById('biodataSiswa');
+    if (!container) return;
+    
+    // Format tanggal lahir
+    let tglLahir = biodata.tanggalLahir || '-';
+    if (tglLahir !== '-' && tglLahir !== '') {
+        try {
+            const date = new Date(tglLahir);
+            if (!isNaN(date.getTime())) {
+                tglLahir = date.toLocaleDateString('id-ID', {
+                    day: '2-digit',
+                    month: 'long',
+                    year: 'numeric'
+                });
+            }
+        } catch (e) {
+            // Jika format tanggal tidak valid, tetap tampilkan apa adanya
+        }
+    }
+    
+    // Format jenis kelamin
+    let jk = biodata.jenisKelamin || '-';
+    if (jk.toLowerCase() === 'l' || jk.toLowerCase() === 'laki-laki') jk = 'Laki-laki';
+    else if (jk.toLowerCase() === 'p' || jk.toLowerCase() === 'perempuan') jk = 'Perempuan';
+    
+    const html = `
+        <div class="biodata-grid">
+            <div class="biodata-item">
+                <span class="biodata-label"><i class="fas fa-user"></i> Nama</span>
+                <span class="biodata-value">${biodata.nama || '-'}</span>
+            </div>
+            <div class="biodata-item">
+                <span class="biodata-label"><i class="fas fa-id-card"></i> NISN</span>
+                <span class="biodata-value">${biodata.nisn || '-'}</span>
+            </div>
+            <div class="biodata-item">
+                <span class="biodata-label"><i class="fas fa-id-badge"></i> NIS</span>
+                <span class="biodata-value">${biodata.nis || '-'}</span>
+            </div>
+            <div class="biodata-item">
+                <span class="biodata-label"><i class="fas fa-id-card"></i> NIK</span>
+                <span class="biodata-value">${biodata.nik || '-'}</span>
+            </div>
+            <div class="biodata-item">
+                <span class="biodata-label"><i class="fas fa-users"></i> Kelas</span>
+                <span class="biodata-value">${biodata.kelas || '-'}</span>
+            </div>
+            <div class="biodata-item">
+                <span class="biodata-label"><i class="fas fa-venus-mars"></i> Jenis Kelamin</span>
+                <span class="biodata-value">${jk}</span>
+            </div>
+            <div class="biodata-item">
+                <span class="biodata-label"><i class="fas fa-map-pin"></i> Tempat Lahir</span>
+                <span class="biodata-value">${biodata.tempatLahir || '-'}</span>
+            </div>
+            <div class="biodata-item">
+                <span class="biodata-label"><i class="fas fa-calendar-alt"></i> Tanggal Lahir</span>
+                <span class="biodata-value">${tglLahir}</span>
+            </div>
+            <div class="biodata-item">
+                <span class="biodata-label"><i class="fas fa-calendar-check"></i> Tahun Masuk</span>
+                <span class="biodata-value">${biodata.tahunMasuk || '-'}</span>
+            </div>
+            <div class="biodata-item">
+                <span class="biodata-label"><i class="fas fa-phone"></i> Nomor Telepon</span>
+                <span class="biodata-value">${biodata.nomorTelepon || '-'}</span>
+            </div>
+            <div class="biodata-item full-width">
+                <span class="biodata-label"><i class="fas fa-user-tie"></i> Nama Ayah</span>
+                <span class="biodata-value">${biodata.namaAyah || '-'}</span>
+            </div>
+            <div class="biodata-item full-width">
+                <span class="biodata-label"><i class="fas fa-id-card"></i> NIK Ayah</span>
+                <span class="biodata-value">${biodata.nikAyah || '-'}</span>
+            </div>
+            <div class="biodata-item full-width">
+                <span class="biodata-label"><i class="fas fa-user"></i> Nama Ibu</span>
+                <span class="biodata-value">${biodata.namaIbu || '-'}</span>
+            </div>
+            <div class="biodata-item full-width">
+                <span class="biodata-label"><i class="fas fa-id-card"></i> NIK Ibu</span>
+                <span class="biodata-value">${biodata.nikIbu || '-'}</span>
+            </div>
+            <div class="biodata-item full-width">
+                <span class="biodata-label"><i class="fas fa-map-marker-alt"></i> Alamat</span>
+                <span class="biodata-value">${biodata.alamat || '-'}</span>
+            </div>
+        </div>
+    `;
+    
+    container.innerHTML = html;
+}
 
 // Tampilkan riwayat dalam bentuk kotak-kotak
 function displayRiwayatKotak(riwayatList) {
