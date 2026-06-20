@@ -4,8 +4,39 @@
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwxonXQ2XEvrSn7Ct1zhpTHQiN_zO2U25Zg5SdcF8XMZbwSxjZIxwgA5k-mLXk-15mp/exec';
 
 // ============================================
-// 1. TAMPILKAN DATA KUOTA
+// FUNGSI FORMAT TANGGAL
 // ============================================
+function formatTanggal(isoString) {
+    if (!isoString || isoString === '-' || isoString === '') return '-';
+    
+    try {
+        const date = new Date(isoString);
+        if (isNaN(date.getTime())) return isoString;
+        
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        
+        return `${day}-${month}-${year}`;
+    } catch (e) {
+        return isoString;
+    }
+}
+
+// ============================================
+// FUNGSI FORMAT NIK (HANYA 4 ANGKA TERAKHIR)
+// ============================================
+function formatNIK(nik) {
+    if (!nik || nik === '-' || nik === '') return '-';
+    
+    const strNik = String(nik).trim();
+    if (strNik.length < 4) return 'xxxx';
+    
+    // 4 angka terakhir diganti xxxx
+    const depan = strNik.slice(0, -4);
+    return `${depan}xxxx`;
+}
+
 function tampilkanKuota() {
     const tbody = document.getElementById('kuotaTableBody');
     tbody.innerHTML = '<tr><td colspan="6" class="loading-text"><i class="fas fa-spinner fa-spin"></i> Memuat data kuota...</td></tr>';
@@ -16,6 +47,9 @@ function tampilkanKuota() {
     window[callbackName] = function(data) {
         if (!data.success || !data.data || data.data.length === 0) {
             tbody.innerHTML = '<tr><td colspan="6" class="loading-text">Belum ada data kuota</td></tr>';
+            // Update rekap dengan 0
+            document.getElementById('sisaKuotaBesar').textContent = '0';
+            document.getElementById('detailKuota').textContent = 'Total Kuota: 0 | Terisi: 0';
             delete window[callbackName];
             return;
         }
@@ -51,6 +85,7 @@ function tampilkanKuota() {
         
         const totalSisa = totalKuota - totalDiterima;
         const totalClass = totalSisa >= 0 ? 'positif' : 'negatif';
+        
         html += `
             <tr style="background: #f1f5f9; font-weight: 700; border-top: 2px solid #1e293b;">
                 <td><strong>TOTAL</strong></td>
@@ -63,6 +98,17 @@ function tampilkanKuota() {
         `;
         
         tbody.innerHTML = html;
+        
+        // ============================================
+        // UPDATE REKAP KUOTA BESAR
+        // ============================================
+        const sisaElement = document.getElementById('sisaKuotaBesar');
+        const detailElement = document.getElementById('detailKuota');
+        
+        sisaElement.textContent = totalSisa;
+        sisaElement.className = 'nilai-sisa' + (totalSisa < 0 ? ' negatif' : '');
+        detailElement.textContent = `Total Kuota: ${totalKuota} | Terisi: ${totalDiterima}`;
+        
         delete window[callbackName];
     };
     
@@ -73,9 +119,8 @@ function tampilkanKuota() {
     };
     document.body.appendChild(script);
 }
-
 // ============================================
-// 2. TAMPILKAN SEMUA DATA PENDAFTARAN - DENGAN JALUR
+// 2. TAMPILKAN SEMUA DATA PENDAFTARAN - DENGAN NIK TERSEMBUNYI
 // ============================================
 function tampilkanPendaftaran() {
     const tbody = document.getElementById('pendaftaranTableBody');
@@ -95,22 +140,32 @@ function tampilkanPendaftaran() {
         data.data.forEach((row, index) => {
             const status = row[11] || 'Pending';
             const statusClass = status.toLowerCase();
-            const jalur = row[12] || '-'; // Kolom M = Jalur
+            const jalur = row[12] || '-';
+            
+            // FORMAT TANGGAL
+            const tanggalLahir = formatTanggal(row[3]);
+            const tanggalDaftar = formatTanggal(row[10]);
+            
+            // FORMAT NIK (SEMUA NIK DISEMBUNYIKAN)
+            const nik = formatNIK(row[1]);
+            const noKK = formatNIK(row[4]);
+            const nikAyah = formatNIK(row[6]);
+            const nikIbu = formatNIK(row[8]);
             
             html += `
                 <tr>
                     <td>${index + 1}</td>
                     <td>${row[0] || '-'}</td>
-                    <td>${row[1] || '-'}</td>
+                    <td>${nik}</td>
                     <td>${row[2] || '-'}</td>
-                    <td>${row[3] || '-'}</td>
-                    <td>${row[4] || '-'}</td>
+                    <td>${tanggalLahir}</td>
+                    <td>${noKK}</td>
                     <td>${row[5] || '-'}</td>
-                    <td>${row[6] || '-'}</td>
+                    <td>${nikAyah}</td>
                     <td>${row[7] || '-'}</td>
-                    <td>${row[8] || '-'}</td>
+                    <td>${nikIbu}</td>
                     <td>${row[9] || '-'}</td>
-                    <td>${row[10] || '-'}</td>
+                    <td>${tanggalDaftar}</td>
                     <td><span class="status-badge ${statusClass}">${status}</span></td>
                     <td><span class="jalur-badge">${jalur}</span></td>
                 </tr>
@@ -229,7 +284,7 @@ function resetForm() {
 }
 
 // ============================================
-// 4. CEK PENDAFTARAN
+// 4. CEK PENDAFTARAN - DENGAN NIK TERSEMBUNYI
 // ============================================
 function cekPendaftaran() {
     const nik = document.getElementById('nikCari').value.trim();
@@ -262,10 +317,21 @@ function cekPendaftaran() {
         
         let found = false;
         for (const row of data.data) {
+            // Cek berdasarkan NIK asli (masih pake row[1] untuk pencarian)
             if (row[1] === nik || row[6] === nik || row[8] === nik) {
                 const status = row[11] || 'Pending';
                 const statusClass = status.toLowerCase();
                 const jalur = row[12] || '-';
+                
+                // FORMAT TANGGAL
+                const tanggalLahir = formatTanggal(row[3]);
+                const tanggalDaftar = formatTanggal(row[10]);
+                
+                // FORMAT NIK (TAMPILKAN TERSEMBUNYI)
+                const nikTampil = formatNIK(row[1]);
+                const noKKTampil = formatNIK(row[4]);
+                const nikAyahTampil = formatNIK(row[6]);
+                const nikIbuTampil = formatNIK(row[8]);
                 
                 hasilDiv.innerHTML = `
                     <div class="result-card">
@@ -274,19 +340,34 @@ function cekPendaftaran() {
                             <div class="value">${row[0] || '-'}</div>
                             
                             <div><span class="label">NIK</span></div>
-                            <div class="value">${row[1] || '-'}</div>
+                            <div class="value">${nikTampil}</div>
                             
                             <div><span class="label">Tempat Lahir</span></div>
                             <div class="value">${row[2] || '-'}</div>
                             
                             <div><span class="label">Tanggal Lahir</span></div>
-                            <div class="value">${row[3] || '-'}</div>
+                            <div class="value">${tanggalLahir}</div>
+                            
+                            <div><span class="label">No KK</span></div>
+                            <div class="value">${noKKTampil}</div>
+                            
+                            <div><span class="label">Nama Ayah</span></div>
+                            <div class="value">${row[5] || '-'}</div>
+                            
+                            <div><span class="label">NIK Ayah</span></div>
+                            <div class="value">${nikAyahTampil}</div>
+                            
+                            <div><span class="label">Nama Ibu</span></div>
+                            <div class="value">${row[7] || '-'}</div>
+                            
+                            <div><span class="label">NIK Ibu</span></div>
+                            <div class="value">${nikIbuTampil}</div>
                             
                             <div><span class="label">Asal TK/Paud</span></div>
                             <div class="value">${row[9] || '-'}</div>
                             
                             <div><span class="label">Tanggal Daftar</span></div>
-                            <div class="value">${row[10] || '-'}</div>
+                            <div class="value">${tanggalDaftar}</div>
                             
                             <div><span class="label">Jalur</span></div>
                             <div class="value"><strong>${jalur}</strong></div>
