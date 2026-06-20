@@ -526,3 +526,77 @@
     background: #e0e7ff;
     color: #3730a3;
 }
+
+/* ============================================
+   REKAP KUOTA HEADER
+============================================ */
+.rekap-kuota-wrapper {
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    border-radius: 16px;
+    padding: 25px 30px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.rekap-kuota-wrapper .title-section h2 {
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.rekap-kuota-wrapper .title-section p {
+    color: #94a3b8;
+    font-size: 14px;
+    margin: 5px 0 0 0;
+}
+
+.rekap-kuota-wrapper .sisa-section {
+    text-align: right;
+}
+
+.rekap-kuota-wrapper .sisa-section .label-sisa {
+    color: #94a3b8;
+    font-size: 14px;
+    font-weight: 500;
+    display: block;
+}
+
+.rekap-kuota-wrapper .sisa-section .nilai-sisa {
+    font-size: 42px;
+    font-weight: 800;
+    color: #4ade80;
+    line-height: 1.2;
+}
+
+.rekap-kuota-wrapper .sisa-section .nilai-sisa.negatif {
+    color: #f87171;
+}
+
+.rekap-kuota-wrapper .sisa-section .detail-sisa {
+    color: #64748b;
+    font-size: 13px;
+    margin-top: 2px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .rekap-kuota-wrapper {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+    
+    .rekap-kuota-wrapper .sisa-section {
+        text-align: center;
+    }
+    
+    .rekap-kuota-wrapper .sisa-section .nilai-sisa {
+        font-size: 32px;
+    }
+}
