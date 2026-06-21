@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 	 <link rel="stylesheet" href="css/spmb-style.css">
+	<link rel="stylesheet" href="css/alumni.css">
 </head>
 <body>
     <!-- NAVBAR -->
@@ -34,6 +35,7 @@
                      <li><a href="#tryout-tka">Asessment</a></li>
 					<li><a href="#tracking-ijazah">Tracking Ijazah</a></li>
 					<li><a href="#spmbSection">SPMB </a></li>
+					<li><a href="#sectionAlumni">History Alumni</a></li>
                     <li><a href="#galeri">Galeri</a></li>
                     <li><a href="#kontak">Kontak</a></li>
 		  
@@ -1135,6 +1137,106 @@
         </div>
     </div>
 </section>
+	<!-- ============================================
+     SECTION HISTORY ALUMNI
+============================================ -->
+<section class="section-alumni" id="sectionAlumni">
+    <div class="container">
+        <div class="section-header">
+            <h2><i class="fas fa-user-graduate"></i> History Alumni</h2>
+            <p>Cari data alumni berdasarkan NISN</p>
+        </div>
+        
+        <div class="alumni-container">
+            <!-- ==========================================
+                 FORM LOGIN
+            ========================================== -->
+            <div id="alumniLoginForm" class="alumni-login">
+                <div class="alumni-card">
+                    <div class="alumni-icon">
+                        <i class="fas fa-id-card"></i>
+                    </div>
+                    <h3>Masukkan NISN</h3>
+                    <p>Masukkan Nomor Induk Siswa Nasional untuk melihat biodata alumni</p>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-user-graduate"></i>
+                        <input type="text" id="alumniNisnInput" placeholder="Masukkan NISN (10 digit)" maxlength="10" autocomplete="off">
+                    </div>
+                    
+                    <div id="alumniError" class="error-message" style="display: none;">
+                        <i class="fas fa-exclamation-circle"></i> NISN tidak ditemukan
+                    </div>
+                    
+                    <button onclick="cekAlumni()" class="btn-track">
+                        <i class="fas fa-search"></i> Lihat Biodata Alumni
+                    </button>
+                    
+                    <p class="help-text">*Masukkan NISN untuk melihat biodata alumni</p>
+                </div>
+            </div>
+            
+            <!-- ==========================================
+                 HASIL BIODATA - SATU KALI SAJA
+            ========================================== -->
+            <div id="hasilAlumni" class="hasil-alumni" style="display: none;">
+                <div class="alumni-result-card">
+                    <div class="result-header">
+                        <div class="result-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Biodata Alumni</h3>
+                        <button onclick="logoutAlumni()" class="btn-logout">
+                            <i class="fas fa-sign-out-alt"></i> Cari Lain
+                        </button>
+                    </div>
+                    
+                    <div class="result-body">
+                        <!-- FOTO + NAMA + NISN -->
+                        <div class="nama-alumni-besar">
+                            <div class="alumni-foto-wrapper">
+                                <img id="alumniFotoResult" src="" alt="Foto">
+                                <div id="alumniNoFotoResult" class="no-foto">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            </div>
+                            <h2 id="alumniNamaResult">-</h2>
+                            <p><i class="fas fa-id-card"></i> NISN: <strong id="alumniNISNResult">-</strong></p>
+                        </div>
+                        
+                        <!-- BIODATA DETAIL -->
+                        <div class="biodata-section">
+                            <div class="biodata-header">
+                                <i class="fas fa-user-circle"></i>
+                                <h4>Detail Biodata</h4>
+                            </div>
+                            <div id="biodataAlumni" class="biodata-container">
+                                <p class="loading-text">Memuat biodata...</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="result-footer">
+                        <div class="verified-badge">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Data resmi dari SDN Gambirono 01</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ==========================================
+                 LOADING
+            ========================================== -->
+            <div id="loadingAlumni" class="alumni-loading" style="display: none;">
+                <div class="loading-spinner">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Memuat data alumni...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 	  <!-- GALERI SECTION -->
     <section id="galeri" class="galeri">
         <div class="container">
@@ -1411,5 +1513,6 @@
 
     <script src="js/main.js"></script>
 	<script src="js/spmb-script.js"></script>
+	<script src="js/alumni.js"></script>
 </body>
 </html>
