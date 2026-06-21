@@ -968,7 +968,51 @@
         </div>
     </div>
 </section>
-   <!-- ==========================================
+ <!-- ============================================
+     SPMB - SISTEM PENERIMAAN SISWA BARU
+     ============================================ -->
+<section id="spmbSection" class="spmb-section">
+    <div class="container">
+        <div class="section-header">
+            <h2><i class="fas fa-user-graduate"></i> SPMB</h2>
+            <p>Sistem Penerimaan Siswa Baru - SDN Gambirono 01</p>
+        </div>
+
+        <!-- 1. DATA KUOTA -->
+        <div class="kuota-wrapper">
+            <h3><i class="fas fa-chart-bar"></i> Rekap Data Kuota Penerimaan</h3>
+<!-- REKAP DATA KUOTA -->
+<div class="rekap-kuota-wrapper" id="rekapKuotaWrapper">
+    <div class="title-section">
+        <h2>📊 SISA KUOTA</h2>
+       
+    </div>
+    <div class="sisa-section">
+        
+        <span class="nilai-sisa" id="sisaKuotaBesar">0</span>
+        
+    </div>
+</div>
+            <div class="table-responsive">
+                <table class="table-kuota">
+                    <thead>
+                        <tr>
+                            <th>Tahun</th>
+                            <th>Kuota</th>
+                            <th>Jumlah Pendaftar Afirmasi/Mutasi</th>
+                            <th>Jumlah Pendaftar Domisili</th>
+                            <th>Jumlah Diterima</th>
+                            <th>Sisa Kuota</th>
+                        </tr>
+                    </thead>
+                    <tbody id="kuotaTableBody">
+                        <tr><td colspan="6" class="loading-text"><i class="fas fa-spinner fa-spin"></i> Memuat data kuota...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+       <!-- ==========================================
      FORM PENDAFTARAN SISWA BARU
 ========================================== -->
 <div class="form-wrapper">
