@@ -1,7 +1,14 @@
 // ============================================
 // KONFIGURASI
 // ============================================
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwxonXQ2XEvrSn7Ct1zhpTHQiN_zO2U25Zg5SdcF8XMZbwSxjZIxwgA5k-mLXk-15mp/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz-PW7G6cV2ZqFf05yX5PgrdOzXKbiJBQW0XyORMkpZSMqztANJ7xfAsKnLxey7E_GT/exec';
+
+// ============================================
+// VARIABEL PAGINATION
+// ============================================
+var currentPage = 1;
+var rowsPerPage = 10;
+var allPendaftaranData = [];
 
 // ============================================
 // FUNGSI FORMAT TANGGAL
@@ -32,11 +39,13 @@ function formatNIK(nik) {
     const strNik = String(nik).trim();
     if (strNik.length < 4) return 'xxxx';
     
-    // 4 angka terakhir diganti xxxx
     const depan = strNik.slice(0, -4);
     return `${depan}xxxx`;
 }
 
+// ============================================
+// 1. TAMPILKAN KUOTA
+// ============================================
 function tampilkanKuota() {
     const tbody = document.getElementById('kuotaTableBody');
     tbody.innerHTML = '<tr><td colspan="6" class="loading-text"><i class="fas fa-spinner fa-spin"></i> Memuat data kuota...</td></tr>';
@@ -47,7 +56,6 @@ function tampilkanKuota() {
     window[callbackName] = function(data) {
         if (!data.success || !data.data || data.data.length === 0) {
             tbody.innerHTML = '<tr><td colspan="6" class="loading-text">Belum ada data kuota</td></tr>';
-            // Update rekap dengan 0
             document.getElementById('sisaKuotaBesar').textContent = '0';
             document.getElementById('detailKuota').textContent = 'Total Kuota: 0 | Terisi: 0';
             delete window[callbackName];
@@ -99,9 +107,6 @@ function tampilkanKuota() {
         
         tbody.innerHTML = html;
         
-        // ============================================
-        // UPDATE REKAP KUOTA BESAR
-        // ============================================
         const sisaElement = document.getElementById('sisaKuotaBesar');
         const detailElement = document.getElementById('detailKuota');
         
@@ -119,73 +124,159 @@ function tampilkanKuota() {
     };
     document.body.appendChild(script);
 }
+
 // ============================================
-// 2. TAMPILKAN SEMUA DATA PENDAFTARAN - DENGAN NIK TERSEMBUNYI
+// 2. TAMPILKAN PENDAFTARAN - DENGAN PAGINATION
 // ============================================
 function tampilkanPendaftaran() {
     const tbody = document.getElementById('pendaftaranTableBody');
-    tbody.innerHTML = '<tr><td colspan="14" class="loading-text"><i class="fas fa-spinner fa-spin"></i> Memuat data pendaftaran...</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="16" class="loading-text"><i class="fas fa-spinner fa-spin"></i> Memuat data pendaftaran...</td></tr>';
     
     const script = document.createElement('script');
     const callbackName = 'callbackPendaftaran_' + Date.now();
     
     window[callbackName] = function(data) {
         if (!data.success || !data.data || data.data.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="14" class="loading-text">Belum ada data pendaftaran</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="16" class="loading-text">Belum ada data pendaftaran</td></tr>';
+            document.getElementById('paginationContainer').style.display = 'none';
             delete window[callbackName];
             return;
         }
         
-        let html = '';
-        data.data.forEach((row, index) => {
-            const status = row[11] || 'Pending';
-            const statusClass = status.toLowerCase();
-            const jalur = row[12] || '-';
-            
-            // FORMAT TANGGAL
-            const tanggalLahir = formatTanggal(row[3]);
-            const tanggalDaftar = formatTanggal(row[10]);
-            
-            // FORMAT NIK (SEMUA NIK DISEMBUNYIKAN)
-            const nik = formatNIK(row[1]);
-            const noKK = formatNIK(row[4]);
-            const nikAyah = formatNIK(row[6]);
-            const nikIbu = formatNIK(row[8]);
-            
-            html += `
-                <tr>
-                    <td>${index + 1}</td>
-                    <td>${row[0] || '-'}</td>
-                    <td>${nik}</td>
-                    <td>${row[2] || '-'}</td>
-                    <td>${tanggalLahir}</td>
-                    <td>${noKK}</td>
-                    <td>${row[5] || '-'}</td>
-                    <td>${nikAyah}</td>
-                    <td>${row[7] || '-'}</td>
-                    <td>${nikIbu}</td>
-                    <td>${row[9] || '-'}</td>
-                    <td>${tanggalDaftar}</td>
-                    <td><span class="status-badge ${statusClass}">${status}</span></td>
-                    <td><span class="jalur-badge">${jalur}</span></td>
-                </tr>
-            `;
-        });
-        
-        tbody.innerHTML = html;
+        allPendaftaranData = data.data;
+        currentPage = 1;
+        renderPendaftaranTable();
         delete window[callbackName];
     };
     
     script.src = `${SCRIPT_URL}?action=getPendaftaran&callback=${callbackName}`;
     script.onerror = function() {
-        tbody.innerHTML = '<tr><td colspan="14" class="loading-text" style="color:#ef4444;">Gagal memuat data</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="16" class="loading-text" style="color:#ef4444;">Gagal memuat data</td></tr>';
         delete window[callbackName];
     };
     document.body.appendChild(script);
 }
 
 // ============================================
-// 3. SUBMIT FORM PENDAFTARAN
+// 3. RENDER TABEL PENDAFTARAN DENGAN PAGINATION
+// ============================================
+function renderPendaftaranTable() {
+    var tbody = document.getElementById('pendaftaranTableBody');
+    var totalPages = Math.ceil(allPendaftaranData.length / rowsPerPage);
+    
+    if (currentPage > totalPages) currentPage = totalPages;
+    if (currentPage < 1) currentPage = 1;
+    
+    var start = (currentPage - 1) * rowsPerPage;
+    var end = Math.min(start + rowsPerPage, allPendaftaranData.length);
+    var pageData = allPendaftaranData.slice(start, end);
+    
+    if (pageData.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="16" class="loading-text">Tidak ada data</td></tr>';
+        document.getElementById('paginationContainer').style.display = 'none';
+        return;
+    }
+    
+    var html = '';
+    pageData.forEach((row, index) => {
+        // KOLOM SESUAI SPREADSHEET (15 KOLOM)
+        // A: Nama, B: NIK, C: Tempat Lahir, D: Tanggal Lahir,
+        // E: Jenis Kelamin, F: Alamat, G: No KK, H: Nama Ayah,
+        // I: NIK Ayah, J: Nama Ibu, K: NIK Ibu, L: Asal TK,
+        // M: Tanggal Daftar, N: Status, O: Jalur
+        var status = row[13] || 'Pending'; // Kolom N
+        var statusClass = status.toLowerCase();
+        var jalur = row[14] || '-'; // Kolom O
+        
+        var tanggalLahir = formatTanggal(row[3]);
+        var tanggalDaftar = formatTanggal(row[12]);
+        
+        var nik = formatNIK(row[1]);
+        var noKK = formatNIK(row[6]);
+        var nikAyah = formatNIK(row[8]);
+        var nikIbu = formatNIK(row[10]);
+        
+        var jenisKelamin = row[4] || '-';
+        var alamat = row[5] || '-';
+        
+        html += `
+            <tr>
+                <td>${start + index + 1}</td>
+                <td>${row[0] || '-'}</td>
+                <td>${nik}</td>
+                <td>${row[2] || '-'}</td>
+                <td>${tanggalLahir}</td>
+                <td>${jenisKelamin}</td>
+                <td>${alamat}</td>
+                <td>${noKK}</td>
+                <td>${row[7] || '-'}</td>
+                <td>${nikAyah}</td>
+                <td>${row[9] || '-'}</td>
+                <td>${nikIbu}</td>
+                <td>${row[11] || '-'}</td>
+                <td>${tanggalDaftar}</td>
+                <td><span class="status-badge ${statusClass}">${status}</span></td>
+                <td><span class="jalur-badge">${jalur}</span></td>
+            </tr>
+        `;
+    });
+    
+    tbody.innerHTML = html;
+    renderPagination(totalPages);
+}
+
+// ============================================
+// 4. RENDER PAGINATION
+// ============================================
+function renderPagination(totalPages) {
+    var container = document.getElementById('paginationContainer');
+    if (!container) return;
+    
+    if (totalPages <= 1) {
+        container.style.display = 'none';
+        return;
+    }
+    
+    container.style.display = 'flex';
+    
+    var html = `
+        <button onclick="goToPage(${currentPage - 1})" ${currentPage <= 1 ? 'disabled' : ''}>
+            <i class="fas fa-chevron-left"></i>
+        </button>
+    `;
+    
+    for (var i = 1; i <= totalPages; i++) {
+        if (i === currentPage) {
+            html += `<button class="active" onclick="goToPage(${i})">${i}</button>`;
+        } else if (i === 1 || i === totalPages || Math.abs(i - currentPage) <= 2) {
+            html += `<button onclick="goToPage(${i})">${i}</button>`;
+        } else if (i === currentPage - 3 || i === currentPage + 3) {
+            html += `<span class="pagination-dots">...</span>`;
+        }
+    }
+    
+    html += `
+        <button onclick="goToPage(${currentPage + 1})" ${currentPage >= totalPages ? 'disabled' : ''}>
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <span class="pagination-info">Halaman ${currentPage} dari ${totalPages} (${allPendaftaranData.length} data)</span>
+    `;
+    
+    container.innerHTML = html;
+}
+
+// ============================================
+// 5. GO TO PAGE
+// ============================================
+function goToPage(page) {
+    var totalPages = Math.ceil(allPendaftaranData.length / rowsPerPage);
+    if (page < 1 || page > totalPages) return;
+    currentPage = page;
+    renderPendaftaranTable();
+}
+
+// ============================================
+// 6. SUBMIT FORM PENDAFTARAN - DENGAN JENIS KELAMIN + ALAMAT
 // ============================================
 async function submitPendaftaran(event) {
     event.preventDefault();
@@ -195,6 +286,8 @@ async function submitPendaftaran(event) {
         nik: document.getElementById('nikDaftar').value.trim(),
         tempatLahir: document.getElementById('tempatLahir').value.trim(),
         tanggalLahir: document.getElementById('tanggalLahir').value,
+        jenisKelamin: document.getElementById('jenisKelamin').value,
+        alamat: document.getElementById('alamat').value.trim(),
         noKK: document.getElementById('noKK').value.trim(),
         namaAyah: document.getElementById('namaAyah').value.trim(),
         nikAyah: document.getElementById('nikAyah').value.trim(),
@@ -208,8 +301,8 @@ async function submitPendaftaran(event) {
     
     // Validasi
     if (!data.namaLengkap || !data.nik || !data.tempatLahir || !data.tanggalLahir || 
-        !data.noKK || !data.namaAyah || !data.nikAyah || !data.namaIbu || 
-        !data.nikIbu || !data.asalTK || !data.jalur) {
+        !data.jenisKelamin || !data.alamat || !data.noKK || !data.namaAyah || 
+        !data.nikAyah || !data.namaIbu || !data.nikIbu || !data.asalTK || !data.jalur) {
         showFormMessage('Semua field wajib diisi!', 'error');
         return;
     }
@@ -265,26 +358,8 @@ async function submitPendaftaran(event) {
     }
 }
 
-function showFormMessage(message, type) {
-    const msgDiv = document.getElementById('formMessage');
-    msgDiv.style.display = 'block';
-    msgDiv.textContent = message;
-    msgDiv.className = 'form-message ' + type;
-    
-    if (type === 'success' || type === 'error') {
-        setTimeout(() => {
-            msgDiv.style.display = 'none';
-        }, 5000);
-    }
-}
-
-function resetForm() {
-    document.getElementById('formMessage').style.display = 'none';
-    document.getElementById('formPendaftaran').reset();
-}
-
 // ============================================
-// 4. CEK PENDAFTARAN - DENGAN NIK TERSEMBUNYI
+// 7. CEK PENDAFTARAN
 // ============================================
 function cekPendaftaran() {
     const nik = document.getElementById('nikCari').value.trim();
@@ -317,21 +392,21 @@ function cekPendaftaran() {
         
         let found = false;
         for (const row of data.data) {
-            // Cek berdasarkan NIK asli (masih pake row[1] untuk pencarian)
             if (row[1] === nik || row[6] === nik || row[8] === nik) {
-                const status = row[11] || 'Pending';
+                const status = row[13] || 'Pending';
                 const statusClass = status.toLowerCase();
-                const jalur = row[12] || '-';
+                const jalur = row[14] || '-';
                 
-                // FORMAT TANGGAL
                 const tanggalLahir = formatTanggal(row[3]);
-                const tanggalDaftar = formatTanggal(row[10]);
+                const tanggalDaftar = formatTanggal(row[12]);
                 
-                // FORMAT NIK (TAMPILKAN TERSEMBUNYI)
                 const nikTampil = formatNIK(row[1]);
-                const noKKTampil = formatNIK(row[4]);
-                const nikAyahTampil = formatNIK(row[6]);
-                const nikIbuTampil = formatNIK(row[8]);
+                const noKKTampil = formatNIK(row[6]);
+                const nikAyahTampil = formatNIK(row[8]);
+                const nikIbuTampil = formatNIK(row[10]);
+                
+                const jenisKelamin = row[4] || '-';
+                const alamat = row[5] || '-';
                 
                 hasilDiv.innerHTML = `
                     <div class="result-card">
@@ -348,23 +423,29 @@ function cekPendaftaran() {
                             <div><span class="label">Tanggal Lahir</span></div>
                             <div class="value">${tanggalLahir}</div>
                             
+                            <div><span class="label">Jenis Kelamin</span></div>
+                            <div class="value">${jenisKelamin}</div>
+                            
+                            <div><span class="label">Alamat</span></div>
+                            <div class="value">${alamat}</div>
+                            
                             <div><span class="label">No KK</span></div>
                             <div class="value">${noKKTampil}</div>
                             
                             <div><span class="label">Nama Ayah</span></div>
-                            <div class="value">${row[5] || '-'}</div>
+                            <div class="value">${row[7] || '-'}</div>
                             
                             <div><span class="label">NIK Ayah</span></div>
                             <div class="value">${nikAyahTampil}</div>
                             
                             <div><span class="label">Nama Ibu</span></div>
-                            <div class="value">${row[7] || '-'}</div>
+                            <div class="value">${row[9] || '-'}</div>
                             
                             <div><span class="label">NIK Ibu</span></div>
                             <div class="value">${nikIbuTampil}</div>
                             
                             <div><span class="label">Asal TK/Paud</span></div>
-                            <div class="value">${row[9] || '-'}</div>
+                            <div class="value">${row[11] || '-'}</div>
                             
                             <div><span class="label">Tanggal Daftar</span></div>
                             <div class="value">${tanggalDaftar}</div>
@@ -406,7 +487,28 @@ function cekPendaftaran() {
 }
 
 // ============================================
-// 5. INISIALISASI
+// 8. FUNGSI FORM MESSAGE
+// ============================================
+function showFormMessage(message, type) {
+    const msgDiv = document.getElementById('formMessage');
+    msgDiv.style.display = 'block';
+    msgDiv.textContent = message;
+    msgDiv.className = 'form-message ' + type;
+    
+    if (type === 'success' || type === 'error') {
+        setTimeout(() => {
+            msgDiv.style.display = 'none';
+        }, 5000);
+    }
+}
+
+function resetForm() {
+    document.getElementById('formMessage').style.display = 'none';
+    document.getElementById('formPendaftaran').reset();
+}
+
+// ============================================
+// 9. INISIALISASI
 // ============================================
 document.addEventListener('DOMContentLoaded', function() {
     tampilkanKuota();
