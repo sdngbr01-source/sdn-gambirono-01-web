@@ -968,128 +968,107 @@
         </div>
     </div>
 </section>
-	<!-- ============================================
-     SPMB - SISTEM PENERIMAAN SISWA BARU
-     ============================================ -->
-<section id="spmbSection" class="spmb-section">
-    <div class="container">
-        <div class="section-header">
-            <h2><i class="fas fa-user-graduate"></i> SPMB</h2>
-            <p>Sistem Penerimaan Siswa Baru - SDN Gambirono 01</p>
-        </div>
-
-        <!-- 1. DATA KUOTA -->
-        <div class="kuota-wrapper">
-            <h3><i class="fas fa-chart-bar"></i> Rekap Data Kuota Penerimaan</h3>
-<!-- REKAP DATA KUOTA -->
-<div class="rekap-kuota-wrapper" id="rekapKuotaWrapper">
-    <div class="title-section">
-        <h2>📊 SISA KUOTA</h2>
-       
-    </div>
-    <div class="sisa-section">
-        
-        <span class="nilai-sisa" id="sisaKuotaBesar">0</span>
-        
-    </div>
-</div>
-            <div class="table-responsive">
-                <table class="table-kuota">
-                    <thead>
-                        <tr>
-                            <th>Tahun</th>
-                            <th>Kuota</th>
-                            <th>Jumlah Pendaftar Afirmasi/Mutasi</th>
-                            <th>Jumlah Pendaftar Domisili</th>
-                            <th>Jumlah Diterima</th>
-                            <th>Sisa Kuota</th>
-                        </tr>
-                    </thead>
-                    <tbody id="kuotaTableBody">
-                        <tr><td colspan="6" class="loading-text"><i class="fas fa-spinner fa-spin"></i> Memuat data kuota...</td></tr>
-                    </tbody>
-                </table>
+   <!-- ==========================================
+     FORM PENDAFTARAN SISWA BARU
+========================================== -->
+<div class="form-wrapper">
+    <h3><i class="fas fa-edit"></i> Form Pendaftaran Siswa Baru</h3>
+    <form id="formPendaftaran" onsubmit="submitPendaftaran(event)">
+        <div class="form-grid-2">
+            <!-- Kolom Kiri -->
+            <div class="form-col">
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> Nama Lengkap <span class="required">*</span></label>
+                    <input type="text" id="namaLengkap" placeholder="Nama lengkap" required>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-id-card"></i> NIK <span class="required">*</span></label>
+                    <input type="text" id="nikDaftar" placeholder="16 digit NIK" maxlength="16" pattern="[0-9]{16}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-map-pin"></i> Tempat Lahir <span class="required">*</span></label>
+                    <input type="text" id="tempatLahir" placeholder="Tempat lahir" required>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-calendar-alt"></i> Tanggal Lahir <span class="required">*</span></label>
+                    <input type="date" id="tanggalLahir" required>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-venus-mars"></i> Jenis Kelamin <span class="required">*</span></label>
+                    <select id="jenisKelamin" required>
+                        <option value="">Pilih Jenis Kelamin</option>
+                        <option value="Laki-laki">Laki-laki</option>
+                        <option value="Perempuan">Perempuan</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-map-marker-alt"></i> Alamat <span class="required">*</span></label>
+                    <input type="text" id="alamat" placeholder="Alamat lengkap" required>
+                </div>
+            </div>
+            
+            <!-- Kolom Kanan -->
+            <div class="form-col">
+                <div class="form-group">
+                    <label><i class="fas fa-id-card"></i> No Kartu Keluarga <span class="required">*</span></label>
+                    <input type="text" id="noKK" placeholder="Nomor Kartu Keluarga (16 digit)" maxlength="16" pattern="[0-9]{16}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-user-tie"></i> Nama Ayah <span class="required">*</span></label>
+                    <input type="text" id="namaAyah" placeholder="Nama ayah" required>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-id-card"></i> NIK Ayah <span class="required">*</span></label>
+                    <input type="text" id="nikAyah" placeholder="16 digit NIK" maxlength="16" pattern="[0-9]{16}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> Nama Ibu <span class="required">*</span></label>
+                    <input type="text" id="namaIbu" placeholder="Nama ibu" required>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-id-card"></i> NIK Ibu <span class="required">*</span></label>
+                    <input type="text" id="nikIbu" placeholder="16 digit NIK" maxlength="16" pattern="[0-9]{16}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-school"></i> Asal TK/Paud <span class="required">*</span></label>
+                    <input type="text" id="asalTK" placeholder="Asal TK/Paud" required>
+                </div>
             </div>
         </div>
-
-        <!-- 2. FORM PENDAFTARAN -->
-        <div class="form-wrapper">
-            <h3><i class="fas fa-edit"></i> Form Pendaftaran Siswa Baru</h3>
-            <form id="formPendaftaran" onsubmit="submitPendaftaran(event)">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label><i class="fas fa-user"></i> Nama Lengkap <span class="required">*</span></label>
-                        <input type="text" id="namaLengkap" placeholder="Nama lengkap" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label><i class="fas fa-id-card"></i> NIK <span class="required">*</span></label>
-                        <input type="text" id="nikDaftar" placeholder="16 digit NIK" maxlength="16" pattern="[0-9]{16}" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label><i class="fas fa-map-pin"></i> Tempat Lahir <span class="required">*</span></label>
-                        <input type="text" id="tempatLahir" placeholder="Tempat lahir" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label><i class="fas fa-calendar-alt"></i> Tanggal Lahir <span class="required">*</span></label>
-                        <input type="date" id="tanggalLahir" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label><i class="fas fa-id-card"></i> No Kartu Keluarga <span class="required">*</span></label>
-                        <input type="text" id="noKK" placeholder="Nomor Kartu Keluarga (16 digit)" maxlength="16" pattern="[0-9]{16}" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label><i class="fas fa-user-tie"></i> Nama Ayah <span class="required">*</span></label>
-                        <input type="text" id="namaAyah" placeholder="Nama ayah" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label><i class="fas fa-id-card"></i> NIK Ayah <span class="required">*</span></label>
-                        <input type="text" id="nikAyah" placeholder="16 digit NIK" maxlength="16" pattern="[0-9]{16}" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label><i class="fas fa-user"></i> Nama Ibu <span class="required">*</span></label>
-                        <input type="text" id="namaIbu" placeholder="Nama ibu" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label><i class="fas fa-id-card"></i> NIK Ibu <span class="required">*</span></label>
-                        <input type="text" id="nikIbu" placeholder="16 digit NIK" maxlength="16" pattern="[0-9]{16}" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label><i class="fas fa-school"></i> Asal TK/Paud <span class="required">*</span></label>
-                        <input type="text" id="asalTK" placeholder="Asal TK/Paud" required>
-                    </div>
-                    
-                    <div class="form-group full-width">
-                        <label><i class="fas fa-route"></i> Jalur Pendaftaran <span class="required">*</span></label>
-                        <select id="jalurPendaftaran" required>
-                            <option value="">Pilih Jalur</option>
-                            <option value="Afirmasi">Afirmasi</option>
-                            <option value="Mutasi">Mutasi</option>
-                            <option value="Domisili">Domisili</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div id="formMessage" class="form-message" style="display:none;"></div>
-                
-                <div class="form-actions">
-                    <button type="submit" class="btn-primary">
-                        <i class="fas fa-paper-plane"></i> Daftar Sekarang
-                    </button>
-                    <button type="reset" class="btn-secondary" onclick="resetForm()">
-                        <i class="fas fa-undo"></i> Reset
-                    </button>
-                </div>
-            </form>
+        
+        <!-- Jalur Pendaftaran - Full Width -->
+        <div class="form-group full-width">
+            <label><i class="fas fa-route"></i> Jalur Pendaftaran <span class="required">*</span></label>
+            <select id="jalurPendaftaran" required>
+                <option value="">Pilih Jalur</option>
+                <option value="Afirmasi">Afirmasi</option>
+                <option value="Mutasi">Mutasi</option>
+                <option value="Domisili">Domisili</option>
+            </select>
         </div>
+        
+        <div id="formMessage" class="form-message" style="display:none;"></div>
+        
+        <div class="form-actions">
+            <button type="submit" class="btn-primary">
+                <i class="fas fa-paper-plane"></i> Daftar Sekarang
+            </button>
+            <button type="reset" class="btn-secondary" onclick="resetForm()">
+                <i class="fas fa-undo"></i> Reset
+            </button>
+        </div>
+    </form>
+</div>
 
         <!-- 3. CEK PENDAFTARAN -->
         <div class="cek-wrapper">
@@ -1114,24 +1093,28 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Nama Lengkap</th>
-                            <th>NIK</th>
-                            <th>Tempat Lahir</th>
-                            <th>Tanggal Lahir</th>
-                            <th>No KK</th>
-                            <th>Nama Ayah</th>
-                            <th>NIK Ayah</th>
-                            <th>Nama Ibu</th>
-                            <th>NIK Ibu</th>
-                            <th>Asal TK/Paud</th>
-                            <th>Tanggal Daftar</th>
-                            <th>Status</th>
-			 <th>Jalur</th>
+                    <th>Nama Lengkap</th>
+                    <th>NIK</th>
+                    <th>Tempat Lahir</th>
+                    <th>Tanggal Lahir</th>
+                    <th>Jenis Kelamin</th>  <!-- BARU -->
+                    <th>Alamat</th>          <!-- BARU -->
+                    <th>No KK</th>
+                    <th>Nama Ayah</th>
+                    <th>NIK Ayah</th>
+                    <th>Nama Ibu</th>
+                    <th>NIK Ibu</th>
+                    <th>Asal TK/Paud</th>
+                    <th>Tanggal Daftar</th>
+                    <th>Status</th>
+                    <th>Jalur</th>
                         </tr>
                     </thead>
                     <tbody id="pendaftaranTableBody">
                         <tr><td colspan="13" class="loading-text"><i class="fas fa-spinner fa-spin"></i> Memuat data pendaftaran...</td></tr>
                     </tbody>
+		<!-- PAGINATION -->
+<div id="paginationContainer" class="pagination-container" style="display: none;"></div>
                 </table>
             </div>
         </div>
