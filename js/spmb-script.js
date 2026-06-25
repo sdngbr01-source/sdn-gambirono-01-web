@@ -768,17 +768,7 @@ document.addEventListener('DOMContentLoaded', function() {
     tampilkanPendaftaran();
     tampilkanRekapLengkap();
     
-    // Auto refresh setiap 60 detik
-    if (autoRefreshInterval) {
-        clearInterval(autoRefreshInterval);
-    }
-    
-    autoRefreshInterval = setInterval(() => {
-        console.log('🔄 Auto refresh...');
-        tampilkanKuota();
-        tampilkanPendaftaran();
-        tampilkanRekapLengkap();
-    }, 60000);
+   
     
     // Enter key untuk cek pendaftaran
     const nikInput = document.getElementById('nikCari');
