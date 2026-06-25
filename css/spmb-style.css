@@ -196,7 +196,7 @@
 }
 
 /* ============================================
-   TABLE KUOTA
+   TABLE KUOTA - VERSI 10 KOLOM
    ============================================ */
 .table-kuota {
     width: 100%;
@@ -204,33 +204,87 @@
     font-size: 14px;
 }
 
-.table-kuota thead th {
+.table-kuota thead tr:first-child {
     background: #1e293b;
-    color: #ffffff;
-    padding: 12px 15px;
-    text-align: left;
+    color: white;
+}
+
+.table-kuota thead tr:first-child th {
+    padding: 12px 10px;
+    text-align: center;
     font-weight: 600;
+    font-size: 13px;
+    border: 1px solid #334155;
+}
+
+.table-kuota thead tr:last-child {
+    background: #f1f5f9;
+}
+
+.table-kuota thead tr:last-child th {
+    padding: 8px 6px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 13px;
+    color: #1e293b;
+    border: 1px solid #e2e8f0;
+    background: #f1f5f9;
+}
+
+.table-kuota thead tr:last-child th:first-child,
+.table-kuota thead tr:last-child th:last-child {
+    background: #1e293b;
+    color: white;
+}
+
+.table-kuota thead tr:first-child th:first-child,
+.table-kuota thead tr:first-child th:last-child {
+    background: #1e293b;
+}
+
+.table-kuota thead tr:first-child th:not(:first-child):not(:last-child) {
+    background: #0f172a;
+}
+
+.table-kuota thead tr:last-child th:not(:first-child):not(:last-child) {
+    background: #e2e8f0;
 }
 
 .table-kuota tbody td {
-    padding: 10px 15px;
-    border-bottom: 1px solid #e9edf2;
+    padding: 10px 8px;
+    text-align: center;
+    border: 1px solid #e2e8f0;
+    vertical-align: middle;
+}
+
+.table-kuota tbody tr:nth-child(even) {
+    background: #f8fafc;
 }
 
 .table-kuota tbody tr:hover {
     background: #f1f5f9;
 }
 
-.table-kuota .sisa-kuota {
+.table-kuota tbody td:first-child {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.sisa-kuota {
     font-weight: 700;
+    font-size: 16px;
 }
 
-.table-kuota .sisa-kuota.positif {
-    color: #22c55e;
+.sisa-kuota.positif {
+    color: #059669;
 }
 
-.table-kuota .sisa-kuota.negatif {
-    color: #ef4444;
+.sisa-kuota.negatif {
+    color: #dc2626;
+}
+
+.sisa-kuota.nol {
+    color: #f59e0b;
 }
 
 /* ============================================
@@ -432,12 +486,12 @@
 }
 
 /* ============================================
-   REKAP KUOTA HEADER
+   REKAP KUOTA HEADER - SISA KUOTA ATAS
    ============================================ */
 .rekap-kuota-wrapper {
     background: linear-gradient(135deg, #1e293b, #0f172a);
     border-radius: 16px;
-    padding: 25px 30px;
+    padding: 20px 30px;
     margin-bottom: 25px;
     display: flex;
     justify-content: space-between;
@@ -449,43 +503,150 @@
 
 .rekap-kuota-wrapper .title-section h2 {
     color: #ffffff;
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 700;
     margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-.rekap-kuota-wrapper .title-section p {
-    color: #94a3b8;
-    font-size: 14px;
-    margin: 5px 0 0 0;
+.rekap-kuota-wrapper .title-section h2 i {
+    color: #fcd34d;
+    font-size: 28px;
 }
 
 .rekap-kuota-wrapper .sisa-section {
     text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
-.rekap-kuota-wrapper .sisa-section .label-sisa {
+/* ID KHUSUS untuk sisa kuota ATAS */
+#sisaKuotaAtas {
+    font-size: 56px !important;
+    font-weight: 900 !important;
+    color: #4ade80 !important;
+    line-height: 1 !important;
+    text-shadow: 0 0 30px rgba(74, 222, 128, 0.4) !important;
+    display: block !important;
+}
+
+#sisaKuotaAtas.negatif {
+    color: #f87171 !important;
+    text-shadow: 0 0 30px rgba(248, 113, 113, 0.4) !important;
+}
+
+/* ============================================
+   SISA KUOTA BAWAH (Rekap Lengkap)
+   ============================================ */
+.sisa-kuota-besar-wrapper {
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.sisa-kuota-besar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.sisa-kuota-besar .sisa-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     color: #94a3b8;
     font-size: 14px;
-    font-weight: 500;
-    display: block;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-.rekap-kuota-wrapper .sisa-section .nilai-sisa {
-    font-size: 42px;
-    font-weight: 800;
-    color: #4ade80;
-    line-height: 1.2;
+.sisa-kuota-besar .sisa-label i {
+    font-size: 24px;
+    color: #fcd34d;
 }
 
-.rekap-kuota-wrapper .sisa-section .nilai-sisa.negatif {
-    color: #f87171;
+/* ID KHUSUS untuk sisa kuota BAWAH */
+#sisaKuotaBawah {
+    font-size: 42px !important;
+    font-weight: 800 !important;
+    color: #fcd34d !important;
+    line-height: 1 !important;
+    display: block !important;
 }
 
-.rekap-kuota-wrapper .sisa-section .detail-sisa {
-    color: #64748b;
-    font-size: 13px;
-    margin-top: 2px;
+#sisaKuotaBawah.negatif {
+    color: #f87171 !important;
+}
+
+.sisa-detail {
+    color: #94a3b8;
+    font-size: 14px;
+    background: rgba(255,255,255,0.08);
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .rekap-kuota-wrapper {
+        flex-direction: column;
+        text-align: center;
+        padding: 16px 20px;
+    }
+    
+    .rekap-kuota-wrapper .title-section h2 {
+        font-size: 22px;
+    }
+    
+    .rekap-kuota-wrapper .sisa-section {
+        text-align: center;
+        align-items: center;
+    }
+    
+    #sisaKuotaAtas {
+        font-size: 42px !important;
+    }
+    
+    .sisa-kuota-besar-wrapper {
+        flex-direction: column;
+        text-align: center;
+        padding: 16px;
+    }
+    
+    .sisa-kuota-besar {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    #sisaKuotaBawah {
+        font-size: 36px !important;
+    }
+    
+    .sisa-detail {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    #sisaKuotaAtas {
+        font-size: 34px !important;
+    }
+    
+    #sisaKuotaBawah {
+        font-size: 28px !important;
+    }
 }
 
 /* ============================================
@@ -579,6 +740,22 @@
 /* ============================================
    RESPONSIVE
    ============================================ */
+@media (max-width: 1024px) {
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .table-kuota {
+        font-size: 12px;
+        min-width: 900px;
+    }
+    .table-kuota thead tr:first-child th,
+    .table-kuota thead tr:last-child th,
+    .table-kuota tbody td {
+        padding: 6px 4px;
+    }
+}
+
 @media (max-width: 768px) {
     .spmb-section {
         padding: 30px 0;
@@ -628,18 +805,16 @@
         justify-content: center;
     }
     
-    .table-kuota,
     .table-pendaftaran {
         font-size: 12px;
+        min-width: 900px;
     }
     
-    .table-kuota thead th,
     .table-pendaftaran thead th {
         padding: 8px 10px;
         font-size: 11px;
     }
     
-    .table-kuota tbody td,
     .table-pendaftaran tbody td {
         padding: 6px 10px;
         font-size: 11px;
@@ -681,7 +856,8 @@
         font-size: 10px;
     }
     
-    .table-kuota thead th,
+    .table-kuota thead tr:first-child th,
+    .table-kuota thead tr:last-child th,
     .table-pendaftaran thead th {
         padding: 5px 6px;
         font-size: 9px;
@@ -691,5 +867,318 @@
     .table-pendaftaran tbody td {
         padding: 4px 6px;
         font-size: 9px;
+    }
+}
+
+/* ============================================
+   REKAP LENGKAP PENERIMAAN
+   ============================================ */
+.rekap-lengkap-wrapper {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    margin-top: 30px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.rekap-lengkap-wrapper .title-section {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.rekap-lengkap-wrapper .title-section h2 {
+    color: #1e293b;
+    font-size: 24px;
+    margin-bottom: 4px;
+}
+
+.rekap-lengkap-wrapper .title-section p {
+    color: #64748b;
+    font-size: 14px;
+}
+
+/* ============================================
+   SISA KUOTA BESAR
+   ============================================ */
+.sisa-kuota-besar-wrapper {
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.sisa-kuota-besar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.sisa-kuota-besar .sisa-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #94a3b8;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.sisa-kuota-besar .sisa-label i {
+    font-size: 24px;
+    color: #fcd34d;
+}
+
+.sisa-kuota-besar .sisa-nilai {
+    font-size: 42px;
+    font-weight: 800;
+    color: #fcd34d;
+    line-height: 1;
+}
+
+.sisa-kuota-besar .sisa-nilai.negatif {
+    color: #f87171;
+}
+
+.sisa-detail {
+    color: #94a3b8;
+    font-size: 14px;
+    background: rgba(255,255,255,0.08);
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* ============================================
+   REKAP GRID - 3 KARTU
+   ============================================ */
+.rekap-lengkap-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.rekap-card {
+    background: #f8fafc;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.rekap-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.rekap-card .card-header {
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.rekap-card .card-header i {
+    font-size: 22px;
+}
+
+.rekap-card .card-header h3 {
+    font-size: 15px;
+    margin: 0;
+    color: #1e293b;
+    letter-spacing: 0.5px;
+}
+
+.rekap-card .card-body {
+    padding: 16px 20px 20px;
+}
+
+.rekap-card .section-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+.rekap-card .gender-row {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+    border-bottom: 1px solid #e8edf4;
+}
+
+.rekap-card .gender-row:last-of-type {
+    border-bottom: none;
+}
+
+.rekap-card .gender-icon {
+    font-size: 18px;
+    width: 28px;
+}
+
+.rekap-card .gender-label {
+    flex: 1;
+    font-size: 13px;
+    color: #475569;
+}
+
+.rekap-card .gender-value {
+    font-weight: 700;
+    font-size: 16px;
+    color: #1e293b;
+    min-width: 32px;
+    text-align: right;
+}
+
+.rekap-card .total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 2px solid #cbd5e1;
+    font-weight: 700;
+    font-size: 14px;
+    color: #0f172a;
+}
+
+.rekap-card .total-row.small {
+    font-size: 13px;
+    margin-top: 4px;
+    padding-top: 4px;
+}
+
+.rekap-card .total-row span:last-child {
+    font-size: 18px;
+}
+
+/* Warna spesifik */
+.rekap-card.afirmasi .card-header {
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    border-bottom-color: #3b82f6;
+}
+.rekap-card.afirmasi .card-header i { color: #2563eb; }
+.rekap-card.afirmasi .total-row span:last-child { color: #2563eb; }
+
+.rekap-card.mutasi .card-header {
+    background: linear-gradient(135deg, #fce7f3, #fbcfe8);
+    border-bottom-color: #ec4899;
+}
+.rekap-card.mutasi .card-header i { color: #db2777; }
+.rekap-card.mutasi .total-row span:last-child { color: #db2777; }
+
+.rekap-card.domisili .card-header {
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    border-bottom-color: #10b981;
+}
+.rekap-card.domisili .card-header i { color: #059669; }
+.rekap-card.domisili .total-row span:last-child { color: #059669; }
+
+/* ============================================
+   REKAP SEMUA JALUR
+   ============================================ */
+.rekap-semua-jalur {
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    border-radius: 12px;
+    padding: 0;
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.rekap-semua-jalur .semua-header {
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid #334155;
+}
+
+.rekap-semua-jalur .semua-header i {
+    font-size: 24px;
+    color: #fcd34d;
+}
+
+.rekap-semua-jalur .semua-header h3 {
+    color: white;
+    font-size: 16px;
+    margin: 0;
+    font-weight: 600;
+}
+
+.rekap-semua-jalur .semua-body {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    padding: 20px 24px;
+    gap: 16px;
+}
+
+.rekap-semua-jalur .semua-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 16px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.rekap-semua-jalur .semua-item .label {
+    font-size: 13px;
+    color: #94a3b8;
+    margin-bottom: 4px;
+}
+
+.rekap-semua-jalur .semua-item .value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #f8fafc;
+}
+
+.rekap-semua-jalur .semua-item.total {
+    background: rgba(251, 191, 36, 0.15);
+    border-color: rgba(251, 191, 36, 0.3);
+}
+
+.rekap-semua-jalur .semua-item.total .value {
+    color: #fcd34d;
+}
+
+/* ============================================
+   RESPONSIVE REKAP LENGKAP
+   ============================================ */
+@media (max-width: 768px) {
+    .rekap-lengkap-grid {
+        grid-template-columns: 1fr;
+    }
+    .rekap-lengkap-wrapper {
+        padding: 16px;
+    }
+    .rekap-semua-jalur .semua-body {
+        grid-template-columns: 1fr 1fr;
+        padding: 16px;
+    }
+    .rekap-semua-jalur .semua-item .value {
+        font-size: 22px;
+    }
+    .sisa-kuota-besar-wrapper {
+        flex-direction: column;
+        text-align: center;
+        padding: 16px;
+    }
+    .sisa-kuota-besar .sisa-nilai {
+        font-size: 32px;
+    }
+    .sisa-detail {
+        width: 100%;
+        text-align: center;
     }
 }
