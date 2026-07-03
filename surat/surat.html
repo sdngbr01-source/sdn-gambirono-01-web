@@ -301,6 +301,45 @@
             color: #a0aec0;
             margin-top: 6px;
         }
+/* ===== RIWAYAT AGENDA ===== */
+#riwayatContainer table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+#riwayatContainer th {
+    position: sticky;
+    top: 0;
+    background: #e2e8f0 !important;
+    z-index: 1;
+}
+
+#riwayatContainer td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+#riwayatContainer tbody tr:hover {
+    background: #ebf8ff;
+}
+
+#riwayatContainer .refresh-btn {
+    background: #48bb78;
+    color: #fff;
+    border: none;
+    padding: 6px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+#riwayatContainer .refresh-btn:hover {
+    background: #38a169;
+    transform: translateY(-1px);
+}
     </style>
 </head>
 <body>
@@ -311,11 +350,7 @@
         <h1>Sistem Surat Menyurat</h1>
         <p class="subtitle">Masukkan kode akses untuk masuk</p>
 
-       <div class="info">
-    <a href="/index.html" class="btn-back">
-        <i class="fas fa-arrow-left"></i> Kembali ke Beranda
-    </a>
-</div>
+        <div class="info">🔐 Kode akses default: <strong>admin123</strong></div>
 
         <form id="loginForm">
             <div class="form-group">
@@ -371,8 +406,42 @@
 
         <button class="btn-primary btn-secondary" id="btnDownload">⬇️ Download Surat (DOCX)</button>
         <p class="text-muted text-center">* Pastikan surat sudah diproses terlebih dahulu</p>
+<!-- ===== RIWAYAT AGENDA SURAT ===== -->
+<hr />
+
+<div id="riwayatContainer">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <h3 style="font-size: 18px; color: #1a202c;">📋 Riwayat Agenda Surat</h3>
+        <button onclick="loadRiwayatAgenda()" style="background: #48bb78; color: #fff; border: none; padding: 6px 16px; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600;">🔄 Refresh</button>
+    </div>
+    
+    <div style="background: #f7fafc; border-radius: 10px; padding: 16px; max-height: 300px; overflow-y: auto;">
+        <div id="riwayatLoading" style="text-align: center; color: #718096; padding: 20px;">
+            ⏳ Memuat riwayat...
+        </div>
+        <div id="riwayatEmpty" style="text-align: center; color: #718096; padding: 20px; display: none;">
+            📭 Belum ada riwayat surat
+        </div>
+        <div id="riwayatContent" style="display: none;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+                <thead>
+                    <tr style="background: #e2e8f0;">
+                        <th style="padding: 8px 10px; text-align: left; border-bottom: 2px solid #cbd5e0;">No</th>
+                        <th style="padding: 8px 10px; text-align: left; border-bottom: 2px solid #cbd5e0;">Nomor Agenda</th>
+                        <th style="padding: 8px 10px; text-align: left; border-bottom: 2px solid #cbd5e0;">Jenis Surat</th>
+                        <th style="padding: 8px 10px; text-align: left; border-bottom: 2px solid #cbd5e0;">Perihal</th>
+                        <th style="padding: 8px 10px; text-align: left; border-bottom: 2px solid #cbd5e0;">Tanggal</th>
+                    </tr>
+                </thead>
+                <tbody id="riwayatTableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <p class="text-muted text-center" style="margin-top: 6px;">* Menampilkan 10 riwayat terakhir</p>
+</div>
     </div>
 
-    <script src="/surat/script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
