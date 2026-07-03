@@ -379,19 +379,19 @@ async function renderKalenderPendidikan() {
         html += `</tr>`;
     });
     
-    // === LEGENDA ===
-    html += `
-        <tr>
-            <td colspan="32" style="padding:12px 16px;border:1px solid #ccc;background:#f8fafc;">
-                <div style="display:flex;flex-wrap:wrap;gap:12px 24px;font-size:12px;">
-                    <span><span style="display:inline-block;width:16px;height:16px;background:#e6f2ff;border:1px solid #0066cc;border-radius:3px;vertical-align:middle;margin-right:4px;"></span> Hari Efektif</span>
-                    <span><span style="display:inline-block;width:16px;height:16px;background:#ffcccc;border:1px solid #cc0000;border-radius:3px;vertical-align:middle;margin-right:4px;"></span> Libur (LU/LHB/LHR/CB)</span>
-                    <span><span style="display:inline-block;width:16px;height:16px;background:#fff3cd;border:1px solid #856404;border-radius:3px;vertical-align:middle;margin-right:4px;"></span> Kegiatan Khusus (KTS/KPP)</span>
-                    <span><span style="display:inline-block;width:16px;height:16px;background:#d4edda;border:1px solid #155724;border-radius:3px;vertical-align:middle;margin-right:4px;"></span> Libur Semester (LS1/LS2)</span>
-                </div>
-            </td>
-        </tr>
-    `;
+   // === LEGENDA ===
+html += `
+    <tr>
+        <td colspan="32" style="padding:12px 16px;border:1px solid #ccc;background:#f8fafc;">
+            <div style="display:flex;flex-wrap:wrap;gap:12px 24px;font-size:12px;color:#1a3a5c;">
+                <span><span style="display:inline-block;width:16px;height:16px;background:#e6f2ff;border:1px solid #0066cc;border-radius:3px;vertical-align:middle;margin-right:4px;"></span> Hari Efektif</span>
+                <span><span style="display:inline-block;width:16px;height:16px;background:#ffcccc;border:1px solid #cc0000;border-radius:3px;vertical-align:middle;margin-right:4px;"></span> Libur (LU/LHB/LHR/CB)</span>
+                <span><span style="display:inline-block;width:16px;height:16px;background:#fff3cd;border:1px solid #856404;border-radius:3px;vertical-align:middle;margin-right:4px;"></span> Kegiatan Khusus (KTS/KPP)</span>
+                <span><span style="display:inline-block;width:16px;height:16px;background:#d4edda;border:1px solid #155724;border-radius:3px;vertical-align:middle;margin-right:4px;"></span> Libur Semester (LS1/LS2)</span>
+            </div>
+        </td>
+    </tr>
+`;
     
     html += `</tbody></table></div></div>`;
     container.innerHTML = html;
