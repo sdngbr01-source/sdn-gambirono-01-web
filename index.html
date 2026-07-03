@@ -66,29 +66,47 @@
             <div class="hero-content">
                 <h1>Selamat Datang di <span>SDN Gambirono 01</span></h1>
                 <p>Membentuk Generasi Berimtaq Tinggi, Kreatif, Bernalar Kritis, Kolaboratif, Mandiri, Dan Komunikatif</p>
-                <div class="hero-buttons">
-                    <a href="#profil" class="btn-primary">Profil Sekolah</a>
-                    <a href="#jurnal" class="btn-secondary">Jurnal Siswa</a>
-                      <a href="#tryout-tka" class="btn-tryout">Assesment dan Tryout</a>
-                </div>
-            </div>
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <h3>20+</h3>
-                    <p>Guru Profesional</p>
-                </div>
-                <div class="stat-item">
-                    <h3>299+</h3>
-                    <p>Siswa Aktif</p>
-                </div>
-                <div class="stat-item">
-                    <h3>20+</h3>
-                    <p>Prestasi</p>
-                </div>
-                <div class="stat-item">
-                    <h3>12</h3>
-                    <p>Rombongan Belajar</p>
-                </div>
+              <div>
+				  
+			  </div>
+    <div class="container">
+        <div class="section-header">
+            <h2><i class="fas fa-calendar-alt"></i> Kalender Pendidikan</h2>
+            <p>Provinsi Jawa Timur - Tahun Ajaran 2026/2027</p>
+            <p style="font-size:13px;color:#94a3b8;margin-top:4px;">
+                <i class="fas fa-database"></i> Data dari Google Spreadsheet
+            </p>
+        </div>
+
+        <!-- Tab Navigasi -->
+        <div class="kalender-tab-nav">
+            <button data-tab="dashboard" class="active">
+                <i class="fas fa-chart-simple"></i> Dashboard
+            </button>
+            <button data-tab="table">
+                <i class="fas fa-table"></i> Kaldik
+            </button>
+            <button data-tab="calendar">
+                <i class="fas fa-calendar-days"></i> Kalender Bulanan
+            </button>
+        </div>
+
+        <!-- Tab 1: Dashboard -->
+        <div id="tab-dashboard" class="kalender-tab active">
+            <div id="dashboardContent"></div>
+        </div>
+
+        <!-- Tab 2: Semua Tanggal -->
+        <div id="tab-table" class="kalender-tab">
+            <div id="tableContent"></div>
+        </div>
+
+        <!-- Tab 3: Kalender Bulanan -->
+        <div id="tab-calendar" class="kalender-tab">
+            <div id="calendarContent"></div>
+        </div>
+    </div>
+
             </div>
         </div>
     </section>
@@ -206,46 +224,7 @@
             </div>
         </div>
     </section>
-<!-- ===== SECTION KALENDER PENDIDIKAN ===== -->
-<section id="kalender" class="section-kalender">
-    <div class="container">
-        <div class="section-header">
-            <h2><i class="fas fa-calendar-alt"></i> Kalender Pendidikan</h2>
-            <p>Provinsi Jawa Timur - Tahun Ajaran 2026/2027</p>
-            <p style="font-size:13px;color:#94a3b8;margin-top:4px;">
-                <i class="fas fa-database"></i> Data dari Google Spreadsheet
-            </p>
-        </div>
 
-        <!-- Tab Navigasi -->
-        <div class="kalender-tab-nav">
-            <button data-tab="dashboard" class="active">
-                <i class="fas fa-chart-simple"></i> Dashboard
-            </button>
-            <button data-tab="table">
-                <i class="fas fa-table"></i> Kaldik
-            </button>
-            <button data-tab="calendar">
-                <i class="fas fa-calendar-days"></i> Kalender Bulanan
-            </button>
-        </div>
-
-        <!-- Tab 1: Dashboard -->
-        <div id="tab-dashboard" class="kalender-tab active">
-            <div id="dashboardContent"></div>
-        </div>
-
-        <!-- Tab 2: Semua Tanggal -->
-        <div id="tab-table" class="kalender-tab">
-            <div id="tableContent"></div>
-        </div>
-
-        <!-- Tab 3: Kalender Bulanan -->
-        <div id="tab-calendar" class="kalender-tab">
-            <div id="calendarContent"></div>
-        </div>
-    </div>
-</section>
 	
    <!-- GURU & TENAGA PENDIDIKAN SECTION -->
 <section id="guru" class="guru">
