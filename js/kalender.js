@@ -250,7 +250,20 @@ async function renderKalenderPendidikan() {
     const monthNames = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
     
     allData.forEach(item => {
-        const parts = item.tanggal.split('-');
+        let tanggal = item.tanggal;
+        if (tanggal.includes('/')) {
+            const parts = tanggal.split('/');
+            if (parts.length === 3) {
+                tanggal = `${parts[0]}-${parts[1]}-${parts[2]}`;
+            }
+        }
+        
+        const parts = tanggal.split('-');
+        if (parts.length !== 3) {
+            console.warn('⚠️ Format tanggal salah:', tanggal);
+            return;
+        }
+        
         const day = parseInt(parts[0]);
         const month = parseInt(parts[1]);
         const year = parseInt(parts[2]);
@@ -306,7 +319,8 @@ async function renderKalenderPendidikan() {
         })();
         
         html += `<tr>`;
-        html += `<td style="padding:6px 8px;border:1px solid #ccc;font-weight:700;background:#f0f4f8;white-space:nowrap;text-align:center;">${bulanNama}</td>`;
+        // === INI YANG DIUBAH: warna teks menjadi biru gelap ===
+        html += `<td style="padding:6px 8px;border:1px solid #ccc;font-weight:700;background:#f0f4f8;white-space:nowrap;text-align:center;color:#1a3a5c;">${bulanNama}</td>`;
         
         for (let i = 1; i <= 31; i++) {
             const item = bulan ? bulan.data[i] : null;
@@ -322,7 +336,6 @@ async function renderKalenderPendidikan() {
                 const hariEfektifKe = item.hariEfektifKe || 0;
                 const isEfektif = (kategori === 'efektif' || hariEfektifKe > 0);
                 
-                // PRIORITAS: TAMPILKAN KODE JIKA ADA
                 if (kode && kode !== '-' && kode !== '') {
                     content = kode;
                     title = `${kode} - ${namaEvent}`;
