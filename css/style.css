@@ -4309,3 +4309,71 @@ section .container {
         grid-template-columns: 1fr;
     }
 }
+// ============================================
+// DROPDOWN - PASTI BERFUNGSI
+// ============================================
+
+// FUNGSI TOGGLE - KLIK MUNCUL/HILANG
+function toggleDropdown() {
+    var menu = document.getElementById('dropdownMenu');
+    
+    if (!menu) return;
+    
+    // Cek apakah sedang tampil
+    if (menu.style.display === 'block') {
+        menu.style.display = 'none';
+        console.log('Dropdown HILANG');
+    } else {
+        menu.style.display = 'block';
+        console.log('Dropdown MUNCUL');
+    }
+}
+
+// FUNGSI TUTUP - SAAT KLIK SUBMENU
+function closeDropdown() {
+    var menu = document.getElementById('dropdownMenu');
+    if (!menu) return;
+    
+    menu.style.display = 'none';
+    
+    // Ambil target dari event
+    var targetId = event.target.getAttribute('href');
+    if (targetId && targetId !== '#') {
+        var target = document.querySelector(targetId);
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+    
+    // Tutup navbar mobile
+    var navbarMenu = document.getElementById('navbarMenu');
+    if (navbarMenu) {
+        navbarMenu.classList.remove('active');
+    }
+}
+
+// PASTIKAN DROPDOWN HIDE SAAT LOAD
+document.addEventListener('DOMContentLoaded', function() {
+    var menu = document.getElementById('dropdownMenu');
+    if (menu) {
+        menu.style.display = 'none';
+    }
+});
+
+// KLIK DI LUAR UNTUK TUTUP
+document.addEventListener('click', function(e) {
+    var dropdown = document.getElementById('dropdownKesiswaan');
+    var menu = document.getElementById('dropdownMenu');
+    
+    if (dropdown && menu && !dropdown.contains(e.target)) {
+        menu.style.display = 'none';
+    }
+});
+
+// TUTUP SAAT SCROLL
+window.addEventListener('scroll', function() {
+    var menu = document.getElementById('dropdownMenu');
+    if (menu) {
+        menu.style.display = 'none';
+    }
+});
