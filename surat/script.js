@@ -3,7 +3,7 @@
 // ============================================
 
 // Konfigurasi
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzG5-sf46V-FlC9jn_ai5OFKvKoIDl67CC4pbk8SwnXjqBBwDLS8xeFUi-9583ILpaM/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwx6y7aDlV9ZjjRWP9CgcSD3sprijAEslWFcvZc9470zCGCdF2GxDzuWU0cSZDko_Zu/exec';
 
 // KODE AKSES
 const KODE_AKSES = 'admin123';
@@ -77,6 +77,8 @@ function initSuratPage() {
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('tanggalSurat').value = today;
     loadJenisSurat();
+ loadRiwayatAgenda();
+    loadRiwayatAgenda(); // <-- TAMBAHKAN BARIS INI
     document.getElementById('btnDownload').disabled = true;
 }
 
@@ -115,7 +117,72 @@ async function loadJenisSurat() {
         document.getElementById('statusText').textContent = '❌ Error: ' + error.message;
     }
 }
+// ============================================
+// 1.5 LOAD RIWAYAT AGENDA SURAT
+// ============================================
+async function loadRiwayatAgenda() {
+    if (!isLoggedIn) return;
 
+    const tbody = document.getElementById('riwayatTableBody');
+    const loadingText = document.getElementById('riwayatLoading');
+    const emptyText = document.getElementById('riwayatEmpty');
+    const content = document.getElementById('riwayatContent');
+
+    // Tampilkan loading, sembunyikan yang lain
+    loadingText.style.display = 'block';
+    emptyText.style.display = 'none';
+    content.style.display = 'none';
+
+    try {
+        const response = await fetch(`${SCRIPT_URL}?action=getRiwayatAgenda&t=${Date.now()}`);
+        const data = await response.json();
+
+        loadingText.style.display = 'none';
+
+        if (!data.success) {
+            throw new Error(data.message || 'Gagal memuat riwayat');
+        }
+
+        if (!data.data || data.data.length === 0) {
+            emptyText.style.display = 'block';
+            return;
+        }
+
+        // Tampilkan data
+        content.style.display = 'block';
+        tbody.innerHTML = '';
+
+        data.data.forEach((item, index) => {
+            const tr = document.createElement('tr');
+            tr.style.borderBottom = '1px solid #e2e8f0';
+            tr.innerHTML = `
+                <td style="padding: 8px 10px;">${index + 1}</td>
+                <td style="padding: 8px 10px; font-weight: 600; color: #2b6cb0;">${item.nomorAgenda || '-'}</td>
+                <td style="padding: 8px 10px;">${item.jenisSurat || '-'}</td>
+                <td style="padding: 8px 10px;">${item.perihal || '-'}</td>
+                <td style="padding: 8px 10px;">${item.tanggal || '-'}</td>
+            `;
+            // Hover effect
+            tr.addEventListener('mouseenter', () => {
+                tr.style.background = '#ebf8ff';
+            });
+            tr.addEventListener('mouseleave', () => {
+                tr.style.background = 'transparent';
+            });
+            tbody.appendChild(tr);
+        });
+
+        // Update status
+        document.getElementById('statusText').textContent = `✅ ${data.data.length} riwayat surat dimuat`;
+
+    } catch (error) {
+        console.error(error);
+        loadingText.style.display = 'none';
+        emptyText.style.display = 'block';
+        emptyText.textContent = '❌ Error: ' + error.message;
+        document.getElementById('statusText').textContent = '❌ Gagal memuat riwayat';
+    }
+}
 // ============================================
 // 2. PROSES SURAT
 // ============================================
@@ -185,26 +252,28 @@ document.getElementById('suratForm').addEventListener('submit', async function(e
         const resultData = await resultResponse.json();
 
         if (resultData.success) {
-            currentNomorAgenda = resultData.data.nomorAgenda;
-            currentJenisSurat = resultData.data.jenisSurat;
-            currentKodeKlasifikasi = resultData.data.kodeKlasifikasi;
+    currentNomorAgenda = resultData.data.nomorAgenda;
+    currentJenisSurat = resultData.data.jenisSurat;
+    currentKodeKlasifikasi = resultData.data.kodeKlasifikasi;
 
-            resultDiv.innerHTML = `
-                <strong>✅ Surat berhasil diproses!</strong><br />
-                <strong>Nomor Agenda:</strong> ${currentNomorAgenda}<br />
-                <strong>Jenis Surat:</strong> ${currentJenisSurat}<br />
-                <strong>Kode Klasifikasi:</strong> ${currentKodeKlasifikasi}<br />
-                <strong>Perihal:</strong> ${perihal}<br />
-                <strong>Tanggal:</strong> ${tanggal}
-            `;
-            resultDiv.classList.add('show');
-            statusText.textContent = `✅ Surat siap: ${currentNomorAgenda}`;
+    resultDiv.innerHTML = `
+        <strong>✅ Surat berhasil diproses!</strong><br />
+        <strong>Nomor Agenda:</strong> ${currentNomorAgenda}<br />
+        <strong>Jenis Surat:</strong> ${currentJenisSurat}<br />
+        <strong>Kode Klasifikasi:</strong> ${currentKodeKlasifikasi}<br />
+        <strong>Perihal:</strong> ${perihal}<br />
+        <strong>Tanggal:</strong> ${tanggal}
+    `;
+    resultDiv.classList.add('show');
+    statusText.textContent = `✅ Surat siap: ${currentNomorAgenda}`;
 
-            document.getElementById('btnDownload').disabled = false;
-        } else {
-            throw new Error(resultData.message || 'Gagal memproses surat');
-        }
-
+    document.getElementById('btnDownload').disabled = false;
+    
+    // Refresh riwayat setelah surat berhasil diproses
+    loadRiwayatAgenda();
+} else {
+    throw new Error(resultData.message || 'Gagal memproses surat');
+}
     } catch (error) {
         console.error(error);
         resultDiv.innerHTML = `❌ Error: ${error.message}`;
