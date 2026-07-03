@@ -1,0 +1,382 @@
+/* ========================================
+   KALENDER PENDIDIKAN - SDN Gambirono 01
+   ======================================== */
+
+.section-kalender {
+    padding: 60px 0;
+    background: linear-gradient(135deg, #f0f7ff 0%, #e8f0fe 100%);
+}
+
+.section-kalender .section-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-kalender .section-header h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a3a5c;
+}
+
+.section-kalender .section-header h2 i {
+    color: #facc15;
+    margin-right: 12px;
+}
+
+.kalender-tab-nav {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 30px;
+    background: #fff;
+    padding: 8px;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.kalender-tab-nav button {
+    padding: 12px 28px;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: transparent;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.kalender-tab-nav button:hover {
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+.kalender-tab-nav button.active {
+    background: #1a3a5c;
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(26,58,92,0.3);
+}
+
+.kalender-tab {
+    display: none;
+    animation: fadeUp 0.5s ease;
+}
+
+.kalender-tab.active {
+    display: block;
+}
+
+@keyframes fadeUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Dashboard */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.dash-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px 22px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border-left: 6px solid #2d6a9f;
+    transition: transform 0.2s;
+}
+
+.dash-card:hover {
+    transform: translateY(-4px);
+}
+
+.dash-card .label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #94a3b8;
+    font-weight: 600;
+}
+
+.dash-card .value {
+    font-size: 32px;
+    font-weight: 700;
+    margin-top: 4px;
+    color: #0f172a;
+}
+
+.dash-card .value small {
+    font-size: 16px;
+    font-weight: 400;
+    color: #64748b;
+    margin-left: 4px;
+}
+
+.dash-card .sub-info {
+    margin-top: 6px;
+    font-size: 14px;
+    color: #475569;
+}
+
+.dash-card .badge-event {
+    display: inline-block;
+    padding: 4px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.dash-card .event-name {
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 6px;
+    color: #0f172a;
+}
+
+.badge-efektif { background: #dcfce7; color: #166534; }
+.badge-libur { background: #fee2e2; color: #991b1b; }
+.badge-keagamaan { background: #fef3c7; color: #92400e; }
+.badge-nasional { background: #dbeafe; color: #1e40af; }
+.badge-kegiatan { background: #f3e8ff; color: #6b21a8; }
+.badge-semester { background: #fce7f3; color: #9d174d; }
+
+.card-efektif { border-left-color: #22c55e; }
+.card-libur { border-left-color: #ef4444; }
+.card-keagamaan { border-left-color: #f59e0b; }
+.card-nasional { border-left-color: #3b82f6; }
+.card-kegiatan { border-left-color: #8b5cf6; }
+.card-semester { border-left-color: #ec4899; }
+
+.dashboard-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+    margin-bottom: 30px;
+}
+
+.dashboard-info .info-box {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px 20px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.dashboard-info .info-box .num {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a3a5c;
+}
+
+.dashboard-info .info-box .lbl {
+    font-size: 13px;
+    color: #94a3b8;
+    margin-top: 2px;
+}
+
+/* Kalender Bulanan */
+.bulan-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    padding: 16px 24px;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.bulan-nav .nav-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a3a5c;
+}
+
+.bulan-nav .nav-title i { margin-right: 10px; color: #facc15; }
+
+.bulan-nav .nav-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.bulan-nav .nav-buttons button {
+    padding: 8px 18px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.bulan-nav .nav-buttons button:hover { background: #e2e8f0; }
+.bulan-nav .nav-buttons button.btn-today { background: #1a3a5c; color: #fff; }
+.bulan-nav .nav-buttons button.btn-today:hover { background: #2d6a9f; }
+
+.kalender-grid-wrapper {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    overflow: hidden;
+}
+
+.kalender-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.kalender-grid .header-hari {
+    text-align: center;
+    font-weight: 700;
+    font-size: 14px;
+    color: #1a3a5c;
+    padding: 10px 0;
+    background: #f1f5f9;
+    border-radius: 8px;
+    margin-bottom: 4px;
+}
+
+.kalender-grid .header-hari.minggu { color: #ef4444; }
+
+.kalender-grid .tanggal-cell {
+    background: #fff;
+    border: 1px solid #f1f5f9;
+    border-radius: 8px;
+    padding: 8px 6px;
+    min-height: 80px;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.kalender-grid .tanggal-cell:hover {
+    border-color: #1a3a5c;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.kalender-grid .tanggal-cell .tgl-num {
+    font-weight: 600;
+    font-size: 16px;
+    color: #0f172a;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.kalender-grid .tanggal-cell .tgl-num.minggu { color: #ef4444; }
+.kalender-grid .tanggal-cell .tgl-num.tgl-num-efektif { color: #16a34a; }
+.kalender-grid .tanggal-cell .tgl-num.tgl-num-libur { color: #dc2626; }
+
+.kalender-grid .tanggal-cell .tgl-event {
+    font-size: 10px;
+    line-height: 1.3;
+    color: #475569;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.kalender-grid .tanggal-cell .tgl-event .badge-mini {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 8px;
+    font-weight: 700;
+    margin-right: 2px;
+}
+
+.kalender-grid .tanggal-cell .tgl-event .badge-mini.efektif { background: #dcfce7; color: #166534; }
+.kalender-grid .tanggal-cell .tgl-event .badge-mini.libur { background: #fee2e2; color: #991b1b; }
+.kalender-grid .tanggal-cell .tgl-event .badge-mini.keagamaan { background: #fef3c7; color: #92400e; }
+.kalender-grid .tanggal-cell .tgl-event .badge-mini.nasional { background: #dbeafe; color: #1e40af; }
+.kalender-grid .tanggal-cell .tgl-event .badge-mini.kegiatan { background: #f3e8ff; color: #6b21a8; }
+.kalender-grid .tanggal-cell .tgl-event .badge-mini.semester { background: #fce7f3; color: #9d174d; }
+
+.kalender-grid .tanggal-cell.today {
+    border-color: #facc15;
+    background: #fffbeb;
+    box-shadow: 0 0 0 3px rgba(250,204,21,0.3);
+}
+
+.kalender-grid .tanggal-cell.today .tgl-num {
+    color: #92400e;
+    font-weight: 800;
+}
+
+.kalender-grid .tanggal-cell.today::after {
+    content: 'Hari Ini';
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #facc15;
+    color: #92400e;
+    font-size: 8px;
+    font-weight: 700;
+    padding: 1px 8px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(250,204,21,0.4);
+}
+
+.kalender-grid .tanggal-cell.empty {
+    background: transparent;
+    border: none;
+    min-height: 60px;
+}
+
+.kalender-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    margin-top: 20px;
+    padding: 16px 20px;
+    background: #f8fafc;
+    border-radius: 12px;
+}
+
+.kalender-legend .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #475569;
+}
+
+.kalender-legend .legend-item .color-box {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    border: 1px solid #e2e8f0;
+}
+
+.kalender-legend .legend-item .color-box.efektif { background: #dcfce7; border-color: #86efac; }
+.kalender-legend .legend-item .color-box.libur { background: #fee2e2; border-color: #fca5a5; }
+.kalender-legend .legend-item .color-box.keagamaan { background: #fef3c7; border-color: #fcd34d; }
+.kalender-legend .legend-item .color-box.nasional { background: #dbeafe; border-color: #93c5fd; }
+.kalender-legend .legend-item .color-box.kegiatan { background: #f3e8ff; border-color: #c4b5fd; }
+.kalender-legend .legend-item .color-box.semester { background: #fce7f3; border-color: #f9a8d4; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .kalender-grid .tanggal-cell { min-height: 50px; padding: 4px 2px; }
+    .kalender-grid .tanggal-cell .tgl-num { font-size: 12px; }
+    .kalender-grid .tanggal-cell .tgl-event { font-size: 8px; display: none; }
+    .kalender-grid .header-hari { font-size: 10px; padding: 6px 0; }
+    .kalender-grid-wrapper { padding: 10px; }
+    .bulan-nav .nav-title { font-size: 18px; }
+    .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
+    .dash-card .value { font-size: 24px; }
+}
