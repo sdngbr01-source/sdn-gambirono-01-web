@@ -389,15 +389,46 @@ document.addEventListener('DOMContentLoaded', function() {
     renderAbsensi();
     // ================================================
 });
-// ============ DATA SISWA - MENGGUNAKAN PROXY APPS SCRIPT ============
-// Ganti dengan URL dari Apps Script yang sudah dideploy
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyILi1afr5ghuHoBJaPflne-m3ZiWw7zLds6s9WaLcfFl0szVrCSEEdYODkwkK8Kk9o/exec';
+// ============ KONFIGURASI ============
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxBQ1uIEL1DA9IfHkKqvWEFRI0idRw0ys73pAz_wdhxVUB04HuLcDquf4rb36RrNRNJ/exec';
 
-// Variabel global untuk menyimpan data
+// Variabel global
 let dataSiswaGlobal = [];
+let dataJumlahSiswaGlobal = [];
+let dataMutasiGlobal = [];
 
-// ============ FUNGSI AMBIL DATA DARI APPS SCRIPT ============
+// ============ FUNGSI UTILITY ============
 
+// Helper: Sembunyikan 4 angka terakhir NIK
+function hideNIK(nik) {
+    if (!nik || nik === '' || nik === '-') return '-';
+    const str = String(nik).trim();
+    if (str.length <= 4) return 'xxxx';
+    return str.slice(0, -4) + 'xxxx';
+}
+
+// Helper: Highlight text
+function highlightText(text, search) {
+    if (!text || !search) return text || '-';
+    const regex = new RegExp(`(${search})`, 'gi');
+    return text.replace(regex, '<span class="highlight">$1</span>');
+}
+
+// Helper: Format angka (0 jadi -)
+function formatAngka(value) {
+    const num = parseInt(value) || 0;
+    return num === 0 ? '-' : num;
+}
+
+// Helper: Format angka dengan bold
+function formatAngkaBold(value) {
+    const num = parseInt(value) || 0;
+    return num === 0 ? '-' : `<strong>${num}</strong>`;
+}
+
+// ============ FUNGSI AMBIL DATA ============
+
+// Ambil data dari sheet tertentu
 async function fetchDataFromSheet(sheetName) {
     try {
         const url = `${APPS_SCRIPT_URL}?sheet=${encodeURIComponent(sheetName)}`;
@@ -422,12 +453,45 @@ async function fetchDataFromSheet(sheetName) {
     }
 }
 
+// Ambil semua data sekaligus
+async function fetchAllData() {
+    try {
+        const response = await fetch(`${APPS_SCRIPT_URL}?action=getAll`);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        
+        const result = await response.json();
+        if (result.error) {
+            console.error('Error from Apps Script:', result.error);
+            return;
+        }
+        
+        if (result.data_siswa) {
+            dataSiswaGlobal = result.data_siswa.data || [];
+            console.log(`✅ Data siswa: ${dataSiswaGlobal.length} baris`);
+        }
+        
+        if (result.jumlah_siswa) {
+            dataJumlahSiswaGlobal = result.jumlah_siswa.data || [];
+            console.log(`✅ Data jumlah siswa: ${dataJumlahSiswaGlobal.length} baris`);
+        }
+        
+        if (result.mutasi) {
+            dataMutasiGlobal = result.mutasi.data || [];
+            console.log(`✅ Data mutasi: ${dataMutasiGlobal.length} baris`);
+        }
+        
+        // Tampilkan data
+        await tampilkanJumlahSiswa();
+        
+    } catch (error) {
+        console.error('Error fetching all data:', error);
+        showError('Gagal memuat data. Silakan coba lagi.');
+    }
+}
+
 // Ambil data detail siswa
 async function getDetailSiswa() {
-    if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL === 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec') {
-        console.warn('⚠️ APPS_SCRIPT_URL belum diatur!');
-        return [];
-    }
+    if (dataSiswaGlobal.length > 0) return dataSiswaGlobal;
     
     const data = await fetchDataFromSheet('data_siswa');
     if (data.length > 0) {
@@ -436,45 +500,15 @@ async function getDetailSiswa() {
     return dataSiswaGlobal;
 }
 
-// ============ FUNGSI HITUNG JUMLAH SISWA ============
-
-function hitungJumlahSiswaPerKelas(dataSiswa) {
-    const jumlahPerKelas = {};
+// Ambil data jumlah siswa
+async function getJumlahSiswa() {
+    if (dataJumlahSiswaGlobal.length > 0) return dataJumlahSiswaGlobal;
     
-    dataSiswa.forEach(siswa => {
-        const kelas = siswa.kelas;
-        if (!kelas) return;
-        
-        if (!jumlahPerKelas[kelas]) {
-            jumlahPerKelas[kelas] = { laki: 0, perempuan: 0, total: 0 };
-        }
-        
-        const jk = siswa.jenisKelamin || '';
-        if (jk === 'L' || jk === 'Laki-laki' || jk === 'Laki') {
-            jumlahPerKelas[kelas].laki++;
-        } else if (jk === 'P' || jk === 'Perempuan') {
-            jumlahPerKelas[kelas].perempuan++;
-        }
-        
-        jumlahPerKelas[kelas].total++;
-    });
-    
-    // Convert ke array dan urutkan
-    const kelasUrutan = ['1A', '1B', '2A', '2B', '3A', '3B', '4A', '4B', '5A', '5B', '6A', '6B'];
-    const result = [];
-    
-    kelasUrutan.forEach(kelas => {
-        if (jumlahPerKelas[kelas]) {
-            result.push({
-                kelas: kelas,
-                laki: jumlahPerKelas[kelas].laki,
-                perempuan: jumlahPerKelas[kelas].perempuan,
-                total: jumlahPerKelas[kelas].total
-            });
-        }
-    });
-    
-    return result;
+    const data = await fetchDataFromSheet('jumlah_siswa');
+    if (data.length > 0) {
+        dataJumlahSiswaGlobal = data;
+    }
+    return dataJumlahSiswaGlobal;
 }
 
 // ============ TAMPILKAN TABEL JUMLAH SISWA ============
@@ -483,235 +517,245 @@ async function tampilkanJumlahSiswa() {
     const tbody = document.getElementById('jumlahSiswaBody');
     if (!tbody) return;
     
-    tbody.innerHTML = '<tr><td colspan="4" class="loading-text"><i class="fas fa-spinner fa-spin"></i> Memuat data...</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="10" class="loading-text"><i class="fas fa-spinner fa-spin"></i> Memuat data...</td></tr>';
     
-    const dataSiswa = await getDetailSiswa();
+    const dataJumlah = await getJumlahSiswa();
     
-    if (dataSiswa.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="4" class="no-data">⚠️ Tidak ada data siswa. Pastikan Apps Script URL sudah benar dan spreadsheet sudah diisi.</td></tr>';
-        document.getElementById('totalLaki').innerHTML = '<strong>0</strong>';
-        document.getElementById('totalPerempuan').innerHTML = '<strong>0</strong>';
-        document.getElementById('totalSemua').innerHTML = '<strong>0</strong>';
+    if (dataJumlah.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="10" class="no-data">⚠️ Tidak ada data. Pastikan Apps Script URL sudah benar dan spreadsheet sudah diisi.</td></tr>';
         return;
     }
     
-    const jumlahData = hitungJumlahSiswaPerKelas(dataSiswa);
+    // Urutan kelas
+    const kelasUrutan = ['1A', '1B', '2A', '2B', '3A', '3B', '4A', '4B', '5A', '5B', '6A', '6B', 'TOTAL'];
     
-    let totalLaki = 0;
-    let totalPerempuan = 0;
-    let totalSemua = 0;
+    // Sort data
+    const sortedData = [...dataJumlah].sort((a, b) => {
+        return kelasUrutan.indexOf(a.kelas) - kelasUrutan.indexOf(b.kelas);
+    });
     
-    if (jumlahData.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="4" class="no-data">Tidak ada data kelas</td></tr>';
-    } else {
-        tbody.innerHTML = jumlahData.map(item => {
-            totalLaki += item.laki;
-            totalPerempuan += item.perempuan;
-            totalSemua += item.total;
-            
-            return `
-                <tr>
-                    <td><strong>${item.kelas}</strong></td>
-                    <td>${item.laki}</td>
-                    <td>${item.perempuan}</td>
-                    <td><strong>${item.total}</strong></td>
-                </tr>
-            `;
-        }).join('');
-    }
+    let rowsHtml = '';
+    sortedData.forEach(item => {
+        rowsHtml += `
+            <tr>
+                <td><strong>${item.kelas}</strong></td>
+                <td>${formatAngka(item.laki)}</td>
+                <td>${formatAngka(item.perempuan)}</td>
+                <td>${formatAngka(item.mml)}</td>
+                <td>${formatAngka(item.mmp)}</td>
+                <td>${formatAngka(item.mkl)}</td>
+                <td>${formatAngka(item.mkp)}</td>
+                <td>${formatAngkaBold(item.jmll)}</td>
+                <td>${formatAngkaBold(item.jmlp)}</td>
+                <td>${formatAngkaBold(item.total)}</td>
+            </tr>
+        `;
+    });
     
-    document.getElementById('totalLaki').innerHTML = `<strong>${totalLaki}</strong>`;
-    document.getElementById('totalPerempuan').innerHTML = `<strong>${totalPerempuan}</strong>`;
-    document.getElementById('totalSemua').innerHTML = `<strong>${totalSemua}</strong>`;
+    tbody.innerHTML = rowsHtml;
     
-    console.log(`✅ Data dimuat: ${dataSiswa.length} siswa, ${jumlahData.length} kelas`);
+    console.log(`✅ Data jumlah siswa dimuat: ${sortedData.length} baris dari spreadsheet`);
 }
 
-// ============ FUNGSI PENCARIAN ============
-
-function formatTanggal(tanggal) {
-    if (!tanggal || tanggal === '') return '-';
-    try {
-        const tgl = new Date(tanggal);
-        if (isNaN(tgl.getTime())) return tanggal;
-        return tgl.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
-    } catch {
-        return tanggal;
-    }
-}
+// ============ FUNGSI PENCARIAN SISWA ============
 
 async function cariSiswa() {
-    const kelas = document.getElementById('filterKelas').value;
-    const namaQuery = document.getElementById('filterNama').value.trim().toLowerCase();
-    const nisQuery = document.getElementById('filterNIS').value.trim().toLowerCase();
-    const hasilDiv = document.getElementById('hasilSiswa');
+    const kelas = document.getElementById('filterKelas')?.value || '';
+    const nama = document.getElementById('filterNama')?.value?.toLowerCase() || '';
+    const nis = document.getElementById('filterNIS')?.value || '';
     
-    // Tampilkan/sembunyikan tombol clear
-    const btnClearNama = document.getElementById('btnClearNama');
-    const btnClearNIS = document.getElementById('btnClearNIS');
-    if (btnClearNama) btnClearNama.style.display = namaQuery ? 'block' : 'none';
-    if (btnClearNIS) btnClearNIS.style.display = nisQuery ? 'block' : 'none';
+    const container = document.getElementById('hasilSiswa');
+    if (!container) return;
     
-    if (!kelas && !namaQuery && !nisQuery) {
-        hasilDiv.innerHTML = '<p class="info-text"><i class="fas fa-info-circle"></i> Pilih kelas, ketik nama siswa, atau NIS/NISN untuk mencari data</p>';
-        return;
-    }
+    container.innerHTML = '<div class="loading-text"><i class="fas fa-spinner fa-spin"></i> Mencari data...</div>';
     
-    hasilDiv.innerHTML = '<p class="info-text"><i class="fas fa-spinner fa-spin"></i> Memuat data siswa...</p>';
-    
-    const semuaSiswa = await getDetailSiswa();
-    
-    if (semuaSiswa.length === 0) {
-        hasilDiv.innerHTML = `
-            <div class="no-data">
-                <i class="fas fa-exclamation-triangle"></i>
-                <p>⚠️ Tidak dapat mengambil data. Periksa URL Apps Script.</p>
-            </div>
-        `;
-        return;
-    }
-    
-    let siswaFiltered = [...semuaSiswa];
-    
-    if (kelas) {
-        siswaFiltered = siswaFiltered.filter(siswa => siswa.kelas === kelas);
-    }
-    
-    if (namaQuery) {
-        siswaFiltered = siswaFiltered.filter(siswa => 
-            siswa.nama && siswa.nama.toLowerCase().includes(namaQuery)
-        );
-    }
-    
-    if (nisQuery) {
-        siswaFiltered = siswaFiltered.filter(siswa => 
-            (siswa.nis && siswa.nis.toLowerCase().includes(nisQuery)) || 
-            (siswa.nisn && siswa.nisn.toLowerCase().includes(nisQuery))
-        );
-    }
-    
-    console.log(`🔍 Hasil: ${siswaFiltered.length} siswa ditemukan`);
-    
-    if (siswaFiltered.length === 0) {
-        let filterInfo = [];
-        if (kelas) filterInfo.push(`kelas ${kelas}`);
-        if (namaQuery) filterInfo.push(`nama "${document.getElementById('filterNama').value}"`);
-        if (nisQuery) filterInfo.push(`NIS/NISN "${document.getElementById('filterNIS').value}"`);
+    try {
+        const data = await getDetailSiswa();
         
-        hasilDiv.innerHTML = `
-            <div class="no-data">
-                <i class="fas fa-user-graduate"></i>
-                <p>Tidak ada data siswa untuk ${filterInfo.join(' dan ')}</p>
+        if (data.length === 0) {
+            container.innerHTML = `<div class="no-data"><i class="fas fa-exclamation-circle"></i> Tidak ada data siswa ditemukan</div>`;
+            return;
+        }
+        
+        // Filter data
+        let filtered = data;
+        
+        if (kelas) {
+            filtered = filtered.filter(s => s.kelas === kelas);
+        }
+        
+        if (nama) {
+            filtered = filtered.filter(s => s.nama?.toLowerCase().includes(nama));
+        }
+        
+        if (nis) {
+            filtered = filtered.filter(s => s.nis === nis || s.nisn === nis);
+        }
+        
+        if (filtered.length === 0) {
+            container.innerHTML = `<div class="no-data"><i class="fas fa-search"></i> Tidak ada siswa yang ditemukan dengan kriteria tersebut</div>`;
+            return;
+        }
+        
+        // Tampilkan hasil
+        let html = `
+            <div class="statistik-kelas">
+                <div class="stat-item"><i class="fas fa-users"></i> Total Siswa: <span>${filtered.length}</span></div>
+                <div class="stat-item"><i class="fas fa-male"></i> Laki-laki: <span>${filtered.filter(s => s.jenisKelamin === 'L' || s.jenisKelamin === 'Laki-laki').length}</span></div>
+                <div class="stat-item"><i class="fas fa-female"></i> Perempuan: <span>${filtered.filter(s => s.jenisKelamin === 'P' || s.jenisKelamin === 'Perempuan').length}</span></div>
+            </div>
+            <div class="table-wrapper">
+                <table class="tabel-siswa">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>NIS</th>
+                            <th>NISN</th>
+                            <th>NIK</th>
+                            <th>Kelas</th>
+                            <th>JK</th>
+                            <th>Tempat Lahir</th>
+                            <th>Tanggal Lahir</th>
+                            <th>Nama Ayah</th>
+                            <th>NIK Ayah</th>
+                            <th>Nama Ibu</th>
+                            <th>NIK Ibu</th>
+                            <th>No. Telepon</th>
+                            <th>Alamat</th>
+                            <th>Keterangan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        `;
+        
+        filtered.forEach((siswa, index) => {
+            // Sembunyikan NIK
+            const nik = hideNIK(siswa.nik);
+            const nikAyah = hideNIK(siswa.nikAyah);
+            const nikIbu = hideNIK(siswa.nikIbu);
+            
+            html += `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${highlightText(siswa.nama, nama)}</td>
+                    <td>${siswa.nis || '-'}</td>
+                    <td>${siswa.nisn || '-'}</td>
+                    <td>${nik}</td>
+                    <td>${siswa.kelas || '-'}</td>
+                    <td>${siswa.jenisKelamin || '-'}</td>
+                    <td>${siswa.tempatLahir || '-'}</td>
+                    <td>${siswa.tanggalLahir || '-'}</td>
+                    <td>${siswa.namaAyah || '-'}</td>
+                    <td>${nikAyah}</td>
+                    <td>${siswa.namaIbu || '-'}</td>
+                    <td>${nikIbu}</td>
+                    <td>${siswa.nomorTelepon || '-'}</td>
+                    <td>${siswa.alamat || '-'}</td>
+                    <td><span class="status-badge ${siswa.keterangan?.toLowerCase() || ''}">${siswa.keterangan || 'Aktif'}</span></td>
+                </tr>
+            `;
+        });
+        
+        html += `
+                    </tbody>
+                </table>
             </div>
         `;
-        return;
+        
+        container.innerHTML = html;
+        
+    } catch (error) {
+        console.error('Error searching siswa:', error);
+        container.innerHTML = `<div class="no-data"><i class="fas fa-exclamation-triangle"></i> Error: ${error.message}</div>`;
     }
-    
-    const laki = siswaFiltered.filter(s => s.jenisKelamin === 'L' || s.jenisKelamin === 'Laki-laki').length;
-    const perempuan = siswaFiltered.filter(s => s.jenisKelamin === 'P' || s.jenisKelamin === 'Perempuan').length;
-    
-    hasilDiv.innerHTML = `
-        <div class="statistik-kelas">
-            <div class="stat-item"><i class="fas fa-users"></i><span>Total: ${siswaFiltered.length}</span></div>
-            <div class="stat-item"><i class="fas fa-male"></i><span>Laki-laki: ${laki}</span></div>
-            <div class="stat-item"><i class="fas fa-female"></i><span>Perempuan: ${perempuan}</span></div>
-            ${kelas ? `<div class="stat-item"><i class="fas fa-chalkboard"></i><span>Kelas: ${kelas}</span></div>` : ''}
-        </div>
-        <div class="table-wrapper">
-            <table class="tabel-siswa">
-                <thead><tr>
-                    <th>No</th><th>Nama</th><th>NIS</th><th>NISN</th><th>NIK</th><th>Kelas</th>
-                    <th>JK</th><th>Tempat Lahir</th><th>Tgl Lahir</th><th>Nama Ayah</th>
-                    <th>NIK Ayah</th><th>Nama Ibu</th><th>NIK Ibu</th><th>No Telepon</th><th>Alamat</th>
-                </tr></thead>
-                <tbody>
-                    ${siswaFiltered.map((siswa, index) => {
-                        let namaDisplay = siswa.nama || '-';
-                        if (namaQuery && siswa.nama && siswa.nama.toLowerCase().includes(namaQuery)) {
-                            const regex = new RegExp(`(${namaQuery})`, 'gi');
-                            namaDisplay = siswa.nama.replace(regex, '<span class="highlight">$1</span>');
-                        }
-                        return `<tr>
-                            <td>${index + 1}</td>
-                            <td>${namaDisplay}</td>
-                            <td>${siswa.nis || '-'}</td>
-                            <td>${siswa.nisn || '-'}</td>
-                            <td>${siswa.nik || '-'}</td>
-                            <td>${siswa.kelas || '-'}</td>
-                            <td>${siswa.jenisKelamin === 'L' ? 'Laki-laki' : (siswa.jenisKelamin === 'P' ? 'Perempuan' : '-')}</td>
-                            <td>${siswa.tempatLahir || '-'}</td>
-                            <td>${formatTanggal(siswa.tanggalLahir)}</td>
-                            <td>${siswa.namaAyah || '-'}</td>
-                            <td>${siswa.nikAyah || '-'}</td>
-                            <td>${siswa.namaIbu || '-'}</td>
-                            <td>${siswa.nikIbu || '-'}</td>
-                            <td>${siswa.nomorTelepon || siswa.noTelp || '-'}</td>
-                            <td>${siswa.alamat || '-'}</td>
-                        </tr>`;
-                    }).join('')}
-                </tbody>
-            </table>
-        </div>
-    `;
 }
 
-// Reset filter
+// ============ FUNGSI RESET DAN CLEAR ============
+
 function resetFilter() {
-    document.getElementById('filterKelas').value = '';
-    document.getElementById('filterNama').value = '';
-    document.getElementById('filterNIS').value = '';
-    document.getElementById('btnClearNama').style.display = 'none';
-    document.getElementById('btnClearNIS').style.display = 'none';
-    document.getElementById('hasilSiswa').innerHTML = '<p class="info-text"><i class="fas fa-info-circle"></i> Filter telah direset.</p>';
+    const kelas = document.getElementById('filterKelas');
+    const nama = document.getElementById('filterNama');
+    const nis = document.getElementById('filterNIS');
+    const container = document.getElementById('hasilSiswa');
+    
+    if (kelas) kelas.value = '';
+    if (nama) nama.value = '';
+    if (nis) nis.value = '';
+    
+    if (container) {
+        container.innerHTML = `
+            <p class="info-text"><i class="fas fa-info-circle"></i> Pilih kelas, ketik nama siswa, atau NIS/NISN untuk mencari data</p>
+        `;
+    }
+    
+    // Sembunyikan tombol clear
+    const btnClearNama = document.getElementById('btnClearNama');
+    const btnClearNIS = document.getElementById('btnClearNIS');
+    if (btnClearNama) btnClearNama.style.display = 'none';
+    if (btnClearNIS) btnClearNIS.style.display = 'none';
 }
 
 function clearNamaFilter() {
-    document.getElementById('filterNama').value = '';
-    document.getElementById('btnClearNama').style.display = 'none';
-    const kelas = document.getElementById('filterKelas').value;
-    const nis = document.getElementById('filterNIS').value;
-    if (kelas || nis) cariSiswa();
+    const input = document.getElementById('filterNama');
+    const btn = document.getElementById('btnClearNama');
+    if (input) input.value = '';
+    if (btn) btn.style.display = 'none';
 }
 
 function clearNISFilter() {
-    document.getElementById('filterNIS').value = '';
-    document.getElementById('btnClearNIS').style.display = 'none';
-    const kelas = document.getElementById('filterKelas').value;
-    const nama = document.getElementById('filterNama').value;
-    if (kelas || nama) cariSiswa();
+    const input = document.getElementById('filterNIS');
+    const btn = document.getElementById('btnClearNIS');
+    if (input) input.value = '';
+    if (btn) btn.style.display = 'none';
 }
 
-// Real time search
-function setupRealTimeSearch() {
-    const inputNama = document.getElementById('filterNama');
-    const inputNIS = document.getElementById('filterNIS');
-    const filterKelas = document.getElementById('filterKelas');
-    
-    let timeout;
-    if (inputNama) {
-        inputNama.addEventListener('input', () => {
-            document.getElementById('btnClearNama').style.display = inputNama.value ? 'block' : 'none';
-            clearTimeout(timeout);
-            timeout = setTimeout(() => {
-                if (filterKelas.value || inputNama.value.trim() || inputNIS?.value) cariSiswa();
-            }, 500);
-        });
-    }
-    
-    if (inputNIS) {
-        inputNIS.addEventListener('input', () => {
-            document.getElementById('btnClearNIS').style.display = inputNIS.value ? 'block' : 'none';
-            clearTimeout(timeout);
-            timeout = setTimeout(() => {
-                if (filterKelas.value || inputNama?.value.trim() || inputNIS.value) cariSiswa();
-            }, 500);
-        });
-    }
-    
-    if (filterKelas) {
-        filterKelas.addEventListener('change', () => cariSiswa());
+function showError(message) {
+    const tbody = document.getElementById('jumlahSiswaBody');
+    if (tbody) {
+        tbody.innerHTML = `<tr><td colspan="10" class="no-data">⚠️ ${message}</td></tr>`;
     }
 }
+
+// ============ INITIALIZATION ============
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Memuat data...');
+    
+    // Load data
+    fetchAllData();
+    
+    // Event listener untuk filter
+    const filterNama = document.getElementById('filterNama');
+    const filterNIS = document.getElementById('filterNIS');
+    const filterKelas = document.getElementById('filterKelas');
+    
+    if (filterNama) {
+        filterNama.addEventListener('input', function() {
+            const btn = document.getElementById('btnClearNama');
+            if (btn) btn.style.display = this.value ? 'block' : 'none';
+        });
+    }
+    
+    if (filterNIS) {
+        filterNIS.addEventListener('input', function() {
+            const btn = document.getElementById('btnClearNIS');
+            if (btn) btn.style.display = this.value ? 'block' : 'none';
+        });
+    }
+    
+    // Enter key untuk search
+    [filterNama, filterNIS, filterKelas].forEach(input => {
+        if (input) {
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    cariSiswa();
+                }
+            });
+        }
+    });
+    
+    console.log('✅ Aplikasi siap digunakan');
+});
 
 // ============================================
 // ABSENSI SISWA - SESUAI SPREADSHEET
