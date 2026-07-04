@@ -546,7 +546,7 @@
             <p>Informasi Jumlah Siswa dan Data Detail Siswa</p>
         </div>
         
-        <!-- TABEL JUMLAH SISWA PER KELAS + TOTAL -->
+        <!-- TABEL JUMLAH SISWA PER KELAS + MUTASI -->
         <div class="jumlah-siswa">
             <h3><i class="fas fa-chart-bar"></i> Rekap Jumlah Siswa per Kelas</h3>
             <div class="table-wrapper">
@@ -556,25 +556,24 @@
                             <th>Kelas</th>
                             <th>Laki-laki</th>
                             <th>Perempuan</th>
-                            <th>Jumlah</th>
+                            <th>Mutasi Masuk L</th>
+                            <th>Mutasi Masuk P</th>
+                            <th>Mutasi Keluar L</th>
+                            <th>Mutasi Keluar P</th>
+                            <th>Jumlah L</th>
+                            <th>Jumlah P</th>
+                            <th>Total</th>
                         </tr>
                     </thead>
                     <tbody id="jumlahSiswaBody">
-                        <tr><td colspan="4" class="loading-text"><i class="fas fa-spinner fa-spin"></i> Memuat data...</td></tr>
+                        <tr><td colspan="10" class="loading-text"><i class="fas fa-spinner fa-spin"></i> Memuat data...</td></tr>
                     </tbody>
-                    <tfoot id="jumlahSiswaFooter">
-                        <tr class="total-row">
-                            <td><strong>Jumlah</strong></td>
-                            <td id="totalLaki"><strong>0</strong></td>
-                            <td id="totalPerempuan"><strong>0</strong></td>
-                            <td id="totalSemua"><strong>0</strong></td>
-                        </tr>
-                    </tfoot>
+                    
                 </table>
             </div>
         </div>
         
-        <!-- FILTER DAN DETAIL SISWA -->
+        <!-- FILTER DAN DETAIL SISWA (TANPA PERUBAHAN) -->
         <div class="detail-siswa">
             <h3><i class="fas fa-search"></i> Cari Data Siswa</h3>
             
@@ -635,7 +634,249 @@
             </div>
         </div>
     </div>
-</section>          
+</section> 
+
+<!-- MUTASI SISWA SECTION -->
+<section id="mutasi-siswa" class="mutasi-siswa">
+    <div class="container">
+        <div class="section-header">
+            <h2><i class="fas fa-exchange-alt"></i> Mutasi Siswa</h2>
+            <p>Kelola mutasi masuk dan mutasi keluar siswa</p>
+        </div>
+        
+        <div class="mutasi-container">
+            <!-- Pilih Jenis Mutasi - DROPDOWN -->
+            <div class="mutasi-dropdown-wrapper">
+                <label for="jenisMutasi"><i class="fas fa-list"></i> Pilih Jenis Mutasi</label>
+                <select id="jenisMutasi" class="filter-select" onchange="toggleMutasiForm()">
+                    <option value="">-- Pilih Jenis Mutasi --</option>
+                    <option value="masuk">Mutasi Masuk</option>
+                    <option value="keluar">Mutasi Keluar</option>
+                </select>
+            </div>
+            
+            <!-- MUTASI MASUK -->
+            <div id="form-mutasi-masuk" class="mutasi-form-container" style="display:none;">
+                <div class="mutasi-card">
+                    <h3><i class="fas fa-user-plus"></i> Form Mutasi Masuk</h3>
+                    <p class="info-text">Isi biodata siswa baru yang pindah ke sekolah ini</p>
+                    
+                    <form id="formMutasiMasuk" class="mutasi-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Nama Lengkap <span class="required">*</span></label>
+                                <input type="text" id="mm_nama" class="form-control" placeholder="Nama lengkap siswa" required>
+                            </div>
+                            <div class="form-group">
+                                <label>NIS <span class="required">*</span></label>
+                                <input type="text" id="mm_nis" class="form-control" placeholder="Nomor Induk Siswa" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>NISN <span class="required">*</span></label>
+                                <input type="text" id="mm_nisn" class="form-control" placeholder="Nomor Induk Siswa Nasional" required>
+                            </div>
+                            <div class="form-group">
+                                <label>NIK <span class="required">*</span></label>
+                                <input type="text" id="mm_nik" class="form-control" placeholder="Nomor Induk Kependudukan" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Kelas <span class="required">*</span></label>
+                                <select id="mm_kelas" class="form-control" required>
+                                    <option value="">Pilih Kelas</option>
+                                    <option value="1A">Kelas 1A</option>
+                                    <option value="1B">Kelas 1B</option>
+                                    <option value="2A">Kelas 2A</option>
+                                    <option value="2B">Kelas 2B</option>
+                                    <option value="3A">Kelas 3A</option>
+                                    <option value="3B">Kelas 3B</option>
+                                    <option value="4A">Kelas 4A</option>
+                                    <option value="4B">Kelas 4B</option>
+                                    <option value="5A">Kelas 5A</option>
+                                    <option value="5B">Kelas 5B</option>
+                                    <option value="6A">Kelas 6A</option>
+                                    <option value="6B">Kelas 6B</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Jenis Kelamin <span class="required">*</span></label>
+                                <select id="mm_jk" class="form-control" required>
+                                    <option value="">Pilih Jenis Kelamin</option>
+                                    <option value="Laki-laki">Laki-laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Tempat Lahir <span class="required">*</span></label>
+                                <input type="text" id="mm_tempatLahir" class="form-control" placeholder="Tempat lahir" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Tanggal Lahir <span class="required">*</span></label>
+                                <input type="date" id="mm_tanggalLahir" class="form-control" required>
+                            </div>
+                        </div>
+                        
+                        <!-- ASAL SEKOLAH -->
+                        <div class="form-row">
+                            <div class="form-group full-width">
+                                <label>Asal Sekolah <span class="required">*</span></label>
+                                <input type="text" id="mm_sekolah" class="form-control" placeholder="Nama sekolah asal (contoh: SD NEGERI 1 BANDUNG)" required>
+                                <small class="help-text">Masukkan nama sekolah asal siswa sebelum pindah ke sekolah ini</small>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Nama Ayah <span class="required">*</span></label>
+                                <input type="text" id="mm_namaAyah" class="form-control" placeholder="Nama ayah kandung" required>
+                            </div>
+                            <div class="form-group">
+                                <label>NIK Ayah <span class="required">*</span></label>
+                                <input type="text" id="mm_nikAyah" class="form-control" placeholder="NIK ayah" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Nama Ibu <span class="required">*</span></label>
+                                <input type="text" id="mm_namaIbu" class="form-control" placeholder="Nama ibu kandung" required>
+                            </div>
+                            <div class="form-group">
+                                <label>NIK Ibu <span class="required">*</span></label>
+                                <input type="text" id="mm_nikIbu" class="form-control" placeholder="NIK ibu" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Nomor Telepon <span class="required">*</span></label>
+                                <input type="text" id="mm_telepon" class="form-control" placeholder="Nomor telepon yang bisa dihubungi" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Alamat <span class="required">*</span></label>
+                                <input type="text" id="mm_alamat" class="form-control" placeholder="Alamat lengkap" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group full-width">
+                                <label>Kata Kunci Verifikasi <span class="required">*</span></label>
+                                <input type="password" id="mm_password" class="form-control" placeholder="Masukkan kata kunci untuk verifikasi" required>
+                                <small class="help-text">Masukkan kata kunci yang telah diberikan untuk melanjutkan</small>
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn-submit" onclick="submitMutasiMasuk()">
+                                <i class="fas fa-save"></i> Submit Mutasi Masuk
+                            </button>
+                            <button type="reset" class="btn-reset-form" onclick="resetFormMutasiMasuk()">
+                                <i class="fas fa-undo"></i> Reset
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <div id="mm_result" class="mutasi-result" style="display:none;"></div>
+                </div>
+            </div>
+            
+            <!-- MUTASI KELUAR -->
+            <div id="form-mutasi-keluar" class="mutasi-form-container" style="display:none;">
+                <div class="mutasi-card">
+                    <h3><i class="fas fa-user-minus"></i> Form Mutasi Keluar</h3>
+                    <p class="info-text">Cari siswa yang akan dimutasikan keluar</p>
+                    
+                    <div class="mutasi-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Cari Nama Siswa <span class="required">*</span></label>
+                                <div class="search-input-wrapper">
+                                    <input type="text" id="mk_cariNama" class="form-control" placeholder="Ketik nama siswa...">
+                                    <button class="btn-search-student" onclick="cariSiswaMutasi()">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Atau Cari NIS</label>
+                                <div class="search-input-wrapper">
+                                    <input type="text" id="mk_cariNIS" class="form-control" placeholder="Ketik NIS...">
+                                    <button class="btn-search-student" onclick="cariSiswaMutasi()">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="mk_hasilCari" class="mutasi-result"></div>
+                    
+                    <div id="mk_formMutasi" style="display:none;">
+                        <form id="formMutasiKeluar" class="mutasi-form">
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label>Sekolah Tujuan <span class="required">*</span></label>
+                                    <input type="text" id="mk_sekolahTujuan" class="form-control" placeholder="Nama sekolah tujuan pindah" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label>Alamat Sekolah Tujuan <span class="required">*</span></label>
+                                    <input type="text" id="mk_alamatTujuan" class="form-control" placeholder="Alamat sekolah tujuan" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label>Kata Kunci Verifikasi <span class="required">*</span></label>
+                                    <input type="password" id="mk_password" class="form-control" placeholder="Masukkan kata kunci untuk verifikasi" required>
+                                    <small class="help-text">Masukkan kata kunci untuk mengkonfirmasi mutasi keluar</small>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn-submit" onclick="submitMutasiKeluar()">
+                                    <i class="fas fa-sign-out-alt"></i> Mutasikan Siswa
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div id="mk_result" class="mutasi-result" style="display:none;"></div>
+                </div>
+            </div>
+            
+            <!-- HISTORY MUTASI -->
+            <div class="history-mutasi">
+                <h3><i class="fas fa-history"></i> History Mutasi</h3>
+                <div class="table-wrapper">
+                    <table class="tabel-siswa" id="tabelHistoryMutasi">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>NISN</th>
+                                <th>Kelas</th>
+                                <th>Jenis Mutasi</th>
+                                <th>Sekolah</th>
+                                <th>Tanggal</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyMutasiBody">
+                            <tr><td colspan="7" class="loading-text"><i class="fas fa-spinner fa-spin"></i> Memuat history...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>       
 
 <!-- ABSENSI SISWA SECTION -->
 <section id="absensi" class="absensi-section">
