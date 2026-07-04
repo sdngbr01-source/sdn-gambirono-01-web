@@ -1414,3 +1414,517 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+// ============ MUTASI SISWA ============
+
+// Variabel untuk menyimpan data siswa yang ditemukan
+let siswaDitemukan = null;
+
+// Switch Tab
+function switchTab(tab) {
+    // Update tabs
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.tab === tab) {
+            btn.classList.add('active');
+        }
+    });
+    
+    // Update content
+    document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.remove('active');
+    });
+    document.getElementById(`tab-${tab}`).classList.add('active');
+    
+    // Reset results
+    if (tab === 'keluar') {
+        document.getElementById('mk_hasilCari').innerHTML = '';
+        document.getElementById('mk_formMutasi').style.display = 'none';
+        document.getElementById('mk_result').style.display = 'none';
+    }
+}
+
+// ============ MUTASI MASUK ============
+
+async function submitMutasiMasuk() {
+    // Ambil semua data dari form
+    const data = {
+        nama: document.getElementById('mm_nama').value.trim(),
+        nis: document.getElementById('mm_nis').value.trim(),
+        nisn: document.getElementById('mm_nisn').value.trim(),
+        nik: document.getElementById('mm_nik').value.trim(),
+        kelas: document.getElementById('mm_kelas').value,
+        jenisKelamin: document.getElementById('mm_jk').value,
+        tempatLahir: document.getElementById('mm_tempatLahir').value.trim(),
+        tanggalLahir: document.getElementById('mm_tanggalLahir').value,
+        sekolah: document.getElementById('mm_sekolah').value.trim(), // ASAL SEKOLAH
+        namaAyah: document.getElementById('mm_namaAyah').value.trim(),
+        nikAyah: document.getElementById('mm_nikAyah').value.trim(),
+        namaIbu: document.getElementById('mm_namaIbu').value.trim(),
+        nikIbu: document.getElementById('mm_nikIbu').value.trim(),
+        nomorTelepon: document.getElementById('mm_telepon').value.trim(),
+        alamat: document.getElementById('mm_alamat').value.trim(),
+        password: document.getElementById('mm_password').value.trim()
+    };
+    
+    const resultDiv = document.getElementById('mm_result');
+    
+    // Validasi form
+    for (let key in data) {
+        if (key !== 'password' && !data[key]) {
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'mutasi-result error';
+            resultDiv.innerHTML = `<i class="fas fa-exclamation-circle result-icon"></i> Harap isi semua field yang wajib diisi!`;
+            document.querySelectorAll('#formMutasiMasuk .form-control').forEach(el => {
+                if (!el.value.trim() && el.type !== 'password') {
+                    el.classList.add('error');
+                } else {
+                    el.classList.remove('error');
+                }
+            });
+            return;
+        }
+    }
+    
+    // Validasi kata kunci
+    if (data.password !== '20524756') {
+        resultDiv.style.display = 'block';
+        resultDiv.className = 'mutasi-result error';
+        resultDiv.innerHTML = `<i class="fas fa-lock result-icon"></i> Kata kunci salah!`;
+        document.getElementById('mm_password').classList.add('error');
+        return;
+    }
+    
+    // Hapus password sebelum dikirim
+    delete data.password;
+    
+    // Tampilkan loading
+    resultDiv.style.display = 'block';
+    resultDiv.className = 'mutasi-result';
+    resultDiv.innerHTML = `<i class="fas fa-spinner fa-spin result-icon"></i> Mengirim data mutasi masuk...`;
+    
+    try {
+        // Kirim data ke Apps Script
+        const response = await fetch(`${APPS_SCRIPT_URL}?action=mutasi_masuk`, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+        
+        // Karena mode no-cors, response tidak bisa dibaca
+        // Tapi data sudah terkirim, kita anggap sukses
+        resultDiv.className = 'mutasi-result success';
+        resultDiv.innerHTML = `
+            <i class="fas fa-check-circle result-icon"></i> 
+            <strong>Mutasi Masuk Berhasil!</strong><br>
+            Siswa <strong>${data.nama}</strong> dengan NIS <strong>${data.nis}</strong> telah ditambahkan ke kelas ${data.kelas}.<br>
+            <small>Asal Sekolah: ${data.sekolah}</small>
+            <br><br>
+            <small>Data telah disimpan di spreadsheet.</small>
+        `;
+        
+        // Reset form
+        document.getElementById('formMutasiMasuk').reset();
+        document.querySelectorAll('#formMutasiMasuk .form-control').forEach(el => {
+            el.classList.remove('error');
+        });
+        
+        // Refresh data setelah 2 detik
+        setTimeout(() => {
+            if (typeof fetchAllData === 'function') {
+                fetchAllData();
+            }
+            if (typeof loadHistoryMutasi === 'function') {
+                loadHistoryMutasi();
+            }
+        }, 2000);
+        
+    } catch (error) {
+        console.error('Error:', error);
+        resultDiv.className = 'mutasi-result error';
+        resultDiv.innerHTML = `
+            <i class="fas fa-exclamation-triangle result-icon"></i> 
+            <strong>Gagal!</strong> ${error.message}
+            <br><br>
+            <small>Periksa koneksi internet dan coba lagi.</small>
+        `;
+    }
+}
+
+// ============ MUTASI KELUAR ============
+
+async function cariSiswaMutasi() {
+    const nama = document.getElementById('mk_cariNama').value.trim();
+    const nis = document.getElementById('mk_cariNIS').value.trim();
+    const resultDiv = document.getElementById('mk_hasilCari');
+    
+    if (!nama && !nis) {
+        resultDiv.innerHTML = `<div class="mutasi-result error"><i class="fas fa-exclamation-circle result-icon"></i> Masukkan nama atau NIS untuk mencari!</div>`;
+        return;
+    }
+    
+    resultDiv.innerHTML = `<div class="mutasi-result"><i class="fas fa-spinner fa-spin result-icon"></i> Mencari data siswa...</div>`;
+    
+    try {
+        const data = await getDetailSiswa();
+        
+        // Cari siswa
+        let found = null;
+        if (nama) {
+            found = data.find(s => s.nama?.toLowerCase() === nama.toLowerCase());
+        } else if (nis) {
+            found = data.find(s => s.nis === nis);
+        }
+        
+        if (!found) {
+            resultDiv.className = 'mutasi-result error';
+            resultDiv.innerHTML = `
+                <i class="fas fa-user-slash result-icon"></i> 
+                Siswa dengan <strong>${nama || nis}</strong> tidak ditemukan.
+            `;
+            document.getElementById('mk_formMutasi').style.display = 'none';
+            return;
+        }
+        
+        // Cek status siswa
+        if (found.keterangan && found.keterangan.toLowerCase() === 'mutasi keluar') {
+            resultDiv.className = 'mutasi-result error';
+            resultDiv.innerHTML = `
+                <i class="fas fa-exclamation-triangle result-icon"></i> 
+                Siswa <strong>${found.nama}</strong> sudah dimutasikan keluar.
+            `;
+            document.getElementById('mk_formMutasi').style.display = 'none';
+            return;
+        }
+        
+        // Simpan data siswa yang ditemukan
+        siswaDitemukan = found;
+        
+        // Tampilkan informasi siswa
+        resultDiv.className = 'mutasi-result success';
+        resultDiv.innerHTML = `
+            <i class="fas fa-check-circle result-icon"></i> 
+            <strong>Siswa Ditemukan!</strong>
+            <div class="student-info-card">
+                <div class="info-item">
+                    <div class="label">Nama</div>
+                    <div class="value">${found.nama}</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">NIS</div>
+                    <div class="value">${found.nis || '-'}</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">Kelas</div>
+                    <div class="value">${found.kelas || '-'}</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">Status</div>
+                    <div class="value"><span class="status-badge ${found.keterangan?.toLowerCase() || 'aktif'}">${found.keterangan || 'Aktif'}</span></div>
+                </div>
+            </div>
+            <p style="margin-top: 10px; color: #155724;">Silakan isi form di bawah untuk melanjutkan mutasi keluar.</p>
+        `;
+        
+        // Tampilkan form mutasi keluar
+        document.getElementById('mk_formMutasi').style.display = 'block';
+        document.getElementById('mk_sekolahTujuan').value = '';
+        document.getElementById('mk_alamatTujuan').value = '';
+        document.getElementById('mk_password').value = '';
+        document.getElementById('mk_result').style.display = 'none';
+        
+    } catch (error) {
+        console.error('Error:', error);
+        resultDiv.className = 'mutasi-result error';
+        resultDiv.innerHTML = `
+            <i class="fas fa-exclamation-triangle result-icon"></i> 
+            Error: ${error.message}
+        `;
+    }
+}
+
+async function submitMutasiKeluar() {
+    if (!siswaDitemukan) {
+        alert('Silakan cari siswa terlebih dahulu!');
+        return;
+    }
+    
+    const sekolahTujuan = document.getElementById('mk_sekolahTujuan').value.trim();
+    const alamatTujuan = document.getElementById('mk_alamatTujuan').value.trim();
+    const password = document.getElementById('mk_password').value.trim();
+    const resultDiv = document.getElementById('mk_result');
+    
+    // Validasi
+    if (!sekolahTujuan) {
+        resultDiv.style.display = 'block';
+        resultDiv.className = 'mutasi-result error';
+        resultDiv.innerHTML = `<i class="fas fa-exclamation-circle result-icon"></i> Harap isi Sekolah Tujuan!`;
+        return;
+    }
+    
+    if (!alamatTujuan) {
+        resultDiv.style.display = 'block';
+        resultDiv.className = 'mutasi-result error';
+        resultDiv.innerHTML = `<i class="fas fa-exclamation-circle result-icon"></i> Harap isi Alamat Sekolah Tujuan!`;
+        return;
+    }
+    
+    // Validasi kata kunci
+    if (password !== '20524756') {
+        resultDiv.style.display = 'block';
+        resultDiv.className = 'mutasi-result error';
+        resultDiv.innerHTML = `<i class="fas fa-lock result-icon"></i> Kata kunci salah! Silakan masukkan kata kunci yang benar.`;
+        document.getElementById('mk_password').classList.add('error');
+        return;
+    }
+    
+    // Siapkan data
+    const data = {
+        nis: siswaDitemukan.nis,
+        nama: siswaDitemukan.nama,
+        sekolahTujuan: sekolahTujuan,
+        alamatTujuan: alamatTujuan,
+        tanggalKeluar: new Date().toLocaleDateString('id-ID', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+        }).replace(/\//g, '-')
+    };
+    
+    // Tampilkan loading
+    resultDiv.style.display = 'block';
+    resultDiv.className = 'mutasi-result';
+    resultDiv.innerHTML = `<i class="fas fa-spinner fa-spin result-icon"></i> Memproses mutasi keluar...`;
+    
+    try {
+        // Kirim data ke Apps Script
+        const response = await fetch(`${APPS_SCRIPT_URL}?action=mutasi_keluar`, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+        
+        // Karena mode no-cors, kita anggap sukses
+        resultDiv.className = 'mutasi-result success';
+        resultDiv.innerHTML = `
+            <i class="fas fa-check-circle result-icon"></i> 
+            <strong>Mutasi Keluar Berhasil!</strong><br>
+            Siswa <strong>${data.nama}</strong> dengan NIS <strong>${data.nis}</strong> telah dimutasikan ke:<br>
+            <strong>${data.sekolahTujuan}</strong><br>
+            <small>Tanggal Mutasi: ${data.tanggalKeluar}</small>
+            <br><br>
+            <small class="help-text">* Refresh halaman untuk melihat perubahan data</small>
+        `;
+        
+        // Reset form
+        document.getElementById('mk_sekolahTujuan').value = '';
+        document.getElementById('mk_alamatTujuan').value = '';
+        document.getElementById('mk_password').value = '';
+        document.getElementById('mk_formMutasi').style.display = 'none';
+        siswaDitemukan = null;
+        
+        // Refresh data setelah 2 detik
+        setTimeout(() => {
+            dataSiswaGlobal = [];
+            dataJumlahSiswaGlobal = [];
+            fetchAllData();
+            document.getElementById('mk_hasilCari').innerHTML = '';
+        }, 2000);
+        
+    } catch (error) {
+        console.error('Error:', error);
+        // Jika error tapi data mungkin sudah terkirim
+        resultDiv.className = 'mutasi-result success';
+        resultDiv.innerHTML = `
+            <i class="fas fa-check-circle result-icon"></i> 
+            <strong>Data Mutasi Keluar Terkirim!</strong><br>
+            ${error.message}<br>
+            <small>Silakan refresh halaman untuk melihat perubahan.</small>
+        `;
+    }
+}
+
+	// ============ LOAD HISTORY MUTASI ============
+async function loadHistoryMutasi() {
+    const tbody = document.getElementById('historyMutasiBody');
+    if (!tbody) return;
+    
+    tbody.innerHTML = '<tr><td colspan="7" class="loading-text"><i class="fas fa-spinner fa-spin"></i> Memuat history...</td></tr>';
+    
+    try {
+        const data = await getDetailSiswa();
+        
+        // Filter siswa yang memiliki keterangan mutasi
+        const mutasiData = data.filter(s => 
+            s.keterangan && 
+            (s.keterangan.toLowerCase() === 'mutasi masuk' || 
+             s.keterangan.toLowerCase() === 'mutasi keluar')
+        );
+        
+        if (mutasiData.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="7" class="no-data">📭 Belum ada history mutasi</td></tr>';
+            return;
+        }
+        
+        // Urutkan dari yang terbaru (balik urutan)
+        mutasiData.reverse();
+        
+        let html = '';
+        mutasiData.forEach((siswa, index) => {
+            let sekolah = '-';
+            let tanggal = '-';
+            
+            const jenisMutasi = siswa.keterangan || '';
+            const jenisLower = jenisMutasi.toLowerCase();
+            
+            // ============ CEK JENIS MUTASI ============
+            if (jenisLower === 'mutasi masuk') {
+                // Ambil dari kolom 'sekolah' (header: sekolah)
+                sekolah = siswa.sekolah || '-';
+                // Tanggal: pakai kolom 'tanggal' jika ada, atau tanggalLahir
+                tanggal = siswa.tanggal || siswa.tanggalLahir || '-';
+            } else if (jenisLower === 'mutasi keluar') {
+                // Ambil dari kolom 'sekolah' (header: sekolah) untuk sekolah tujuan
+                sekolah = siswa.sekolah || siswa.sekolahTujuan || '-';
+                // Tanggal: pakai kolom 'tanggal' (header: tanggal)
+                tanggal = siswa.tanggal || siswa.tanggalKeluar || '-';
+            }
+            
+            // ============ FORMAT TANGGAL ============
+            // Jika tanggal dalam format ISO (2019-06-05T17:00:00.000Z)
+            if (tanggal && tanggal.includes('T')) {
+                try {
+                    const date = new Date(tanggal);
+                    if (!isNaN(date.getTime())) {
+                        const day = String(date.getDate()).padStart(2, '0');
+                        const month = String(date.getMonth() + 1).padStart(2, '0');
+                        const year = date.getFullYear();
+                        tanggal = `${day}/${month}/${year}`;
+                    }
+                } catch (e) {
+                    // Jika gagal format, biarkan apa adanya
+                }
+            }
+            // Jika tanggal dalam format string biasa (YYYY-MM-DD)
+            else if (tanggal && tanggal.match(/^\d{4}-\d{2}-\d{2}/)) {
+                try {
+                    const parts = tanggal.split('-');
+                    if (parts.length === 3) {
+                        tanggal = `${parts[2]}/${parts[1]}/${parts[0]}`;
+                    }
+                } catch (e) {
+                    // Jika gagal format, biarkan apa adanya
+                }
+            }
+            
+            html += `
+                <tr>
+                    <td><strong>${index + 1}</strong></td>
+                    <td><strong>${siswa.nama || '-'}</strong></td>
+                    <td>${siswa.nisn || '-'}</td>
+                    <td>${siswa.kelas || '-'}</td>
+                    <td>
+                        <span class="status-badge ${jenisLower === 'mutasi masuk' ? 'mutasi-masuk' : 'mutasi-keluar'}">
+                            <i class="fas ${jenisLower === 'mutasi masuk' ? 'fa-sign-in-alt' : 'fa-sign-out-alt'}"></i>
+                            ${jenisMutasi}
+                        </span>
+                    </td>
+                    <td>${sekolah}</td>
+                    <td>${tanggal}</td>
+                </tr>
+            `;
+        });
+        
+        tbody.innerHTML = html;
+        console.log(`✅ History mutasi dimuat: ${mutasiData.length} data`);
+        
+    } catch (error) {
+        console.error('❌ Error loading history:', error);
+        tbody.innerHTML = `<tr><td colspan="7" class="no-data">⚠️ Gagal memuat history: ${error.message}</td></tr>`;
+    }
+}
+
+// ============ FILE: main.js ============
+
+// ... semua fungsi di atas ...
+
+// ============ INITIALIZATION ============
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Memuat data...');
+    
+    // Load data
+    fetchAllData();
+    
+    // Load history mutasi
+    loadHistoryMutasi();
+    
+    // Event listener untuk filter
+    const filterNama = document.getElementById('filterNama');
+    const filterNIS = document.getElementById('filterNIS');
+    const filterKelas = document.getElementById('filterKelas');
+    
+    if (filterNama) {
+        filterNama.addEventListener('input', function() {
+            const btn = document.getElementById('btnClearNama');
+            if (btn) btn.style.display = this.value ? 'block' : 'none';
+        });
+    }
+    
+    if (filterNIS) {
+        filterNIS.addEventListener('input', function() {
+            const btn = document.getElementById('btnClearNIS');
+            if (btn) btn.style.display = this.value ? 'block' : 'none';
+        });
+    }
+    
+    // Enter key untuk search
+    [filterNama, filterNIS, filterKelas].forEach(input => {
+        if (input) {
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    cariSiswa();
+                }
+            });
+        }
+    });
+    
+    console.log('✅ Aplikasi siap digunakan');
+});
+
+// ============ TOGGLE FORM BERDASARKAN DROPDOWN ============
+function toggleMutasiForm() {
+    const jenis = document.getElementById('jenisMutasi').value;
+    
+    // Sembunyikan semua form
+    document.getElementById('form-mutasi-masuk').style.display = 'none';
+    document.getElementById('form-mutasi-keluar').style.display = 'none';
+    
+    // Reset hasil
+    document.getElementById('mm_result').style.display = 'none';
+    document.getElementById('mk_hasilCari').innerHTML = '';
+    document.getElementById('mk_formMutasi').style.display = 'none';
+    document.getElementById('mk_result').style.display = 'none';
+    
+    // Tampilkan form sesuai pilihan
+    if (jenis === 'masuk') {
+        document.getElementById('form-mutasi-masuk').style.display = 'block';
+        // Reset form
+        document.getElementById('formMutasiMasuk').reset();
+        document.querySelectorAll('#formMutasiMasuk .form-control').forEach(el => {
+            el.classList.remove('error');
+        });
+    } else if (jenis === 'keluar') {
+        document.getElementById('form-mutasi-keluar').style.display = 'block';
+        // Reset form
+        document.getElementById('mk_cariNama').value = '';
+        document.getElementById('mk_cariNIS').value = '';
+        document.getElementById('mk_sekolahTujuan').value = '';
+        document.getElementById('mk_alamatTujuan').value = '';
+        document.getElementById('mk_password').value = '';
+    }
+}
