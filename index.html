@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8NGHM4N6DX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-8NGHM4N6DX');
+    </script>
+	
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SDN Gambirono 01 - Sekolah Dasar Negeri Gambirono</title>
@@ -73,6 +81,93 @@
 				 </div>
 				<div>
 				 </div>
+
+<!-- ============ TOTAL PENGUNJUNG SECTION ============ -->
+<section id="total-pengunjung" class="total-pengunjung">
+    <div class="container">
+        <div class="section-header">
+            <h2><i class="fas fa-chart-line"></i> Total Pengunjung</h2>
+            <p>Statistik kunjungan website SDN Gambirono 01</p>
+        </div>
+        
+        <div class="pengunjung-container">
+            <!-- Card Total Pengunjung -->
+            <div class="pengunjung-card total-card">
+                <div class="card-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Total Pengunjung</h3>
+                    <div class="card-number" id="totalPengunjung">0</div>
+                    <p class="card-subtitle">Sejak website diluncurkan</p>
+                </div>
+                <div class="card-trend">
+                    <span class="trend-up"><i class="fas fa-arrow-up"></i> +12%</span>
+                </div>
+            </div>
+            
+            <!-- Card Pengunjung Hari Ini -->
+            <div class="pengunjung-card hari-ini-card">
+                <div class="card-icon">
+                    <i class="fas fa-user-clock"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Hari Ini</h3>
+                    <div class="card-number" id="pengunjungHariIni">0</div>
+                    <p class="card-subtitle">Pengunjung hari ini</p>
+                </div>
+                <div class="card-trend">
+                    <span class="trend-up"><i class="fas fa-arrow-up"></i> Aktif</span>
+                </div>
+            </div>
+            
+            <!-- Card Pengunjung Minggu Ini -->
+            <div class="pengunjung-card minggu-ini-card">
+                <div class="card-icon">
+                    <i class="fas fa-calendar-week"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Minggu Ini</h3>
+                    <div class="card-number" id="pengunjungMingguIni">0</div>
+                    <p class="card-subtitle">7 hari terakhir</p>
+                </div>
+                <div class="card-trend">
+                    <span class="trend-up"><i class="fas fa-arrow-up"></i> +8%</span>
+                </div>
+            </div>
+            
+            <!-- Card Pengunjung Bulan Ini -->
+            <div class="pengunjung-card bulan-ini-card">
+                <div class="card-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Bulan Ini</h3>
+                    <div class="card-number" id="pengunjungBulanIni">0</div>
+                    <p class="card-subtitle">30 hari terakhir</p>
+                </div>
+                <div class="card-trend">
+                    <span class="trend-up"><i class="fas fa-arrow-up"></i> +5%</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Live Visitor (Real-time) -->
+        <div class="live-visitor">
+            <div class="live-visitor-card">
+                <div class="live-dot">
+                    <span class="pulse"></span>
+                </div>
+                <div class="live-content">
+                    <h4>Pengunjung Aktif Saat Ini</h4>
+                    <div class="live-number" id="liveVisitor">0</div>
+                    <p class="live-subtitle">Sedang melihat website</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+				
     <div class="container">
         <div class="section-header">
             <h2><i class="fas fa-calendar-alt"></i> Kalender Pendidikan</h2>
@@ -1994,5 +2089,6 @@
 <script src="js/kalender.js"></script>
 <script src="js/spmb-script.js"></script>
 <script src="js/alumni.js"></script>
+<script src="js/analitik.js"></script>
 </body>
 </html>
