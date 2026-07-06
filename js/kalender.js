@@ -72,7 +72,7 @@ async function renderDashboard() {
     container.innerHTML = `
         <div style="text-align:center;padding:40px;">
             <i class="fas fa-spinner fa-spin" style="font-size:30px;color:#1a3a5c;"></i>
-            <p style="margin-top:12px;color:#94a3b8;">Mengambil data dari spreadsheet...</p>
+            <p style="margin-top:12px;color:#94a3b8;">Mengambil data </p>
         </div>
     `;
     
