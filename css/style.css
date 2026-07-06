@@ -4970,3 +4970,284 @@ window.addEventListener('scroll', function() {
         max-width: 100%;
     }
 }
+
+
+
+/* ============ TOTAL PENGUNJUNG SECTION ============ */
+.total-pengunjung {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+}
+
+.pengunjung-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.pengunjung-card {
+    background: white;
+    border-radius: 20px;
+    padding: 25px 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.pengunjung-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+}
+
+.pengunjung-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+}
+
+/* Warna Card */
+.total-card::before {
+    background: linear-gradient(135deg, #2c3e50, #3498db);
+}
+.hari-ini-card::before {
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+}
+.minggu-ini-card::before {
+    background: linear-gradient(135deg, #f39c12, #f1c40f);
+}
+.bulan-ini-card::before {
+    background: linear-gradient(135deg, #8e44ad, #9b59b6);
+}
+
+/* Card Icon */
+.card-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    flex-shrink: 0;
+    color: white;
+}
+
+.total-card .card-icon {
+    background: linear-gradient(135deg, #2c3e50, #3498db);
+}
+.hari-ini-card .card-icon {
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+}
+.minggu-ini-card .card-icon {
+    background: linear-gradient(135deg, #f39c12, #f1c40f);
+}
+.bulan-ini-card .card-icon {
+    background: linear-gradient(135deg, #8e44ad, #9b59b6);
+}
+
+/* Card Content */
+.card-content {
+    flex: 1;
+}
+
+.card-content h3 {
+    font-size: 0.85rem;
+    color: #7f8c8d;
+    font-weight: 500;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.card-number {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #2c3e50;
+    line-height: 1.2;
+}
+
+.card-number.animate {
+    animation: countUp 0.8s ease-out;
+}
+
+@keyframes countUp {
+    from {
+        opacity: 0;
+        transform: scale(0.5) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.card-subtitle {
+    font-size: 0.75rem;
+    color: #95a5a6;
+    margin-top: 5px;
+}
+
+/* Card Trend */
+.card-trend {
+    flex-shrink: 0;
+}
+
+.trend-up {
+    background: #d4edda;
+    color: #155724;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.trend-down {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Live Visitor */
+.live-visitor {
+    margin-top: 20px;
+}
+
+.live-visitor-card {
+    background: linear-gradient(135deg, #1a252f, #2c3e50);
+    border-radius: 20px;
+    padding: 25px 35px;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    animation: pulseGlow 2s infinite;
+}
+
+@keyframes pulseGlow {
+    0%, 100% {
+        box-shadow: 0 10px 30px rgba(52,152,219,0.1);
+    }
+    50% {
+        box-shadow: 0 10px 50px rgba(52,152,219,0.25);
+    }
+}
+
+.live-dot {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.pulse {
+    display: block;
+    width: 16px;
+    height: 16px;
+    background: #2ecc71;
+    border-radius: 50%;
+    position: relative;
+}
+
+.pulse::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 50%;
+    background: rgba(46, 204, 113, 0.3);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+.live-content {
+    flex: 1;
+}
+
+.live-content h4 {
+    color: rgba(255,255,255,0.7);
+    font-size: 0.85rem;
+    font-weight: 400;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.live-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2ecc71;
+    line-height: 1.2;
+}
+
+.live-subtitle {
+    color: rgba(255,255,255,0.5);
+    font-size: 0.8rem;
+    margin-top: 5px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .total-pengunjung {
+        padding: 50px 0;
+    }
+    
+    .pengunjung-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+    
+    .pengunjung-card {
+        padding: 20px;
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .card-number {
+        font-size: 1.8rem;
+    }
+    
+    .live-visitor-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+    
+    .live-number {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .pengunjung-container {
+        grid-template-columns: 1fr;
+    }
+}
