@@ -850,43 +850,41 @@ async function loadHistoryMutasi() {
     tbody.innerHTML = '<tr><td colspan="7" class="loading-text"><i class="fas fa-spinner fa-spin"></i> Memuat history...</td></tr>';
     
     try {
-        const dataSiswa = await getDetailSiswa();
+        // LANGSUNG panggil APPS_SCRIPT_URL dengan parameter sheet=mutasi
+        const response = await fetch(`${APPS_SCRIPT_URL}?sheet=mutasi`);
         
-        if (!dataSiswa || dataSiswa.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="7" class="no-data">📭 Belum ada data siswa</td></tr>';
-            return;
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
         
-        // Filter siswa yang memiliki keterangan mutasi
-        const mutasiData = dataSiswa.filter(s => {
-            const keterangan = (s.keterangan || '').toLowerCase().trim();
-            return keterangan === 'mutasi masuk' || keterangan === 'mutasi keluar';
-        });
+        const result = await response.json();
         
-        if (mutasiData.length === 0) {
+        if (result.error) {
+            throw new Error(result.error);
+        }
+        
+        let dataMutasi = result.data || [];
+        
+        if (dataMutasi.length === 0) {
             tbody.innerHTML = '<tr><td colspan="7" class="no-data">📭 Belum ada history mutasi</td></tr>';
             return;
         }
         
-        // Sorting dari terbaru ke terlama (berdasarkan Tanggal)
-        mutasiData.sort((a, b) => {
+        // Sorting dari terbaru ke terlama
+        dataMutasi.sort((a, b) => {
             const dateA = a.Tanggal || a.tanggal || '';
             const dateB = b.Tanggal || b.tanggal || '';
             
             const parseDateNumber = (dateStr) => {
                 if (!dateStr) return 0;
-                
-                // Format YYYY-MM-DD
                 if (typeof dateStr === 'string' && dateStr.match(/^(\d{4})-(\d{2})-(\d{2})/)) {
                     const match = dateStr.match(/^(\d{4})-(\d{2})-(\d{2})/);
                     return parseInt(match[1]) * 10000 + parseInt(match[2]) * 100 + parseInt(match[3]);
                 }
-                // Format DD/MM/YYYY
                 if (typeof dateStr === 'string' && dateStr.match(/^(\d{2})\/(\d{2})\/(\d{4})/)) {
                     const match = dateStr.match(/^(\d{2})\/(\d{2})\/(\d{4})/);
                     return parseInt(match[3]) * 10000 + parseInt(match[2]) * 100 + parseInt(match[1]);
                 }
-                // Format DD-MM-YYYY
                 if (typeof dateStr === 'string' && dateStr.match(/^(\d{2})-(\d{2})-(\d{4})/)) {
                     const match = dateStr.match(/^(\d{2})-(\d{2})-(\d{4})/);
                     return parseInt(match[3]) * 10000 + parseInt(match[2]) * 100 + parseInt(match[1]);
@@ -897,14 +895,14 @@ async function loadHistoryMutasi() {
             const numA = parseDateNumber(dateA);
             const numB = parseDateNumber(dateB);
             
-            if (numA > 0 && numB > 0) return numB - numA; // Terbaru dulu
+            if (numA > 0 && numB > 0) return numB - numA;
             if (numA > 0 && numB === 0) return -1;
             if (numA === 0 && numB > 0) return 1;
             return 0;
         });
         
         let html = '';
-        mutasiData.forEach((siswa, index) => {
+        dataMutasi.forEach((siswa, index) => {
             const jenisMutasi = siswa.keterangan || '';
             const jenisLower = jenisMutasi.toLowerCase();
             
@@ -914,7 +912,6 @@ async function loadHistoryMutasi() {
             let sekolah = siswa.Sekolah || siswa.sekolah || '-';
             let tanggal = siswa.Tanggal || siswa.tanggal || '-';
             
-            // Format tanggal ke DD/MM/YYYY
             tanggal = formatTanggal(tanggal);
             
             html += `
@@ -936,7 +933,7 @@ async function loadHistoryMutasi() {
         });
         
         tbody.innerHTML = html;
-        console.log(`✅ History mutasi dimuat: ${mutasiData.length} data`);
+        console.log(`✅ History mutasi dimuat: ${dataMutasi.length} data`);
         
     } catch (error) {
         console.error('❌ Error loading history:', error);
