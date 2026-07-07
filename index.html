@@ -19,6 +19,7 @@
 	 <link rel="stylesheet" href="css/spmb-style.css">
 	<link rel="stylesheet" href="css/alumni.css">
 	<link rel="stylesheet" href="css/kalender.css">
+	<link rel="stylesheet" href="css/prestasi.css">
 </head>
 <body>
     <!-- NAVBAR -->
@@ -39,6 +40,7 @@
 					<li><a href="#profil">Profil Sekolah</a></li>
 					
                     <li><a href="#guru">Guru & Tendik</a></li>
+					<li><a href="#prestasi">Prestasi Siswa</a></li>
 					 <li><a href="#jurnal">Jurnal Siswa</a></li>
                      <li><a href="#tryout-tka">Assesment</a></li>
 		    
@@ -634,6 +636,28 @@
         </div>
     </div>
 </section>
+
+<!-- ============ SECTION PRESTASI ============ -->
+<section class="prestasi-section" id="prestasi">
+    <div class="container">
+        <div class="section-title">
+            <h2><i class="fas fa-trophy"></i> Prestasi Siswa</h2>
+            <p>Berbagai prestasi yang telah diraih oleh siswa-siswi kami</p>
+        </div>
+
+        <!-- Filter Tahun -->
+        <div class="prestasi-filter" id="prestasiFilter">
+            <div id="filterButtons" style="display:inline-flex; flex-wrap:wrap; gap:8px; justify-content:center;"></div>
+        </div>
+
+        <!-- Grid Prestasi -->
+        <div class="prestasi-grid" id="prestasiContainer">
+            <!-- Akan diisi oleh JavaScript -->
+        </div>
+    </div>
+</section>
+
+	
 <!-- DATA SISWA SECTION -->
 <section id="data-siswa" class="data-siswa">
     <div class="container">
@@ -2090,6 +2114,7 @@
 
  <script src="js/main.js"></script>
 		<script src="js/analitik.js"></script>
+		<script src="js/prestasi.js"></script>
 		<script src="js/datasiswa.js"></script>
 <script src="js/kalender.js"></script>
 <script src="js/spmb-script.js"></script>
