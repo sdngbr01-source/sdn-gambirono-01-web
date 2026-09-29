@@ -3128,7 +3128,7 @@ section .container {
     }
 }
 /* ============================================ */
-/* TRACKING IJAZAH SECTION */
+/* TRACKING IJAZAH SECTION - REBUILD            */
 /* ============================================ */
 
 .tracking-ijazah {
@@ -3147,22 +3147,27 @@ section .container {
 }
 
 .tracking-container {
-    max-width: 550px;
+    max-width: 600px;
     margin: 0 auto;
 }
 
-/* Login Card */
+/* ============================================ */
+/* ANIMASI                                       */
+/* ============================================ */
 .tracking-login,
 .hasil-tracking {
     animation: fadeInUp 0.5s ease;
 }
 
+/* ============================================ */
+/* LOGIN CARD                                    */
+/* ============================================ */
 .tracking-card {
     background: white;
     border-radius: 25px;
     padding: 40px 35px;
     text-align: center;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
 }
 
 .tracking-icon {
@@ -3206,7 +3211,7 @@ section .container {
 
 .input-group:focus-within {
     border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
 .input-group i {
@@ -3222,6 +3227,7 @@ section .container {
     font-size: 1rem;
     font-family: 'Poppins', sans-serif;
     outline: none;
+    background: transparent;
 }
 
 .input-group input::placeholder {
@@ -3245,7 +3251,7 @@ section .container {
 
 .btn-track:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(102,126,234,0.4);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
 }
 
 .btn-track i {
@@ -3259,7 +3265,9 @@ section .container {
     margin-bottom: 0 !important;
 }
 
-/* Error Message */
+/* ============================================ */
+/* ERROR MESSAGE                                 */
+/* ============================================ */
 .error-message {
     background: #fee;
     color: #e74c3c;
@@ -3274,12 +3282,14 @@ section .container {
     margin-right: 8px;
 }
 
-/* Hasil Tracking Card */
+/* ============================================ */
+/* RESULT CARD                                   */
+/* ============================================ */
 .tracking-result-card {
     background: white;
     border-radius: 25px;
     overflow: hidden;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
 }
 
 .result-header {
@@ -3296,11 +3306,12 @@ section .container {
 .result-icon {
     width: 50px;
     height: 50px;
-    background: rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.2);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 
 .result-icon i {
@@ -3312,10 +3323,11 @@ section .container {
     flex: 1;
     font-size: 1.3rem;
     margin: 0;
+    min-width: 0;
 }
 
 .btn-logout {
-    background: rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.2);
     border: none;
     padding: 8px 18px;
     border-radius: 30px;
@@ -3324,21 +3336,26 @@ section .container {
     font-family: 'Poppins', sans-serif;
     font-size: 0.85rem;
     transition: all 0.3s;
+    flex-shrink: 0;
 }
 
 .btn-logout:hover {
-    background: rgba(255,255,255,0.3);
+    background: rgba(255, 255, 255, 0.3);
 }
 
-/* Result Body */
+/* ============================================ */
+/* RESULT BODY - TABEL RAPI                     */
+/* ============================================ */
 .result-body {
-    padding: 30px;
+    padding: 24px 30px;
 }
 
 .info-row {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 12px 0;
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 12px 16px;
+    align-items: start;
+    padding: 14px 0;
     border-bottom: 1px solid #f0f0f0;
 }
 
@@ -3347,48 +3364,104 @@ section .container {
 }
 
 .info-label {
-    width: 140px;
+    display: flex;
+    align-items: center;
     font-weight: 600;
     color: #555;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    padding-top: 2px;
 }
 
 .info-label i {
     width: 25px;
     color: #667eea;
     margin-right: 8px;
+    flex-shrink: 0;
+    text-align: center;
 }
 
 .info-value {
-    flex: 1;
     color: #333;
     font-weight: 500;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    white-space: normal;
+    min-width: 0;
 }
 
-/* Link Ijazah */
+/* Nomor Ijazah & Transkrip - panjang, perlu style khusus */
+#resultNomorIjazah,
+#resultNomorTranskrip {
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    color: #1e40af;
+    background: #eff6ff;
+    padding: 6px 12px;
+    border-radius: 8px;
+    display: inline-block;
+    max-width: 100%;
+    word-break: break-all;
+    overflow-wrap: anywhere;
+    font-size: 0.9rem;
+}
+
+/* ============================================ */
+/* LINK IJAZAH                                   */
+/* ============================================ */
+#linkContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
 .ijazah-link {
     display: inline-flex;
     align-items: center;
     gap: 8px;
     background: #27ae60;
     color: white;
-    padding: 8px 20px;
+    padding: 10px 24px;
     border-radius: 30px;
     text-decoration: none;
     font-size: 0.85rem;
-    font-weight: 500;
+    font-weight: 600;
     transition: all 0.3s;
+    border: none;
+    cursor: pointer;
 }
 
 .ijazah-link:hover {
     background: #219a52;
-    transform: scale(1.02);
+    transform: translateY(-2px);
+    color: white;
+    text-decoration: none;
 }
 
 .ijazah-link i {
     font-size: 0.9rem;
 }
 
-/* Result Footer */
+.ijazah-link-disabled {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #95a5a6;
+    color: white;
+    padding: 10px 24px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: not-allowed;
+    border: none;
+}
+
+/* ============================================ */
+/* RESULT FOOTER                                 */
+/* ============================================ */
 .result-footer {
     background: #f8f9fa;
     padding: 15px 30px;
@@ -3413,7 +3486,9 @@ section .container {
     color: #666;
 }
 
-/* Loading */
+/* ============================================ */
+/* LOADING                                       */
+/* ============================================ */
 .tracking-loading {
     background: white;
     border-radius: 25px;
@@ -3431,93 +3506,72 @@ section .container {
     color: #666;
 }
 
-/* Responsive */
+/* ============================================ */
+/* RESPONSIVE - MOBILE                          */
+/* ============================================ */
 @media (max-width: 768px) {
     .tracking-ijazah {
         padding: 50px 0;
     }
-    
+
+    .tracking-container {
+        max-width: 100%;
+        padding: 0 15px;
+    }
+
     .tracking-card {
         padding: 30px 25px;
     }
-    
+
     .tracking-card h3 {
         font-size: 1.3rem;
     }
-    
-    .info-label {
-        width: 100%;
-        margin-bottom: 5px;
+
+    .result-body {
+        padding: 18px 20px;
     }
-    
+
+    /* Grid jadi 1 kolom di mobile */
     .info-row {
-        flex-direction: column;
+        grid-template-columns: 1fr;
+        gap: 6px;
+        padding: 12px 0;
     }
-    
+
+    .info-label {
+        font-size: 0.82rem;
+        color: #6b7280;
+    }
+
+    .info-value {
+        padding-left: 33px;
+        font-size: 0.92rem;
+    }
+
+    #resultNomorIjazah,
+    #resultNomorTranskrip {
+        margin-left: 33px;
+        padding: 6px 10px;
+        font-size: 0.85rem;
+    }
+
+    #linkContainer {
+        padding-left: 33px;
+    }
+
     .result-header {
         flex-direction: column;
         text-align: center;
+        padding: 20px;
     }
-    
+
     .result-header h3 {
         text-align: center;
     }
-}
-/* Ijazah Link Style */
-.ijazah-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: #27ae60;
-    color: white;
-    padding: 10px 24px;
-    border-radius: 30px;
-    text-decoration: none;
-    font-size: 0.85rem;
-    font-weight: 600;
-    transition: all 0.3s;
-    border: none;
-}
 
-.ijazah-link:hover {
-    background: #219a52;
-    transform: translateY(-2px);
-    color: white;
-    text-decoration: none;
-}
-
-.ijazah-link-disabled {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: #95a5a6;
-    color: white;
-    padding: 10px 24px;
-    border-radius: 30px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: not-allowed;
-}
-/* Tombol download */
-.btn-download-ijazah {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: linear-gradient(135deg, #1e3c72, #2a5298);
-    color: white;
-    padding: 10px 24px;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s;
-    border: none;
-    cursor: pointer;
-}
-
-.btn-download-ijazah:hover {
-    background: linear-gradient(135deg, #2a5298, #1e3c72);
-    transform: translateY(-2px);
-    color: white;
+    .result-footer {
+        padding: 15px 20px;
+    }
 }
 
 
