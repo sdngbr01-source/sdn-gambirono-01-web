@@ -686,20 +686,26 @@ window.cekNISN = async function() {
         
         if (data.status === 'found') {
             currentIjazahData = {
-                nisn: data.nisn || nisn,
+               nisn: data.nisn || nisn,
                 nama: data.nama || '-',
                 tahun: data.tahun || '-',
-                link: data.link || ''
+                link: data.link || '',
+                nomorIjazah: data.nomorIjazah || '-',
+                nomorTranskrip: data.nomorTranskrip || '-'
             };
             
             // Tampilkan hasil
-            const resultNISN = document.getElementById('resultNISN');
+           const resultNISN = document.getElementById('resultNISN');
             const resultNama = document.getElementById('resultNama');
             const resultTahun = document.getElementById('resultTahun');
+            const resultNomorIjazah = document.getElementById('resultNomorIjazah');
+            const resultNomorTranskrip = document.getElementById('resultNomorTranskrip');
             
             if (resultNISN) resultNISN.innerHTML = currentIjazahData.nisn;
             if (resultNama) resultNama.innerHTML = currentIjazahData.nama;
             if (resultTahun) resultTahun.innerHTML = currentIjazahData.tahun;
+            if (resultNomorIjazah) resultNomorIjazah.innerHTML = currentIjazahData.nomorIjazah;
+            if (resultNomorTranskrip) resultNomorTranskrip.innerHTML = currentIjazahData.nomorTranskrip;
             
             // Buat ulang tombol link ijazah
             updateLinkButton();
