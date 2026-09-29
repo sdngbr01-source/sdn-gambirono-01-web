@@ -705,9 +705,18 @@ function displayRiwayatKotak(riwayatList) {
         return;
     }
     
+    // ✅ SORT: Kelas ASC → Semester ASC
     riwayatList.sort((a, b) => {
-        if (a.tahun !== b.tahun) return b.tahun - a.tahun;
-        return b.semester - a.semester;
+        const kelasA = parseInt(a.kelas) || 0;
+        const kelasB = parseInt(b.kelas) || 0;
+        
+        // Urutkan berdasarkan kelas dulu
+        if (kelasA !== kelasB) return kelasA - kelasB;
+        
+        // Kalau kelas sama, urutkan berdasarkan semester
+        const semA = parseInt(a.semester) || 0;
+        const semB = parseInt(b.semester) || 0;
+        return semA - semB;
     });
     
     let html = '';
@@ -737,10 +746,10 @@ function displayRiwayatKotak(riwayatList) {
         html += `
             <div class="kotak-semester">
                 <div class="semester-header">
-                    <h3><i class="fas fa-calendar-alt"></i> Tahun ${item.tahun}</h3>
+                    <h3><i class="fas fa-calendar-alt"></i> Kelas ${item.kelas} - Semester ${item.semester}</h3>
                     <div class="semester-badge">
-                        <i class="fas fa-${item.semester === 1 ? 'arrow-up' : 'arrow-down'}"></i>
-                        Kelas ${item.kelas} - Semester ${item.semester}
+                        <i class="fas fa-calendar"></i>
+                        Tahun ${item.tahun}
                     </div>
                 </div>
                 <div class="nilai-grid">
