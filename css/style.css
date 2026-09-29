@@ -1,3 +1,28 @@
+/* ============================================ */
+/* FIX SCROLL & SECTION                          */
+/* ============================================ */
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
+    overflow-anchor: none; /* matikan scroll anchoring */
+}
+
+body {
+    overflow-anchor: none;
+}
+
+/* Offset untuk anchor link */
+section[id] {
+    scroll-margin-top: 90px;
+}
+
+/* Fix: navbar desktop fixed di kiri 280px */
+@media (min-width: 769px) {
+    section[id] {
+        scroll-margin-top: 20px;
+    }
+}
 /* ===== RESET & BASE ===== */
 * {
     margin: 0;
