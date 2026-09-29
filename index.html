@@ -71,18 +71,16 @@
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Selamat Datang di <span>SDN Gambirono 01</span></h1>
-                <p>Membentuk Generasi Berimtaq Tinggi, Kreatif, Bernalar Kritis, Kolaboratif, Mandiri, Dan Komunikatif</p>
-              <div>
-				 </div>
-				<div>
-				 </div>
-				<div>
-				 </div>
+ <!-- HERO SECTION -->
+<section id="home" class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1>Selamat Datang di <span>SDN Gambirono 01</span></h1>
+            <p>Membentuk Generasi Berimtaq Tinggi, Kreatif, Bernalar Kritis, Kolaboratif, Mandiri, Dan Komunikatif</p>
+        </div>
+    </div>
+</section>
+<!-- ✅ TUTUP #home DI SINI -->
 
 <!-- ============ TOTAL PENGUNJUNG SECTION ============ -->
 <section id="total-pengunjung" class="total-pengunjung">
@@ -93,73 +91,50 @@
         </div>
         
         <div class="pengunjung-container">
-            <!-- Card Total Pengunjung -->
             <div class="pengunjung-card total-card">
-                <div class="card-icon">
-                    <i class="fas fa-users"></i>
-                </div>
+                <div class="card-icon"><i class="fas fa-users"></i></div>
                 <div class="card-content">
                     <h3>Total Pengunjung</h3>
                     <div class="card-number" id="totalPengunjung">0</div>
                     <p class="card-subtitle">Sejak website diluncurkan</p>
                 </div>
-                <div class="card-trend">
-                    <span class="trend-up"><i class="fas fa-arrow-up"></i> +12%</span>
-                </div>
+                <div class="card-trend"><span class="trend-up"><i class="fas fa-arrow-up"></i> +12%</span></div>
             </div>
             
-            <!-- Card Pengunjung Hari Ini -->
             <div class="pengunjung-card hari-ini-card">
-                <div class="card-icon">
-                    <i class="fas fa-user-clock"></i>
-                </div>
+                <div class="card-icon"><i class="fas fa-user-clock"></i></div>
                 <div class="card-content">
                     <h3>Hari Ini</h3>
                     <div class="card-number" id="pengunjungHariIni">0</div>
                     <p class="card-subtitle">Pengunjung hari ini</p>
                 </div>
-                <div class="card-trend">
-                    <span class="trend-up"><i class="fas fa-arrow-up"></i> Aktif</span>
-                </div>
+                <div class="card-trend"><span class="trend-up"><i class="fas fa-arrow-up"></i> Aktif</span></div>
             </div>
             
-            <!-- Card Pengunjung Minggu Ini -->
             <div class="pengunjung-card minggu-ini-card">
-                <div class="card-icon">
-                    <i class="fas fa-calendar-week"></i>
-                </div>
+                <div class="card-icon"><i class="fas fa-calendar-week"></i></div>
                 <div class="card-content">
                     <h3>Minggu Ini</h3>
                     <div class="card-number" id="pengunjungMingguIni">0</div>
                     <p class="card-subtitle">7 hari terakhir</p>
                 </div>
-                <div class="card-trend">
-                    <span class="trend-up"><i class="fas fa-arrow-up"></i> +8%</span>
-                </div>
+                <div class="card-trend"><span class="trend-up"><i class="fas fa-arrow-up"></i> +8%</span></div>
             </div>
             
-            <!-- Card Pengunjung Bulan Ini -->
             <div class="pengunjung-card bulan-ini-card">
-                <div class="card-icon">
-                    <i class="fas fa-calendar-alt"></i>
-                </div>
+                <div class="card-icon"><i class="fas fa-calendar-alt"></i></div>
                 <div class="card-content">
                     <h3>Bulan Ini</h3>
                     <div class="card-number" id="pengunjungBulanIni">0</div>
                     <p class="card-subtitle">30 hari terakhir</p>
                 </div>
-                <div class="card-trend">
-                    <span class="trend-up"><i class="fas fa-arrow-up"></i> +5%</span>
-                </div>
+                <div class="card-trend"><span class="trend-up"><i class="fas fa-arrow-up"></i> +5%</span></div>
             </div>
         </div>
         
-        <!-- Live Visitor (Real-time) -->
         <div class="live-visitor">
             <div class="live-visitor-card">
-                <div class="live-dot">
-                    <span class="pulse"></span>
-                </div>
+                <div class="live-dot"><span class="pulse"></span></div>
                 <div class="live-content">
                     <h4>Pengunjung Aktif Saat Ini</h4>
                     <div class="live-number" id="liveVisitor">0</div>
@@ -169,44 +144,16 @@
         </div>
     </div>
 </section>
+<!-- ✅ TUTUP #total-pengunjung -->
 
-<!-- Script untuk update data secara periodik (opsional) -->
-<script type="text/javascript">
-    // Fungsi untuk update data setiap 60 detik
-    function refreshStats() {
-        location.reload(); // Refresh halaman
-    }
-    // Refresh setiap 60 detik (opsional)
-    // setInterval(refreshStats, 60000);
-</script>
-				
+<!-- ============ KALENDER SECTION ============ -->
+<section id="kalender" class="kalender">
     <div class="container">
         <div class="section-header">
             <h2><i class="fas fa-calendar-alt"></i> Kalender Pendidikan</h2>
             <p>Provinsi Jawa Timur - Tahun Ajaran 2026/2027</p>
-            <p style="font-size:13px;color:#94a3b8;margin-top:4px;">
-                <i class="fas fa-database"></i> 
-            </p>
         </div>
 
-       
-
-        <!-- Tab 1: Dashboard -->
-        <div id="tab-dashboard" class="kalender-tab active">
-            <div id="dashboardContent"></div>
-        </div>
-
-        <!-- Tab 2: Semua Tanggal -->
-        <div id="tab-table" class="kalender-tab">
-            <div id="tableContent"></div>
-        </div>
-
-        <!-- Tab 3: Kalender Bulanan -->
-        <div id="tab-calendar" class="kalender-tab">
-            <div id="calendarContent"></div>
-        </div>
-    </div>
- <!-- Tab Navigasi -->
         <div class="kalender-tab-nav">
             <button data-tab="dashboard" class="active">
                 <i class="fas fa-chart-simple"></i> Dashboard
@@ -218,44 +165,49 @@
                 <i class="fas fa-calendar-days"></i> Kalender Bulanan
             </button>
         </div>
+
+        <div id="tab-dashboard" class="kalender-tab active">
+            <div id="dashboardContent"></div>
+        </div>
+        <div id="tab-table" class="kalender-tab">
+            <div id="tableContent"></div>
+        </div>
+        <div id="tab-calendar" class="kalender-tab">
+            <div id="calendarContent"></div>
+        </div>
+    </div>
+</section>
+<!-- ✅ TUTUP #kalender -->
+
+<!-- ============ VISI MISI SECTION ============ -->
+<section id="visi-misi" class="visi-misi">
+    <div class="container">
+        <div class="section-header">
+            <h2>Visi & Misi</h2>
+            <p>SDN Gambirono 01</p>
+        </div>
+        <div class="visi-misi-content">
+            <div class="visi-card">
+                <div class="icon-box"><i class="fas fa-eye"></i></div>
+                <h3>Visi</h3>
+                <p>"Membentuk Generasi Berimtaq Tinggi, Kreatif, Bernalar Kritis, Kolaboratif, Mandiri, Dan Komunikatif"</p>
+            </div>
+            <div class="misi-card">
+                <div class="icon-box"><i class="fas fa-bullseye"></i></div>
+                <h3>Misi</h3>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> Menanamkan keimanan dan ketakwaan melalui pengamalan ajaran agama</li>
+                    <li><i class="fas fa-check-circle"></i> Mengoptimalkan proses pembelajaran dan bimbingan secara efektif</li>
+                    <li><i class="fas fa-check-circle"></i> Mengembangkan potensi akademik dan non akademik peserta didik</li>
+                    <li><i class="fas fa-check-circle"></i> Membudayakan perilaku hidup bersih, sehat, dan peduli lingkungan</li>
+                    <li><i class="fas fa-check-circle"></i> Menanamkan nilai-nilai Pancasila dalam kehidupan sehari-hari</li>
+                    <li><i class="fas fa-check-circle"></i> Meningkatkan profesionalisme tenaga pendidik dan kependidikan</li>
+                </ul>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- VISI MISI SECTION -->
-    <section class="visi-misi">
-        <div class="container">
-            <div class="section-header">
-                <h2>Visi & Misi</h2>
-                <p>SDN Gambirono 01</p>
-            </div>
-            <div class="visi-misi-content">
-                <div class="visi-card">
-                    <div class="icon-box">
-                        <i class="fas fa-eye"></i>
-                    </div>
-                    <h3>Visi</h3>
-                    <p>"Membentuk Generasi Berimtaq Tinggi, Kreatif, Bernalar Kritis, Kolaboratif, Mandiri, Dan Komunikatif"</p>
-                </div>
-                <div class="misi-card">
-                    <div class="icon-box">
-                        <i class="fas fa-bullseye"></i>
-                    </div>
-                    <h3>Misi</h3>
-                    <ul>
-                        <li><i class="fas fa-check-circle"></i> Menanamkan keimanan dan ketakwaan melalui pengamalan ajaran agama</li>
-                        <li><i class="fas fa-check-circle"></i> Mengoptimalkan proses pembelajaran dan bimbingan secara efektif</li>
-                        <li><i class="fas fa-check-circle"></i> Mengembangkan potensi akademik dan non akademik peserta didik</li>
-                        <li><i class="fas fa-check-circle"></i> Membudayakan perilaku hidup bersih, sehat, dan peduli lingkungan</li>
-                        <li><i class="fas fa-check-circle"></i> Menanamkan nilai-nilai Pancasila dalam kehidupan sehari-hari</li>
-                        <li><i class="fas fa-check-circle"></i> Meningkatkan profesionalisme tenaga pendidik dan kependidikan</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
- 
     <!-- PROFIL SEKOLAH SECTION -->
     <section id="profil" class="profil-sekolah">
         <div class="container">
