@@ -804,3 +804,65 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+
+/* ============================================
+   NAVBAR TOGGLE MOBILE
+   ============================================ */
+function toggleMenu() {
+    const menu = document.getElementById('navbarMenu');
+    if (menu) menu.classList.toggle('active');
+}
+
+/* ============================================
+   SUBMENU TOGGLE (Mobile)
+   ============================================ */
+document.addEventListener('DOMContentLoaded', function() {
+    const parentLinks = document.querySelectorAll('.nav-parent-link');
+    parentLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                this.parentElement.classList.toggle('open');
+            }
+        });
+    });
+    
+    // Active link highlight
+    const currentPath = window.location.pathname;
+    document.querySelectorAll('.navbar-menu a').forEach(a => {
+        const href = a.getAttribute('href');
+        if (href && currentPath.includes(href.replace('../', '').replace('./', ''))) {
+            a.classList.add('active');
+        }
+    });
+});
+
+/* ============================================
+   BACK TO TOP
+   ============================================ */
+window.addEventListener('scroll', function() {
+    const btn = document.getElementById('backToTop');
+    if (btn) {
+        if (window.pageYOffset > 300) btn.classList.add('show');
+        else btn.classList.remove('show');
+    }
+});
+
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ============================================
+   SMOOTH SCROLL (untuk index.html)
+   ============================================ */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href === '#' || href === '#home') return;
+        const target = document.querySelector(href);
+        if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+});
