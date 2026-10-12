@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kesiswaan - SDN Gambirono 01</title>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/breadcrumb.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="icon" type="image/x-icon" href="../favicon.ico">
+<style>
+.kesiswaan-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+.kesiswaan-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 35px 25px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    border-top: 4px solid #667eea;
+}
+.kesiswaan-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(102,126,234,0.25);
+}
+.kesiswaan-card .icon-box {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 32px;
+}
+.kesiswaan-card h3 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+.kesiswaan-card p {
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+</style>
+</head>
+<body>
+
+<div id="navbar-placeholder"></div>
+
+<section class="breadcrumb-section">
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="../index.html"><i class="fas fa-home"></i> Beranda</a>
+            <span>/</span>
+            <span class="active">Kesiswaan</span>
+        </div>
+    </div>
+</section>
+
+<section class="page-content" style="padding: 60px 0;">
+    <div class="container">
+        <div class="section-header">
+            <h2>Dashboard Kesiswaan</h2>
+            <p>Kelola semua data kesiswaan dalam satu tempat</p>
+        </div>
+        
+        <div class="kesiswaan-grid">
+            <a href="data-siswa.html" class="kesiswaan-card">
+                <div class="icon-box"><i class="fas fa-users"></i></div>
+                <h3>Data Siswa</h3>
+                <p>Lihat dan cari data siswa lengkap per kelas</p>
+            </a>
+            
+            <a href="mutasi-siswa.html" class="kesiswaan-card">
+                <div class="icon-box"><i class="fas fa-exchange-alt"></i></div>
+                <h3>Mutasi Siswa</h3>
+                <p>Kelola mutasi masuk dan keluar siswa</p>
+            </a>
+            
+            <a href="absensi.html" class="kesiswaan-card">
+                <div class="icon-box"><i class="fas fa-fingerprint"></i></div>
+                <h3>E-Absensi</h3>
+                <p>Rekap kehadiran siswa harian</p>
+            </a>
+            
+            <a href="buku-induk.html" class="kesiswaan-card">
+                <div class="icon-box"><i class="fas fa-book"></i></div>
+                <h3>Buku Induk Digital</h3>
+                <p>Riwayat nilai lengkap siswa</p>
+            </a>
+            
+            <a href="arsip-ijazah.html" class="kesiswaan-card">
+                <div class="icon-box"><i class="fas fa-search"></i></div>
+                <h3>Arsip Ijazah</h3>
+                <p>Tracking ijazah lulusan</p>
+            </a>
+            
+            <a href="../spmb/spmb.html" class="kesiswaan-card">
+                <div class="icon-box"><i class="fas fa-user-graduate"></i></div>
+                <h3>SPMB</h3>
+                <p>Sistem Penerimaan Siswa Baru</p>
+            </a>
+            
+            <a href="../alumni/alumni.html" class="kesiswaan-card">
+                <div class="icon-box"><i class="fas fa-history"></i></div>
+                <h3>History Alumni</h3>
+                <p>Cari data alumni berdasarkan NISN</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<div id="footer-placeholder"></div>
+
+<script src="../js/breadcrumb-helper.js" data-base="../"></script>
+<script src="../js/main.js"></script>
+<script src="../js/analitik.js"></script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buku Induk Digital - SDN Gambirono 01</title>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/breadcrumb.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="icon" type="image/x-icon" href="../favicon.ico">
+</head>
+<body>
+
+<div id="navbar-placeholder"></div>
+
+<section class="breadcrumb-section">
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="../index.html"><i class="fas fa-home"></i> Beranda</a>
+            <span>/</span>
+            <a href="kesiswaan.html">Kesiswaan</a>
+            <span>/</span>
+            <span class="active">Buku Induk Digital</span>
+        </div>
+    </div>
+</section>
+
+<section id="buku-induk" class="buku-induk">
+    <div class="container">
+        <div class="section-header">
+            <h2><i class="fas fa-book"></i> Buku Induk Digital</h2>
+            <p>Riwayat nilai lengkap siswa dari tahun ke tahun</p>
+        </div>
+        
+        <div class="buku-induk-container">
+            <div id="bukuLoginForm" class="buku-login">
+                <div class="buku-card">
+                    <div class="buku-icon"><i class="fas fa-id-card"></i></div>
+                    <h3>Masukkan NISN</h3>
+                    <p>Masukkan Nomor Induk Siswa Nasional untuk melihat buku induk</p>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-user-graduate"></i>
+                        <input type="text" id="bukuNisnInput" placeholder="Masukkan NISN (10 digit)" maxlength="10" autocomplete="off">
+                    </div>
+                    
+                    <div id="bukuError" class="error-message" style="display: none;">
+                        <i class="fas fa-exclamation-circle"></i> NISN tidak ditemukan
+                    </div>
+                    
+                    <button onclick="cekBukuInduk()" class="btn-track"><i class="fas fa-search"></i> Lihat Buku Induk</button>
+                    <p class="help-text">*Masukkan NISN untuk melihat seluruh riwayat nilai</p>
+                </div>
+            </div>
+            
+            <div id="hasilBukuInduk" class="hasil-buku" style="display: none;">
+                <div class="buku-result-card">
+                    <div class="result-header">
+                        <div class="result-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <h3>Buku Induk Digital</h3>
+                        <button onclick="logoutBuku()" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Ganti NISN</button>
+                    </div>
+                    <div class="result-body">
+                        <div class="nama-siswa-besar">
+                            <h2 id="bukuNama">-</h2>
+                            <p><i class="fas fa-id-card"></i> NISN: <strong id="bukuNISN">-</strong></p>
+                        </div>
+                        <div class="biodata-section">
+                            <div class="biodata-header"><i class="fas fa-user-circle"></i><h4>Biodata Siswa</h4></div>
+                            <div id="biodataSiswa" class="biodata-container"><p class="loading-text">Memuat biodata...</p></div>
+                        </div>
+                        <div class="riwayat-section">
+                            <div class="riwayat-header"><i class="fas fa-history"></i><h4>Riwayat Nilai</h4></div>
+                            <div class="riwayat-kotak" id="riwayatKotak"><p class="loading-text">Memuat data nilai...</p></div>
+                        </div>
+                    </div>
+                    <div class="result-footer">
+                        <div class="verified-badge"><i class="fas fa-check-circle"></i><span>Data resmi dari SDN Gambirono 01</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="loadingBuku" class="buku-loading" style="display: none;">
+                <div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i><p>Memuat data buku induk...</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="footer-placeholder"></div>
+
+<script src="../js/breadcrumb-helper.js" data-base="../"></script>
+<script src="../js/main.js"></script>
+<script src="../js/analitik.js"></script>
+<script src="../js/datasiswa.js"></script>
+</body>
+</html>

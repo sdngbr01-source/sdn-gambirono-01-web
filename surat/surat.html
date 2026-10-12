@@ -1,451 +1,354 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sistem Surat Menyurat</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f0f4f8;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        /* ===== LOGIN PAGE ===== */
-        .login-container {
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            max-width: 420px;
-            width: 100%;
-        }
-
-        .login-container .logo {
-            text-align: center;
-            font-size: 48px;
-            margin-bottom: 8px;
-        }
-
-        .login-container h1 {
-            font-size: 28px;
-            color: #1a202c;
-            text-align: center;
-            margin-bottom: 4px;
-        }
-
-        .login-container .subtitle {
-            color: #718096;
-            text-align: center;
-            font-size: 14px;
-            margin-bottom: 24px;
-        }
-
-        .login-container .info {
-            background: #ebf8ff;
-            padding: 12px 16px;
-            border-radius: 8px;
-            font-size: 13px;
-            color: #2b6cb0;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            color: #2d3748;
-            margin-bottom: 6px;
-            font-size: 14px;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1.5px solid #e2e8f0;
-            border-radius: 10px;
-            font-size: 15px;
-            transition: 0.2s;
-            background: #f7fafc;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #3182ce;
-            background: #fff;
-            box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.2);
-        }
-
-        .btn {
-            background: #3182ce;
-            color: #fff;
-            border: none;
-            padding: 14px 28px;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.2s;
-            width: 100%;
-        }
-
-        .btn:hover {
-            background: #2b6cb0;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(49, 130, 206, 0.3);
-        }
-
-        .error-message {
-            color: #e53e3e;
-            font-size: 14px;
-            margin-top: 12px;
-            text-align: center;
-            display: none;
-        }
-
-        .error-message.show {
-            display: block;
-        }
-
-        /* ===== SURAT PAGE ===== */
-        .container {
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            max-width: 700px;
-            width: 100%;
-            display: none;
-        }
-
-        .container.show {
-            display: block;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 16px;
-            border-bottom: 2px solid #e2e8f0;
-        }
-
-        .header h1 {
-            font-size: 24px;
-            color: #1a202c;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .user-info {
-            font-size: 13px;
-            color: #718096;
-        }
-
-        .btn-logout {
-            background: #e53e3e;
-            color: #fff;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .btn-logout:hover {
-            background: #c53030;
-        }
-
-        .subtitle {
-            color: #718096;
-            margin-bottom: 24px;
-            font-size: 14px;
-        }
-
-        .form-group select,
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1.5px solid #e2e8f0;
-            border-radius: 10px;
-            font-size: 15px;
-            transition: 0.2s;
-            background: #f7fafc;
-        }
-
-        .form-group select:focus,
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #3182ce;
-            background: #fff;
-            box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.2);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        .btn-primary {
-            background: #3182ce;
-            color: #fff;
-            border: none;
-            padding: 14px 28px;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.2s;
-            width: 100%;
-            margin-top: 8px;
-        }
-
-        .btn-primary:hover {
-            background: #2b6cb0;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(49, 130, 206, 0.3);
-        }
-
-        .btn-primary:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .btn-secondary {
-            background: #48bb78;
-            margin-top: 12px;
-        }
-
-        .btn-secondary:hover {
-            background: #38a169;
-        }
-
-        #result {
-            margin-top: 24px;
-            padding: 16px 20px;
-            border-radius: 10px;
-            background: #f7fafc;
-            border-left: 5px solid #3182ce;
-            font-size: 14px;
-            color: #2d3748;
-            word-break: break-all;
-            display: none;
-        }
-
-        #result.show {
-            display: block;
-        }
-
-        .loader {
-            display: none;
-            text-align: center;
-            margin: 12px 0;
-            color: #4a5568;
-            font-size: 14px;
-        }
-
-        .loader.show {
-            display: block;
-        }
-
-        .info-box {
-            background: #ebf8ff;
-            padding: 14px 18px;
-            border-radius: 10px;
-            font-size: 14px;
-            color: #2b6cb0;
-            margin-bottom: 20px;
-        }
-
-        .info-box strong {
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        hr {
-            margin: 28px 0 20px;
-            border: none;
-            border-top: 2px dashed #e2e8f0;
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        .text-muted {
-            font-size: 12px;
-            color: #a0aec0;
-            margin-top: 6px;
-        }
-/* ===== RIWAYAT AGENDA ===== */
-#riwayatContainer table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surat Menyurat - SDN Gambirono 01</title>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/breadcrumb.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="icon" type="image/x-icon" href="../favicon.ico">
+<style>
+:root {
+    --primary: #667eea;
+    --primary-dark: #5568d3;
+    --secondary: #764ba2;
+    --success: #43e97b;
+    --danger: #f5576c;
+    --dark: #2d3748;
+    --gray: #718096;
+    --light: #f5f7fb;
+    --border: #e5e9f2;
+    --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --shadow-md: 0 8px 25px rgba(0,0,0,0.08);
+    --shadow-lg: 0 20px 60px rgba(102,126,234,0.15);
 }
 
-#riwayatContainer th {
-    position: sticky;
-    top: 0;
-    background: #e2e8f0 !important;
+.surat-menyurat {
+    padding: 60px 0;
+    background: var(--light);
+    min-height: calc(100vh - 200px);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.surat-menyurat::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(102,126,234,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.surat-menyurat::after {
+    content: '';
+    position: absolute;
+    bottom: -150px;
+    left: -150px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(118,75,162,0.06) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.surat-menyurat .section-header {
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
     z-index: 1;
 }
 
-#riwayatContainer td {
-    padding: 8px 10px;
-    border-bottom: 1px solid #e2e8f0;
+.surat-menyurat .section-header h2 {
+    color: var(--dark);
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 10px;
 }
 
-#riwayatContainer tbody tr:hover {
-    background: #ebf8ff;
+.surat-menyurat .section-header h2 i {
+    color: var(--primary);
 }
 
-#riwayatContainer .refresh-btn {
-    background: #48bb78;
+.surat-menyurat .section-header p {
+    color: var(--gray);
+    font-size: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Single Card Container */
+.surat-single-wrapper {
+    max-width: 550px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.surat-card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 50px 40px;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    border-top: 6px solid transparent;
+    border-image: var(--gradient) 1;
+    border-image-slice: 1;
+    border-top-width: 6px;
+    border-top-style: solid;
+    border-top-color: var(--primary);
+}
+
+.surat-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(102,126,234,0.04) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.surat-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 70px rgba(102, 126, 234, 0.25);
+}
+
+.surat-icon {
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 25px;
+    background: var(--gradient);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: #fff;
-    border: none;
-    padding: 6px 16px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 600;
-    transition: 0.2s;
+    font-size: 46px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
+    animation: float 3s ease-in-out infinite;
 }
 
-#riwayatContainer .refresh-btn:hover {
-    background: #38a169;
-    transform: translateY(-1px);
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
 }
-    </style>
+
+.surat-card h3 {
+    font-size: 1.5rem;
+    color: var(--dark);
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 1;
+    font-weight: 800;
+}
+
+.surat-card > p {
+    color: var(--gray);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 28px;
+    position: relative;
+    z-index: 1;
+}
+
+.surat-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 1;
+}
+
+.surat-features span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 15px;
+    background: #f0f4ff;
+    color: var(--primary);
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+.surat-features span i {
+    font-size: 0.72rem;
+    color: var(--success);
+}
+
+.btn-surat {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px 40px;
+    background: var(--gradient);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 8px 22px rgba(102, 126, 234, 0.35);
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+}
+
+.btn-surat::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    transition: left 0.6s ease;
+}
+
+.btn-surat:hover::before {
+    left: 100%;
+}
+
+.btn-surat:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(102, 126, 234, 0.5);
+    color: #fff;
+}
+
+.btn-surat i {
+    font-size: 1.1rem;
+}
+
+/* Info Banner */
+.info-banner {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: var(--shadow-md);
+    border-left: 4px solid var(--primary);
+    position: relative;
+    z-index: 1;
+}
+
+.info-banner i {
+    font-size: 1.5rem;
+    color: var(--primary);
+    flex-shrink: 0;
+}
+
+.info-banner p {
+    font-size: 0.85rem;
+    color: var(--gray);
+    margin: 0;
+    line-height: 1.6;
+}
+
+.info-banner strong {
+    color: var(--dark);
+}
+
+@media (max-width: 640px) {
+    .surat-card {
+        padding: 35px 25px;
+        border-radius: 20px;
+    }
+    
+    .surat-icon {
+        width: 90px;
+        height: 90px;
+        font-size: 38px;
+    }
+    
+    .surat-card h3 {
+        font-size: 1.25rem;
+    }
+    
+    .btn-surat {
+        padding: 14px 30px;
+        font-size: 0.9rem;
+    }
+    
+    .info-banner {
+        flex-direction: column;
+        text-align: center;
+        padding: 18px;
+    }
+}
+</style>
 </head>
 <body>
 
-    <!-- ===== LOGIN PAGE ===== -->
-    <div class="login-container" id="loginPage">
-        <div class="logo">📨</div>
-        <h1>Sistem Surat Menyurat</h1>
-        <p class="subtitle">Masukkan kode akses untuk masuk</p>
+<div id="navbar-placeholder"></div>
 
-       <div class="info">
-        <a href="/index.html" style="color: #1a3a5c; text-decoration: none; font-weight: 600;">
-            <i class="fas fa-arrow-left"></i> Kembali ke Beranda
-        </a>
-    </div>
-
-        <form id="loginForm">
-            <div class="form-group">
-                <label for="kodeAkses">🔑 Kode Akses</label>
-                <input type="password" id="kodeAkses" placeholder="Masukkan kode akses..." required autofocus />
-            </div>
-            <button type="submit" class="btn">🚀 Masuk</button>
-            <div class="error-message" id="loginError">❌ Kode akses salah! Silakan coba lagi.</div>
-        </form>
-    </div>
-
-    <!-- ===== SURAT PAGE ===== -->
-    <div class="container" id="suratPage">
-        <div class="header">
-            <h1>📨 Surat Menyurat</h1>
-            <div class="header-right">
-                <span class="user-info" id="userInfo">👤 Admin</span>
-                <button class="btn-logout" id="btnLogout">Keluar</button>
-            </div>
-        </div>
-        <p class="subtitle">Sistem agenda surat terintegrasi dengan Google Drive</p>
-
-        <div class="info-box">
-            <strong>📋 Status</strong>
-            <span id="statusText">Siap memproses surat</span>
-        </div>
-
-        <form id="suratForm">
-            <div class="form-group">
-                <label for="jenisSurat">📂 Pilih Jenis Surat</label>
-                <select id="jenisSurat" required>
-                    <option value="">— Memuat data —</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="perihal">✏️ Perihal Surat</label>
-                <textarea id="perihal" placeholder="Masukkan perihal surat..." required></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>📅 Tanggal Surat</label>
-                <input type="date" id="tanggalSurat" required />
-            </div>
-
-            <button type="submit" class="btn-primary" id="btnProses">🚀 Proses & Buat Surat</button>
-        </form>
-
-        <div class="loader" id="loader">⏳ Memproses, harap tunggu...</div>
-        <div id="result"></div>
-
-        <hr />
-
-        <button class="btn-primary btn-secondary" id="btnDownload">⬇️ Download Surat (DOCX)</button>
-        <p class="text-muted text-center">* Pastikan surat sudah diproses terlebih dahulu</p>
-<!-- ===== RIWAYAT AGENDA SURAT ===== -->
-<hr />
-
-<div id="riwayatContainer">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-        <h3 style="font-size: 18px; color: #1a202c;">📋 Riwayat Agenda Surat</h3>
-        <button onclick="loadRiwayatAgenda()" style="background: #48bb78; color: #fff; border: none; padding: 6px 16px; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600;">🔄 Refresh</button>
-    </div>
-    
-    <div style="background: #f7fafc; border-radius: 10px; padding: 16px; max-height: 300px; overflow-y: auto;">
-        <div id="riwayatLoading" style="text-align: center; color: #718096; padding: 20px;">
-            ⏳ Memuat riwayat...
-        </div>
-        <div id="riwayatEmpty" style="text-align: center; color: #718096; padding: 20px; display: none;">
-            📭 Belum ada riwayat surat
-        </div>
-        <div id="riwayatContent" style="display: none;">
-            <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
-                <thead>
-                    <tr style="background: #e2e8f0;">
-                        <th style="padding: 8px 10px; text-align: left; border-bottom: 2px solid #cbd5e0;">No</th>
-                        <th style="padding: 8px 10px; text-align: left; border-bottom: 2px solid #cbd5e0;">Nomor Agenda</th>
-                        <th style="padding: 8px 10px; text-align: left; border-bottom: 2px solid #cbd5e0;">Jenis Surat</th>
-                        <th style="padding: 8px 10px; text-align: left; border-bottom: 2px solid #cbd5e0;">Perihal</th>
-                        <th style="padding: 8px 10px; text-align: left; border-bottom: 2px solid #cbd5e0;">Tanggal</th>
-                    </tr>
-                </thead>
-                <tbody id="riwayatTableBody">
-                </tbody>
-            </table>
+<section class="breadcrumb-section">
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="../index.html"><i class="fas fa-home"></i> Beranda</a>
+            <span>/</span>
+            <span class="active">Surat Menyurat</span>
         </div>
     </div>
-    <p class="text-muted text-center" style="margin-top: 6px;">* Menampilkan 10 riwayat terakhir</p>
-</div>
-    </div>
+</section>
 
-    <script src="script.js"></script>
+<section id="surat-menyurat" class="surat-menyurat">
+    <div class="container">
+        <div class="section-header">
+            <h2><i class="fas fa-envelope"></i> Surat Menyurat</h2>
+            <p>Sistem pembuatan dan pengelolaan surat menyurat digital SDN Gambirono 01</p>
+        </div>
+        
+        <div class="surat-single-wrapper">
+            <div class="surat-card">
+                <div class="surat-icon"><i class="fas fa-envelope-open-text"></i></div>
+                <h3>Buat Surat Baru</h3>
+                <p>Buat surat resmi dengan sistem terintegrasi Google Drive, auto-generate nomor agenda, dan riwayat tersimpan otomatis</p>
+                
+                <div class="surat-features">
+                    <span><i class="fas fa-check"></i> Login Aman</span>
+                    <span><i class="fas fa-check"></i> Auto Nomor</span>
+                    <span><i class="fas fa-check"></i> Riwayat</span>
+                    <span><i class="fas fa-check"></i> Download DOCX</span>
+                </div>
+                
+                <a href="surat1.html" class="btn-surat">
+                    <i class="fas fa-pen-fancy"></i> Buka Sistem Surat
+                </a>
+            </div>
+            
+            <div class="info-banner">
+                <i class="fas fa-lightbulb"></i>
+                <p><strong>Tips:</strong> Klik tombol di atas untuk masuk ke sistem. Anda akan diminta memasukkan kode akses terlebih dahulu.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="footer-placeholder"></div>
+
+<script src="../js/breadcrumb-helper.js" data-base="../"></script>
+<script src="../js/main.js"></script>
+<script src="../js/analitik.js"></script>
 </body>
 </html>

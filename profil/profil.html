@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profil Sekolah - SDN Gambirono 01</title>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/breadcrumb.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="icon" type="image/x-icon" href="../favicon.ico">
+</head>
+<body>
+
+<div id="navbar-placeholder"></div>
+
+<section class="breadcrumb-section">
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="../index.html"><i class="fas fa-home"></i> Beranda</a>
+            <span>/</span>
+            <span class="active">Profil Sekolah</span>
+        </div>
+    </div>
+</section>
+
+<section id="profil" class="profil-sekolah">
+    <div class="container">
+        <div class="section-header">
+            <h2>Profil Sekolah</h2>
+            <p>Mengenal Lebih Dekat SDN Gambirono 01</p>
+        </div>
+        
+        <div class="profil-grid">
+            <div class="profil-image">
+                <img src="../images/profil-sekolah/gedung-depan.jpg" alt="Gedung SDN Gambirono 01" id="mainProfilImage">
+            </div>
+            <div class="profil-info">
+                <h3>SDN Gambirono 01</h3>
+                <p class="alamat"><i class="fas fa-map-marker-alt"></i> Jl. Moch. Seruji No. 161 Gambirono Kecamatan Bangsalsari Kabupaten Jember Propinsi Jawa Timur</p>
+                
+                <div class="info-list">
+                    <div class="info-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <div><strong>Tahun Berdiri</strong><p>1932</p></div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-certificate"></i>
+                        <div><strong>Akreditasi</strong><p>B</p></div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <div><strong>Waktu Belajar</strong><p>Pagi - Siang (07.00 - 12.30)</p></div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-flag"></i>
+                        <div><strong>Kurikulum</strong><p>Kurikulum Merdeka</p></div>
+                    </div>
+                </div>
+                
+                <div class="profil-thumbnails">
+                    <img src="../images/profil-sekolah/gedung-depan.jpg" alt="Gedung Depan" class="thumb active" onclick="changeImage(this, '../images/profil-sekolah/gedung-depan.jpg')">
+                    <img src="../images/profil-sekolah/lapangan.jpg" alt="Lapangan" class="thumb" onclick="changeImage(this, '../images/profil-sekolah/lapangan.jpg')">
+                    <img src="../images/profil-sekolah/kelas.jpg" alt="Ruang Kelas" class="thumb" onclick="changeImage(this, '../images/profil-sekolah/kelas.jpg')">
+                    <img src="../images/profil-sekolah/perpustakaan.jpg" alt="Perpustakaan" class="thumb" onclick="changeImage(this, '../images/profil-sekolah/perpustakaan.jpg')">
+                    <img src="../images/profil-sekolah/laboratorium.jpg" alt="Lab Komputer" class="thumb" onclick="changeImage(this, '../images/profil-sekolah/laboratorium.jpg')">
+                </div>
+            </div>
+        </div>
+        
+        <div class="profil-detail">
+            <div class="detail-box">
+                <h4>Sambutan Kepala Sekolah</h4>
+                <p>"Assalamu'alaikum warahmatullahi wabarakatuh. Selamat datang di website resmi SDN Gambirono 01. Kami berkomitmen untuk memberikan pendidikan terbaik bagi putra-putri bangsa. Dengan dukungan guru profesional dan fasilitas memadai, kami siap mencetak generasi yang beriman, cerdas, dan berkarakter."</p>
+                <p class="signature">- Dwi Jita Pahlawati, S.Pd.<br>Kepala Sekolah</p>
+            </div>
+            <div class="detail-box">
+                <h4>Fasilitas Sekolah</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> 12 Ruang Kelas Berfasilitas Digital</li>
+                    <li><i class="fas fa-check"></i> Laboratorium Komputer</li>
+                    <li><i class="fas fa-check"></i> Perpustakaan Digital</li>
+                    <li><i class="fas fa-check"></i> Lapangan Olahraga</li>
+                    <li><i class="fas fa-check"></i> Musholla</li>
+                    <li><i class="fas fa-check"></i> Kantin Sehat</li>
+                    <li><i class="fas fa-check"></i> UKS</li>
+                    <li><i class="fas fa-check"></i> Ruang Multimedia</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="footer-placeholder"></div>
+
+<script src="../js/breadcrumb-helper.js" data-base="../"></script>
+<script src="../js/main.js"></script>
+<script src="../js/analitik.js"></script>
+<script>
+function changeImage(el, src) {
+    document.getElementById('mainProfilImage').src = src;
+    document.querySelectorAll('.profil-thumbnails .thumb').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+}
+</script>
+</body>
+</html>

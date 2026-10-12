@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arsip Ijazah - SDN Gambirono 01</title>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/breadcrumb.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="icon" type="image/x-icon" href="../favicon.ico">
+</head>
+<body>
+
+<div id="navbar-placeholder"></div>
+
+<section class="breadcrumb-section">
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="../index.html"><i class="fas fa-home"></i> Beranda</a>
+            <span>/</span>
+            <a href="kesiswaan.html">Kesiswaan</a>
+            <span>/</span>
+            <span class="active">Arsip Ijazah</span>
+        </div>
+    </div>
+</section>
+
+<section id="tracking-ijazah" class="tracking-ijazah">
+    <div class="container">
+        <div class="section-header">
+            <h2><i class="fas fa-search"></i> Tracking Ijazah</h2>
+            <p>Cek status dan informasi ijazah siswa SDN Gambirono 01 - Mulai Lulusan 2025 dan seterusnya</p>
+        </div>
+        
+        <div class="tracking-container">
+            <div id="loginForm" class="tracking-login">
+                <div class="tracking-card">
+                    <div class="tracking-icon"><i class="fas fa-id-card"></i></div>
+                    <h3>Verifikasi NISN</h3>
+                    <p>Masukkan Nomor Induk Siswa Nasional (NISN) untuk melacak ijazah</p>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-user-graduate"></i>
+                        <input type="text" id="nisnInput" placeholder="Masukkan NISN (10 digit)" maxlength="10" autocomplete="off">
+                    </div>
+                    
+                    <button onclick="cekNISN()" class="btn-track"><i class="fas fa-search"></i> Lacak Ijazah</button>
+                    <p class="help-text">*Masukkan NISN yang tertera di kartu siswa</p>
+                </div>
+            </div>
+            
+            <div id="hasilTracking" class="hasil-tracking" style="display: none;">
+                <div class="tracking-result-card">
+                    <div class="result-header">
+                        <div class="result-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <h3>Informasi Ijazah</h3>
+                        <button onclick="logoutTracking()" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Ganti NISN</button>
+                    </div>
+                    <div class="result-body">
+                        <div class="info-row"><div class="info-label"><i class="fas fa-id-card"></i> NISN</div><div class="info-value" id="resultNISN">-</div></div>
+                        <div class="info-row"><div class="info-label"><i class="fas fa-user"></i> Nama Lengkap</div><div class="info-value" id="resultNama">-</div></div>
+                        <div class="info-row"><div class="info-label"><i class="fas fa-calendar-alt"></i> Tahun Lulus</div><div class="info-value" id="resultTahun">-</div></div>
+                        <div class="info-row"><div class="info-label"><i class="fas fa-certificate"></i> Nomor Ijazah</div><div class="info-value" id="resultNomorIjazah">-</div></div>
+                        <div class="info-row"><div class="info-label"><i class="fas fa-file-alt"></i> Nomor Transkrip</div><div class="info-value" id="resultNomorTranskrip">-</div></div>
+                        <div class="info-row"><div class="info-label"><i class="fas fa-download"></i> Ijazah</div><div class="info-value" id="linkContainer"><button class="ijazah-link-disabled"><i class="fas fa-clock"></i> Belum Tersedia</button></div></div>
+                    </div>
+                    <div class="result-footer">
+                        <div class="verified-badge"><i class="fas fa-check-circle"></i><span>Data resmi dari SDN Gambirono 01</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="loadingTracking" class="tracking-loading" style="display: none;">
+                <div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i><p>Memeriksa data...</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="footer-placeholder"></div>
+
+<script src="../js/breadcrumb-helper.js" data-base="../"></script>
+<script src="../js/main.js"></script>
+<script src="../js/analitik.js"></script>
+<script src="../js/datasiswa.js"></script>
+</body>
+</html>

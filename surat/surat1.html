@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistem Surat Menyurat - SDN Gambirono 01</title>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/breadcrumb.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="icon" type="image/x-icon" href="../favicon.ico">
+<style>
+/* ============================================
+   SURAT1 - REDESIGN
+   ============================================ */
+
+:root {
+    --primary: #667eea;
+    --primary-dark: #5568d3;
+    --secondary: #764ba2;
+    --success: #43e97b;
+    --danger: #f5576c;
+    --warning: #f6ad55;
+    --info: #4facfe;
+    --dark: #2d3748;
+    --gray: #718096;
+    --light: #f5f7fb;
+    --border: #e5e9f2;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+    --shadow-md: 0 8px 25px rgba(0,0,0,0.08);
+    --shadow-lg: 0 20px 60px rgba(102,126,234,0.15);
+    --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-success: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    --gradient-danger: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
+    --gradient-info: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--light);
+}
+
+/* ============================================
+   WRAPPER
+   ============================================ */
+.surat1-wrapper {
+    padding: 40px 0 60px;
+    min-height: calc(100vh - 200px);
+    position: relative;
+    overflow: hidden;
+}
+
+.surat1-wrapper::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(102,126,234,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.surat1-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: -150px; left: -150px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(118,75,162,0.06) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+/* ============================================
+   LOGIN PAGE
+   ============================================ */
+.login-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    z-index: 1;
+}
+
+/* Sembunyikan login page saat login sukses */
+.login-container.hide {
+    display: none !important;
+}
+
+.login-left {
+    background: var(--gradient);
+    padding: 60px 45px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-left::before {
+    content: '';
+    position: absolute;
+    top: -50px; right: -50px;
+    width: 200px; height: 200px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+}
+
+.login-left::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: -80px;
+    width: 250px; height: 250px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+}
+
+.login-left .logo-big {
+    font-size: 80px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.login-left h2 {
+    font-size: 1.7rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+    line-height: 1.3;
+    position: relative;
+    z-index: 1;
+}
+
+.login-left p {
+    font-size: 0.92rem;
+    opacity: 0.92;
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+}
+
+.login-left .features {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    z-index: 1;
+}
+
+.login-left .features span {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    opacity: 0.95;
+}
+
+.login-left .features i {
+    width: 24px; height: 24px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.68rem;
+}
+
+.login-right {
+    padding: 60px 45px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.back-home-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: #f0f4ff;
+    color: var(--primary);
+    text-decoration: none;
+    border-radius: 25px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin-bottom: 25px;
+    width: fit-content;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.back-home-btn:hover {
+    background: var(--gradient);
+    color: #fff;
+    transform: translateX(-4px);
+    box-shadow: 0 4px 15px rgba(102,126,234,0.3);
+}
+
+.login-right h1 {
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 8px;
+}
+
+.login-right .subtitle {
+    color: var(--gray);
+    font-size: 0.88rem;
+    margin-bottom: 28px;
+}
+
+/* ============================================
+   FORM GROUP
+   ============================================ */
+.form-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.form-group label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 8px;
+    font-size: 0.85rem;
+}
+
+.form-group label i {
+    color: var(--primary);
+    font-size: 0.78rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 13px 16px;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    font-size: 0.92rem;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    background: #fafbfe;
+    color: var(--dark);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(102,126,234,0.12);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 90px;
+    line-height: 1.6;
+}
+
+.password-wrapper { position: relative; }
+
+.password-toggle {
+    position: absolute;
+    right: 15px; top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--gray);
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 5px;
+    transition: color 0.3s ease;
+}
+
+.password-toggle:hover { color: var(--primary); }
+
+/* ============================================
+   BUTTON
+   ============================================ */
+.btn,
+.btn-primary {
+    background: var(--gradient);
+    color: #fff;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(102,126,234,0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before,
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn:hover::before,
+.btn-primary:hover::before { left: 100%; }
+
+.btn:hover,
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102,126,234,0.4);
+}
+
+.btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-secondary {
+    background: var(--gradient-success);
+    box-shadow: 0 4px 15px rgba(67,233,123,0.3);
+    margin-top: 12px;
+}
+
+.btn-secondary:hover {
+    box-shadow: 0 8px 25px rgba(67,233,123,0.4);
+}
+
+.btn-logout {
+    background: var(--gradient-danger);
+    color: #fff;
+    border: none;
+    padding: 9px 18px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 3px 10px rgba(245,87,108,0.3);
+    font-family: 'Poppins', sans-serif;
+}
+
+.btn-logout:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(245,87,108,0.4);
+}
+
+/* ============================================
+   ERROR & INFO
+   ============================================ */
+.error-message {
+    color: var(--danger);
+    font-size: 0.82rem;
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: #fff5f6;
+    border-radius: 10px;
+    border-left: 3px solid var(--danger);
+    display: none;
+    align-items: center;
+    gap: 8px;
+}
+
+.error-message.show {
+    display: flex;
+    animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.info-box {
+    background: linear-gradient(135deg, #ebf4ff 0%, #f0f4ff 100%);
+    padding: 16px 20px;
+    border-radius: 12px;
+    font-size: 0.88rem;
+    color: var(--primary-dark);
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-left: 4px solid var(--primary);
+}
+
+.info-box i {
+    font-size: 1.2rem;
+    color: var(--primary);
+}
+
+.info-box strong {
+    display: block;
+    margin-bottom: 2px;
+    color: var(--primary);
+}
+
+/* ============================================
+   SURAT PAGE — SINKRON DENGAN SCRIPT.JS
+   ============================================ */
+.container.surat-page {
+    max-width: 780px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: var(--shadow-lg);
+    padding: 40px;
+    position: relative;
+    z-index: 1;
+    display: none; /* Default hidden */
+}
+
+/* ✅ INI YANG PENTING: class .show dari script.js */
+.container.surat-page.show {
+    display: block !important;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--light);
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.header h1 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--dark);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header h1 i {
+    width: 44px; height: 44px;
+    background: var(--gradient);
+    color: #fff;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.05rem;
+    box-shadow: 0 4px 12px rgba(102,126,234,0.3);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-info {
+    font-size: 0.82rem;
+    color: var(--gray);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: var(--light);
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.subtitle {
+    color: var(--gray);
+    margin-bottom: 25px;
+    font-size: 0.88rem;
+    line-height: 1.6;
+}
+
+/* ============================================
+   RESULT
+   ============================================ */
+#result {
+    margin-top: 24px;
+    padding: 18px 22px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+    border-left: 4px solid var(--success);
+    font-size: 0.88rem;
+    color: var(--dark);
+    word-break: break-word;
+    display: none;
+    line-height: 1.7;
+}
+
+#result.show {
+    display: block;
+    animation: slideIn 0.4s ease;
+}
+
+#result.error {
+    background: linear-gradient(135deg, #fff5f6 0%, #fef2f2 100%);
+    border-left-color: var(--danger);
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#result strong { color: var(--dark); font-weight: 700; }
+
+/* ============================================
+   LOADER
+   ============================================ */
+.loader {
+    display: none;
+    text-align: center;
+    margin: 20px 0;
+    color: var(--primary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 20px;
+    background: var(--light);
+    border-radius: 12px;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.loader.show {
+    display: flex !important;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* ============================================
+   RIWAYAT AGENDA
+   ============================================ */
+#riwayatContainer {
+    margin-top: 10px;
+}
+
+#riwayatContainer h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--dark);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#riwayatContainer h3 i { color: var(--primary); }
+
+.refresh-btn {
+    background: var(--gradient-success);
+    color: #fff;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 3px 10px rgba(67,233,123,0.3);
+    font-family: 'Poppins', sans-serif;
+}
+
+.refresh-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(67,233,123,0.4);
+}
+
+.riwayat-box {
+    background: var(--light);
+    border-radius: 14px;
+    padding: 6px;
+    max-height: 320px;
+    overflow-y: auto;
+    border: 1px solid var(--border);
+}
+
+.riwayat-box::-webkit-scrollbar { width: 6px; }
+.riwayat-box::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 3px;
+}
+.riwayat-box::-webkit-scrollbar-track { background: transparent; }
+
+#riwayatContainer table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+}
+
+#riwayatContainer th {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 1;
+    padding: 12px 14px;
+    text-align: left;
+    font-weight: 700;
+    color: var(--primary);
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid var(--border);
+}
+
+#riwayatContainer td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--dark);
+}
+
+#riwayatContainer tbody tr {
+    transition: all 0.2s ease;
+    background: #fff;
+}
+
+#riwayatContainer tbody tr:last-child td { border-bottom: none; }
+#riwayatContainer tbody tr:hover { background: #f0f4ff; }
+
+.riwayat-empty {
+    text-align: center;
+    color: var(--gray);
+    padding: 30px 20px;
+    font-size: 0.88rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.riwayat-empty i { font-size: 2.5rem; color: var(--border); }
+
+.riwayat-loading {
+    text-align: center;
+    color: var(--primary);
+    padding: 30px 20px;
+    font-size: 0.88rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* ============================================
+   DIVIDER
+   ============================================ */
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 30px 0;
+    color: var(--gray);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+}
+
+/* ============================================
+   UTILITIES
+   ============================================ */
+.text-center { text-align: center; }
+.text-muted {
+    font-size: 0.78rem;
+    color: var(--gray);
+    margin-top: 8px;
+    display: block;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 900px) {
+    .login-container {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+    }
+    .login-left { padding: 40px 30px; text-align: center; }
+    .login-left .logo-big { font-size: 60px; }
+    .login-left h2 { font-size: 1.4rem; }
+    .login-left .features { display: none; }
+    .login-right { padding: 40px 30px; }
+}
+
+@media (max-width: 640px) {
+    .surat1-wrapper { padding: 20px 0 40px; }
+    .container.surat-page { padding: 25px 20px; border-radius: 20px; }
+    .header { flex-direction: column; align-items: flex-start; }
+    .header h1 { font-size: 1.15rem; }
+    .header h1 i { width: 38px; height: 38px; font-size: 0.95rem; }
+    .login-container { border-radius: 20px; }
+    .login-left, .login-right { padding: 30px 22px; }
+    .login-right h1 { font-size: 1.4rem; }
+    #riwayatContainer table { font-size: 0.72rem; }
+    #riwayatContainer th, #riwayatContainer td { padding: 8px 6px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div id="navbar-placeholder"></div>
+
+<!-- BREADCRUMB -->
+<section class="breadcrumb-section">
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="../index.html"><i class="fas fa-home"></i> Beranda</a>
+            <span>/</span>
+            <a href="surat.html">Surat Menyurat</a>
+            <span>/</span>
+            <span class="active">Sistem Agenda Surat</span>
+        </div>
+    </div>
+</section>
+
+<!-- WRAPPER -->
+<div class="surat1-wrapper">
+    <div class="container">
+
+        <!-- ==========================================
+             LOGIN PAGE
+        =========================================== -->
+        <div class="login-container" id="loginPage">
+            <div class="login-left">
+                <div class="logo-big">📨</div>
+                <h2>Sistem Surat<br>Menyurat Digital</h2>
+                <p>Kelola agenda surat masuk dan keluar SDN Gambirono 01 dengan mudah, cepat, dan terintegrasi.</p>
+                
+                <div class="features">
+                    <span><i class="fas fa-check"></i> Terintegrasi Google Drive</span>
+                    <span><i class="fas fa-check"></i> Auto-generate nomor agenda</span>
+                    <span><i class="fas fa-check"></i> Riwayat surat tersimpan rapi</span>
+                    <span><i class="fas fa-check"></i> Download format DOCX</span>
+                </div>
+            </div>
+            
+            <div class="login-right">
+                <a href="../index.html" class="back-home-btn">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+                </a>
+                
+                <h1>Selamat Datang 👋</h1>
+                <p class="subtitle">Masukkan kode akses untuk melanjutkan</p>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="kodeAkses"><i class="fas fa-key"></i> Kode Akses</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="kodeAkses" placeholder="Masukkan kode akses..." required autofocus />
+                            <button type="button" class="password-toggle" onclick="togglePassword()">
+                                <i class="fas fa-eye" id="eyeIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn">
+                        <i class="fas fa-sign-in-alt"></i> Masuk
+                    </button>
+                    
+                    <div class="error-message" id="loginError">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Kode akses salah! Silakan coba lagi.</span>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             SURAT PAGE — pakai class .container.surat-page
+        =========================================== -->
+        <div class="container surat-page" id="suratPage">
+            <div class="header">
+                <h1>
+                    <i class="fas fa-envelope-open-text"></i>
+                    Surat Menyurat
+                </h1>
+                <div class="header-right">
+                    <span class="user-info">
+                        <i class="fas fa-user-circle"></i> Admin
+                    </span>
+                    <button class="btn-logout" id="btnLogout">
+                        <i class="fas fa-sign-out-alt"></i> Keluar
+                    </button>
+                </div>
+            </div>
+            
+            <p class="subtitle">
+                <i class="fas fa-info-circle" style="color: var(--primary);"></i>
+                Sistem agenda surat terintegrasi dengan Google Drive
+            </p>
+
+            <div class="info-box">
+                <i class="fas fa-circle-check"></i>
+                <div>
+                    <strong>Status Sistem</strong>
+                    <span id="statusText">Siap memproses surat</span>
+                </div>
+            </div>
+
+            <form id="suratForm">
+                <div class="form-group">
+                    <label for="jenisSurat"><i class="fas fa-folder"></i> Pilih Jenis Surat</label>
+                    <select id="jenisSurat" required>
+                        <option value="">— Memuat data —</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="perihal"><i class="fas fa-pen"></i> Perihal Surat</label>
+                    <textarea id="perihal" placeholder="Masukkan perihal surat..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="tanggalSurat"><i class="fas fa-calendar"></i> Tanggal Surat</label>
+                    <input type="date" id="tanggalSurat" required />
+                </div>
+
+                <button type="submit" class="btn-primary" id="btnProses">
+                    <i class="fas fa-paper-plane"></i> Proses & Buat Surat
+                </button>
+            </form>
+
+            <div class="loader" id="loader">
+                <i class="fas fa-spinner fa-spin"></i>
+                <span>Memproses, harap tunggu...</span>
+            </div>
+            
+            <div id="result"></div>
+
+            <div class="divider">Download</div>
+
+            <button class="btn-primary btn-secondary" id="btnDownload">
+                <i class="fas fa-download"></i> Download Surat (DOCX)
+            </button>
+            <p class="text-muted text-center">* Pastikan surat sudah diproses terlebih dahulu</p>
+
+            <div class="divider">Riwayat</div>
+
+            <div id="riwayatContainer">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                    <h3><i class="fas fa-clock-rotate-left"></i> Riwayat Agenda Surat</h3>
+                    <button type="button" onclick="loadRiwayatAgenda()" class="refresh-btn">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+
+                <div class="riwayat-box">
+                    <div id="riwayatLoading" class="riwayat-loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <span>Memuat riwayat...</span>
+                    </div>
+                    <div id="riwayatEmpty" class="riwayat-empty" style="display: none;">
+                        <i class="fas fa-inbox"></i>
+                        <span>Belum ada riwayat surat</span>
+                    </div>
+                    <div id="riwayatContent" style="display: none;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nomor Agenda</th>
+                                    <th>Jenis Surat</th>
+                                    <th>Perihal</th>
+                                    <th>Tanggal</th>
+                                </tr>
+                            </thead>
+                            <tbody id="riwayatTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <p class="text-muted text-center">* Menampilkan 10 riwayat terakhir</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<div id="footer-placeholder"></div>
+
+<!-- ============================================
+     SCRIPTS (URUTAN PENTING!)
+     1. Helper navbar & footer
+     2. script.js (logic utama)
+     3. Toggle password
+     ============================================ -->
+<script src="../js/breadcrumb-helper.js" data-base="../"></script>
+<script src="../js/main.js"></script>
+<script src="../js/analitik.js"></script>
+
+<!-- ✅ SCRIPT.JS ANDA (WAJIB SETELAH ELEMENT ADA) -->
+<script src="script.js"></script>
+
+<!-- Toggle password (tambahan kecil) -->
+<script>
+function togglePassword() {
+    const input = document.getElementById('kodeAkses');
+    const icon = document.getElementById('eyeIcon');
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+    } else {
+        input.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+    }
+}
+</script>
+
+</body>
+</html>

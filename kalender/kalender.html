@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalender Pendidikan - SDN Gambirono 01</title>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/breadcrumb.css">
+<link rel="stylesheet" href="../css/kalender.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="icon" type="image/x-icon" href="../favicon.ico">
+</head>
+<body>
+
+<div id="navbar-placeholder"></div>
+
+<section class="breadcrumb-section">
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="../index.html"><i class="fas fa-home"></i> Beranda</a>
+            <span>/</span>
+            <span class="active">Kalender Pendidikan</span>
+        </div>
+    </div>
+</section>
+
+<section id="kalender" class="kalender">
+    <div class="container">
+        <div class="section-header">
+            <h2><i class="fas fa-calendar-alt"></i> Kalender Pendidikan</h2>
+            <p>Provinsi Jawa Timur - Tahun Ajaran 2026/2027</p>
+        </div>
+
+        <div class="kalender-tab-nav">
+            <button data-tab="dashboard" class="active"><i class="fas fa-chart-simple"></i> Dashboard</button>
+            <button data-tab="table"><i class="fas fa-table"></i> Kaldik</button>
+            <button data-tab="calendar"><i class="fas fa-calendar-days"></i> Kalender Bulanan</button>
+        </div>
+
+        <div id="tab-dashboard" class="kalender-tab active"><div id="dashboardContent"></div></div>
+        <div id="tab-table" class="kalender-tab"><div id="tableContent"></div></div>
+        <div id="tab-calendar" class="kalender-tab"><div id="calendarContent"></div></div>
+    </div>
+</section>
+
+<div id="footer-placeholder"></div>
+
+<script src="../js/breadcrumb-helper.js" data-base="../"></script>
+<script src="../js/main.js"></script>
+<script src="../js/analitik.js"></script>
+<script src="../js/kalender.js"></script>
+</body>
+</html>

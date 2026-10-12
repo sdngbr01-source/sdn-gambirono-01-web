@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galeri - SDN Gambirono 01</title>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/breadcrumb.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="icon" type="image/x-icon" href="../favicon.ico">
+</head>
+<body>
+
+<div id="navbar-placeholder"></div>
+
+<section class="breadcrumb-section">
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="../index.html"><i class="fas fa-home"></i> Beranda</a>
+            <span>/</span>
+            <span class="active">Galeri</span>
+        </div>
+    </div>
+</section>
+
+<section id="galeri" class="galeri">
+    <div class="container">
+        <div class="section-header">
+            <h2>Galeri Kegiatan</h2>
+            <p>Dokumentasi Kegiatan SDN Gambirono 01</p>
+        </div>
+        
+        <div class="galeri-filters">
+            <button class="filter-btn active" onclick="filterGaleri('all')">Semua</button>
+            <button class="filter-btn" onclick="filterGaleri('upacara')">Upacara</button>
+            <button class="filter-btn" onclick="filterGaleri('belajar')">Kegiatan Belajar</button>
+            <button class="filter-btn" onclick="filterGaleri('olahraga')">Olahraga</button>
+            <button class="filter-btn" onclick="filterGaleri('ekstra')">Ekstrakurikuler</button>
+            <button class="filter-btn" onclick="filterGaleri('lomba')">Lomba</button>
+        </div>
+        
+        <div class="galeri-grid" id="galeriGrid">
+            <div class="galeri-item" data-kategori="upacara"><img src="../images/galeri/galeri-1.jpg" alt="Upacara"><div class="galeri-overlay"><h4>Upacara Bendera</h4><p>Setiap Senin pagi</p></div></div>
+            <div class="galeri-item" data-kategori="belajar"><img src="../images/galeri/galeri-2.jpg" alt="Belajar"><div class="galeri-overlay"><h4>Kegiatan Belajar Mengajar</h4><p>Kelas 5A</p></div></div>
+            <div class="galeri-item" data-kategori="olahraga"><img src="../images/galeri/galeri-3.jpg" alt="Olahraga"><div class="galeri-overlay"><h4>Senam Pagi</h4><p>Jumat Sehat</p></div></div>
+            <div class="galeri-item" data-kategori="ekstra"><img src="../images/galeri/galeri-4.jpg" alt="Pramuka"><div class="galeri-overlay"><h4>Latihan Pramuka</h4><p>Setiap Sabtu</p></div></div>
+            <div class="galeri-item" data-kategori="lomba"><img src="../images/galeri/galeri-5.jpg" alt="Lomba"><div class="galeri-overlay"><h4>Lomba 17 Agustus</h4><p>Peringatan HUT RI</p></div></div>
+            <div class="galeri-item" data-kategori="belajar"><img src="../images/galeri/galeri-6.jpg" alt="Praktikum"><div class="galeri-overlay"><h4>Praktikum IPA</h4><p>Di laboratorium</p></div></div>
+            <div class="galeri-item" data-kategori="ekstra"><img src="../images/galeri/galeri-7.jpg" alt="Kesenian"><div class="galeri-overlay"><h4>Latihan Tari</h4><p>Ekstrakurikuler Seni</p></div></div>
+            <div class="galeri-item" data-kategori="olahraga"><img src="../images/galeri/galeri-8.jpg" alt="Futsal"><div class="galeri-overlay"><h4>Turnamen Futsal</h4><p>Juara 1 tingkat kecamatan</p></div></div>
+            <div class="galeri-item" data-kategori="lomba"><img src="../images/galeri/galeri-9.jpg" alt="MTQ"><div class="galeri-overlay"><h4>Lomba MTQ</h4><p>Peringatan Isra Mi'raj</p></div></div>
+            <div class="galeri-item" data-kategori="upacara"><img src="../images/galeri/galeri-10.jpg" alt="Perpisahan"><div class="galeri-overlay"><h4>Perpisahan Kelas 6</h4><p>Tahun ajaran 2025/2026</p></div></div>
+        </div>
+    </div>
+</section>
+
+<div id="footer-placeholder"></div>
+
+<script src="../js/breadcrumb-helper.js" data-base="../"></script>
+<script src="../js/main.js"></script>
+<script src="../js/analitik.js"></script>
+<script>
+function filterGaleri(kategori) {
+    document.querySelectorAll('.galeri-filters .filter-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    document.querySelectorAll('#galeriGrid .galeri-item').forEach(item => {
+        item.style.display = (kategori === 'all' || item.dataset.kategori === kategori) ? 'block' : 'none';
+    });
+}
+</script>
+</body>
+</html>

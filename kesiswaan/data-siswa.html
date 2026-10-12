@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Siswa - SDN Gambirono 01</title>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/breadcrumb.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="icon" type="image/x-icon" href="../favicon.ico">
+</head>
+<body>
+
+<div id="navbar-placeholder"></div>
+
+<section class="breadcrumb-section">
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="../index.html"><i class="fas fa-home"></i> Beranda</a>
+            <span>/</span>
+            <a href="kesiswaan.html">Kesiswaan</a>
+            <span>/</span>
+            <span class="active">Data Siswa</span>
+        </div>
+    </div>
+</section>
+
+<section id="data-siswa" class="data-siswa">
+    <div class="container">
+        <div class="section-header">
+            <h2>Data Siswa</h2>
+            <p>Informasi Jumlah Siswa dan Data Detail Siswa</p>
+        </div>
+        
+        <div class="jumlah-siswa">
+            <h3><i class="fas fa-chart-bar"></i> Rekap Jumlah Siswa per Kelas</h3>
+            <div class="table-wrapper">
+                <table class="tabel-jumlah" id="tabelJumlahSiswa">
+                    <thead>
+                        <tr>
+                            <th>Kelas</th>
+                            <th>Laki-laki</th>
+                            <th>Perempuan</th>
+                            <th>Mutasi Masuk L</th>
+                            <th>Mutasi Masuk P</th>
+                            <th>Mutasi Keluar L</th>
+                            <th>Mutasi Keluar P</th>
+                            <th>Jumlah L</th>
+                            <th>Jumlah P</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="jumlahSiswaBody">
+                        <tr><td colspan="10" class="loading-text"><i class="fas fa-spinner fa-spin"></i> Memuat data...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="detail-siswa">
+            <h3><i class="fas fa-search"></i> Cari Data Siswa</h3>
+            
+            <div class="filter-container">
+                <div class="filter-group">
+                    <label><i class="fas fa-users"></i> Filter Kelas</label>
+                    <select id="filterKelas" class="filter-select">
+                        <option value="">Semua Kelas</option>
+                        <option value="1A">Kelas 1A</option>
+                        <option value="1B">Kelas 1B</option>
+                        <option value="2A">Kelas 2A</option>
+                        <option value="2B">Kelas 2B</option>
+                        <option value="3A">Kelas 3A</option>
+                        <option value="3B">Kelas 3B</option>
+                        <option value="4A">Kelas 4A</option>
+                        <option value="4B">Kelas 4B</option>
+                        <option value="5A">Kelas 5A</option>
+                        <option value="5B">Kelas 5B</option>
+                        <option value="6A">Kelas 6A</option>
+                        <option value="6B">Kelas 6B</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label><i class="fas fa-user-graduate"></i> Cari Nama Siswa</label>
+                    <div class="search-input-wrapper">
+                        <input type="text" id="filterNama" class="filter-input" placeholder="Ketik nama siswa...">
+                        <button id="btnClearNama" class="btn-clear" onclick="clearNamaFilter()"><i class="fas fa-times"></i></button>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <label><i class="fas fa-id-card"></i> Cari NIS / NISN</label>
+                    <div class="search-input-wrapper">
+                        <input type="text" id="filterNIS" class="filter-input" placeholder="Ketik NIS atau NISN...">
+                        <button id="btnClearNIS" class="btn-clear" onclick="clearNISFilter()"><i class="fas fa-times"></i></button>
+                    </div>
+                </div>
+                
+                <div class="filter-actions">
+                    <button id="btnCari" class="btn-cari" onclick="cariSiswa()"><i class="fas fa-search"></i> Cari</button>
+                    <button id="btnReset" class="btn-reset" onclick="resetFilter()"><i class="fas fa-undo-alt"></i> Reset</button>
+                </div>
+            </div>
+            
+            <div id="hasilSiswa" class="hasil-siswa">
+                <p class="info-text"><i class="fas fa-info-circle"></i> Pilih kelas, ketik nama siswa, atau NIS/NISN untuk mencari data</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="footer-placeholder"></div>
+
+<script src="../js/breadcrumb-helper.js" data-base="../"></script>
+<script src="../js/main.js"></script>
+<script src="../js/analitik.js"></script>
+<script src="../js/datasiswa.js"></script>
+</body>
+</html>

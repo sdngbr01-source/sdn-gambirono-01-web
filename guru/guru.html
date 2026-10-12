@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guru & Tendik - SDN Gambirono 01</title>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/breadcrumb.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="icon" type="image/x-icon" href="../favicon.ico">
+</head>
+<body>
+
+<div id="navbar-placeholder"></div>
+
+<section class="breadcrumb-section">
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="../index.html"><i class="fas fa-home"></i> Beranda</a>
+            <span>/</span>
+            <span class="active">Guru & Tenaga Kependidikan</span>
+        </div>
+    </div>
+</section>
+
+<section id="guru" class="guru">
+    <div class="container">
+        <div class="section-header">
+            <h2>Guru & Tenaga Kependidikan</h2>
+            <p>Tenaga Pendidik Profesional dan Berdedikasi</p>
+        </div>
+        
+        <div class="guru-filters">
+            <button class="filter-btn active" onclick="filterGuru('all')">Semua</button>
+            <button class="filter-btn" onclick="filterGuru('kepsek')">Kepala Sekolah</button>
+            <button class="filter-btn" onclick="filterGuru('guru-kelas')">Guru Kelas</button>
+            <button class="filter-btn" onclick="filterGuru('guru-mapel')">Guru Mapel</button>
+            <button class="filter-btn" onclick="filterGuru('staff')">Tenaga Kependidikan</button>
+        </div>
+        
+        <div class="guru-grid" id="guruGrid">
+            <div class="guru-card" data-kategori="kepsek">
+                <div class="guru-img">
+                    <img src="../images/guru/guru-1.jpg" alt="Kepala Sekolah">
+                    <div class="guru-social"><a href="#"><i class="fab fa-whatsapp"></i></a></div>
+                </div>
+                <div class="guru-info">
+                    <h3>Dwi Jita Pahlawati, S.Pd.</h3>
+                    <p class="jabatan">Kepala Sekolah</p>
+                    <p class="nip">NIP. 198506012014122003</p>
+                </div>
+            </div>
+            <div class="guru-card" data-kategori="guru-kelas">
+                <div class="guru-img">
+                    <img src="../images/guru/guru-2.jpg" alt="Guru Kelas 2A">
+                    <div class="guru-social"><a href="#"><i class="fab fa-whatsapp"></i></a></div>
+                </div>
+                <div class="guru-info">
+                    <h3>Nasiha Nurhainik, S.Pd.</h3>
+                    <p class="jabatan">Guru Kelas 2A</p>
+                    <p class="nip">NIP. 19670128 199202 2 001</p>
+                </div>
+            </div>
+            <div class="guru-card" data-kategori="guru-kelas">
+                <div class="guru-img">
+                    <img src="../images/guru/guru-3.jpg" alt="Guru Kelas 3A">
+                    <div class="guru-social"><a href="#"><i class="fab fa-whatsapp"></i></a></div>
+                </div>
+                <div class="guru-info">
+                    <h3>Endah Budi Pinaryati, S.Pd.</h3>
+                    <p class="jabatan">Guru Kelas 3A</p>
+                    <p class="nip">NIP. 19670122 199202 2 001</p>
+                </div>
+            </div>
+            <div class="guru-card" data-kategori="guru-kelas">
+                <div class="guru-img">
+                    <img src="../images/guru/guru-4.jpg" alt="Guru Kelas 4A">
+                    <div class="guru-social"><a href="#"><i class="fab fa-whatsapp"></i></a></div>
+                </div>
+                <div class="guru-info">
+                    <h3>Isminarni, S.Pd.</h3>
+                    <p class="jabatan">Guru Kelas 4A</p>
+                    <p class="nip">NIP. 19691211 200212 2 003</p>
+                </div>
+            </div>
+            <div class="guru-card" data-kategori="guru-kelas">
+                <div class="guru-img">
+                    <img src="../images/guru/guru-5.jpg" alt="Guru Kelas 5B">
+                    <div class="guru-social"><a href="#"><i class="fab fa-whatsapp"></i></a></div>
+                </div>
+                <div class="guru-info">
+                    <h3>Mohamad Hariyanto, S.Pd. Gr.</h3>
+                    <p class="jabatan">Guru Kelas 5B</p>
+                    <p class="nip">NIP. 19710517 201412 1 001</p>
+                </div>
+            </div>
+            <div class="guru-card" data-kategori="guru-kelas">
+                <div class="guru-img">
+                    <img src="../images/guru/guru-6.jpg" alt="Guru Kelas 6A">
+                    <div class="guru-social"><a href="#"><i class="fab fa-whatsapp"></i></a></div>
+                </div>
+                <div class="guru-info">
+                    <h3>Sumini, S.Pd. SD, Gr.</h3>
+                    <p class="jabatan">Guru Kelas 6A</p>
+                    <p class="nip">NIPPPK 198403032022212005</p>
+                </div>
+            </div>
+            <div class="guru-card" data-kategori="guru-kelas">
+                <div class="guru-img">
+                    <img src="../images/guru/guru-7.jpg" alt="Guru Kelas 1A">
+                    <div class="guru-social"><a href="#"><i class="fab fa-whatsapp"></i></a></div>
+                </div>
+                <div class="guru-info">
+                    <h3>Dewi Retno Titisari, S.Pd. SD. Gr.</h3>
+                    <p class="jabatan">Guru Kelas 1A</p>
+                    <p class="nip">NIPPPK 198412252022212002</p>
+                </div>
+            </div>
+            <div class="guru-card" data-kategori="guru-mapel">
+                <div class="guru-img">
+                    <img src="../images/guru/guru-8.jpg" alt="Guru PJOK A">
+                    <div class="guru-social"><a href="#"><i class="fab fa-whatsapp"></i></a></div>
+                </div>
+                <div class="guru-info">
+                    <h3>Mahardika Setyo Saputra, S.Pd. Gr.</h3>
+                    <p class="jabatan">Guru PJOK A</p>
+                    <p class="nip">NIPPPK 198908062022211001</p>
+                </div>
+            </div>
+            <div class="guru-card" data-kategori="guru-mapel">
+                <div class="guru-img">
+                    <img src="../images/guru/guru-9.jpg" alt="Guru PJOK B">
+                    <div class="guru-social"><a href="#"><i class="fab fa-whatsapp"></i></a></div>
+                </div>
+                <div class="guru-info">
+                    <h3>Ahmad Azhar Anas, S.Pd. Gr.</h3>
+                    <p class="jabatan">Guru PJOK B</p>
+                    <p class="nip">NIPPPK 198405192022211001</p>
+                </div>
+            </div>
+            <div class="guru-card" data-kategori="guru-mapel">
+                <div class="guru-img">
+                    <img src="../images/guru/guru-10.jpg" alt="Guru PAI B">
+                    <div class="guru-social"><a href="#"><i class="fab fa-whatsapp"></i></a></div>
+                </div>
+                <div class="guru-info">
+                    <h3>Nuril Hidayati, S.Pd.I, Gr.</h3>
+                    <p class="jabatan">Guru PAI B</p>
+                    <p class="nip">NIPPPK 198301162023212008</p>
+                </div>
+            </div>
+            <div class="guru-card" data-kategori="guru-kelas">
+                <div class="guru-img">
+                    <img src="../images/guru/guru-11.jpg" alt="Guru Kelas 6B">
+                    <div class="guru-social"><a href="#"><i class="fab fa-whatsapp"></i></a></div>
+                </div>
+                <div class="guru-info">
+                    <h3>Linda Susanti, S.Pd. Gr.</h3>
+                    <p class="jabatan">Guru Kelas 6B</p>
+                    <p class="nip">NIPPPK 199606202025212026</p>
+                </div>
+            </div>
+            <div class="guru-card" data-kategori="guru-mapel">
+                <div class="guru-img">
+                    <img src="../images/guru/guru-12.jpg" alt="Guru PAI A">
+                    <div class="guru-social"><a href="#"><i class="fab fa-whatsapp"></i></a></div>
+                </div>
+                <div class="guru-info">
+                    <h3>Wahyudiono, S.Pd.I. Gr.</h3>
+                    <p class="jabatan">Guru PAI A</p>
+                    <p class="nip">NIPPPPK PW. 198505142025211103</p>
+                </div>
+            </div>
+            <div class="guru-card" data-kategori="guru-kelas">
+                <div class="guru-img">
+                    <img src="../images/guru/guru-13.jpg" alt="Guru Kelas 3B">
+                    <div class="guru-social"><a href="#"><i class="fab fa-whatsapp"></i></a></div>
+                </div>
+                <div class="guru-info">
+                    <h3>Mustika Wulandari, S.Pd.</h3>
+                    <p class="jabatan">Guru Kelas 3B</p>
+                    <p class="nip">NIPPK PW. 200107042025212010</p>
+                </div>
+            </div>
+            <div class="guru-card" data-kategori="guru-kelas">
+                <div class="guru-img">
+                    <img src="../images/guru/guru-14.jpg" alt="Guru Kelas 1B">
+                    <div class="guru-social"><a href="#"><i class="fab fa-whatsapp"></i></a></div>
+                </div>
+                <div class="guru-info">
+                    <h3>Suci Anandatus Sholekha</h3>
+                    <p class="jabatan">Guru Kelas 1B</p>
+                    <p class="nip">NIPPPPK PW. 200112102025212026</p>
+                </div>
+            </div>
+            <div class="guru-card" data-kategori="staff">
+                <div class="guru-img">
+                    <img src="../images/guru/guru-15.jpg" alt="Penjaga Sekolah">
+                    <div class="guru-social"><a href="#"><i class="fab fa-whatsapp"></i></a></div>
+                </div>
+                <div class="guru-info">
+                    <h3>Narno Supriadi</h3>
+                    <p class="jabatan">Penjaga Sekolah</p>
+                    <p class="nip">NIPPPPK PW. 197505102025211076</p>
+                </div>
+            </div>
+            <div class="guru-card" data-kategori="staff">
+                <div class="guru-img">
+                    <img src="../images/guru/guru-16.jpg" alt="Operator">
+                    <div class="guru-social"><a href="#"><i class="fab fa-whatsapp"></i></a></div>
+                </div>
+                <div class="guru-info">
+                    <h3>M. Afrizal Effendi</h3>
+                    <p class="jabatan">Operator Layanan Operasional</p>
+                    <p class="nip">NIPPPPK PW. 199806102025211049</p>
+                </div>
+            </div>
+            <div class="guru-card" data-kategori="guru-kelas">
+                <div class="guru-img">
+                    <img src="../images/guru/guru-17.jpg" alt="Guru Kelas 4B">
+                    <div class="guru-social"><a href="#"><i class="fab fa-whatsapp"></i></a></div>
+                </div>
+                <div class="guru-info">
+                    <h3>Abdul Hamid, S.Pd.</h3>
+                    <p class="jabatan">Guru Kelas 4B</p>
+                    <p class="nip">NIP. -</p>
+                </div>
+            </div>
+            <div class="guru-card" data-kategori="guru-kelas">
+                <div class="guru-img">
+                    <img src="../images/guru/guru-18.jpg" alt="Guru Kelas 5A">
+                    <div class="guru-social"><a href="#"><i class="fab fa-whatsapp"></i></a></div>
+                </div>
+                <div class="guru-info">
+                    <h3>Izar Alfian, S.Pd, M.Pd, Gr.</h3>
+                    <p class="jabatan">Guru Kelas 5A</p>
+                    <p class="nip">NIP. -</p>
+                </div>
+            </div>
+            <div class="guru-card" data-kategori="guru-kelas">
+                <div class="guru-img">
+                    <img src="../images/guru/guru-19.jpg" alt="Guru Kelas 2B">
+                    <div class="guru-social"><a href="#"><i class="fab fa-whatsapp"></i></a></div>
+                </div>
+                <div class="guru-info">
+                    <h3>Noval Maulana</h3>
+                    <p class="jabatan">Guru Kelas 2B</p>
+                    <p class="nip">NIP. -</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="guru-note">
+            <p><i class="fas fa-info-circle"></i> Total 19 Tenaga Pendidik dan Kependidikan</p>
+        </div>
+    </div>
+</section>
+
+<div id="footer-placeholder"></div>
+
+<script src="../js/breadcrumb-helper.js" data-base="../"></script>
+<script src="../js/main.js"></script>
+<script src="../js/analitik.js"></script>
+<script>
+function filterGuru(kategori) {
+    document.querySelectorAll('.guru-filters .filter-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    document.querySelectorAll('#guruGrid .guru-card').forEach(card => {
+        if (kategori === 'all' || card.dataset.kategori === kategori) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+</script>
+</body>
+</html>
