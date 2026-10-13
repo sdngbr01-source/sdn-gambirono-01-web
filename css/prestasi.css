@@ -1,8 +1,10 @@
-/* ============ PRESTASI SECTION ============ */
-
+/* ============================================
+   PRESTASI SISWA
+   ============================================ */
 .prestasi-section {
-    padding: 40px 20px;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 60px 0;
+    background: #f5f7fb;
+    min-height: 60vh;
 }
 
 .prestasi-section .section-title {
@@ -11,263 +13,163 @@
 }
 
 .prestasi-section .section-title h2 {
-    font-size: 32px;
-    font-weight: 700;
-    color: #1a237e;
-    position: relative;
-    display: inline-block;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #2d3748;
+    margin-bottom: 12px;
 }
 
-.prestasi-section .section-title h2::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(90deg, #1a237e, #42a5f5);
-    border-radius: 2px;
+.prestasi-section .section-title h2 i {
+    color: #f6ad55;
 }
 
 .prestasi-section .section-title p {
-    color: #666;
-    margin-top: 15px;
-    font-size: 16px;
+    color: #718096;
+    font-size: 1rem;
 }
 
-/* ============ GRID PRESTASI ============ */
+/* Filter */
+.prestasi-filter {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.prestasi-filter-btn {
+    padding: 8px 20px;
+    border: 2px solid #e5e9f2;
+    background: #fff;
+    color: #4a5568;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+}
+
+.prestasi-filter-btn:hover {
+    border-color: #667eea;
+    color: #667eea;
+    transform: translateY(-2px);
+}
+
+.prestasi-filter-btn.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 4px 15px rgba(102,126,234,0.3);
+}
+
+/* Grid */
 .prestasi-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
 }
 
-/* ============ CARD PRESTASI ============ */
+/* Card */
 .prestasi-card {
-    background: #ffffff;
-    border-radius: 12px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
     overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
-    cursor: pointer;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid #e5e9f2;
 }
 
 .prestasi-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 35px rgba(102,126,234,0.2);
 }
 
-.prestasi-card .card-image {
+.prestasi-foto-wrapper {
     position: relative;
     width: 100%;
-    padding-top: 100%;
-    /* 1:1 Aspect Ratio */
+    aspect-ratio: 1 / 1;
     overflow: hidden;
-    background: #f0f0f0;
+    background: linear-gradient(135deg, #f0f4ff 0%, #e5e9f2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.prestasi-card .card-image img {
-    position: absolute;
-    top: 0;
-    left: 0;
+.prestasi-foto {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
+    transition: transform 0.4s ease;
 }
 
-.prestasi-card:hover .card-image img {
-    transform: scale(1.05);
+.prestasi-card:hover .prestasi-foto {
+    transform: scale(1.08);
 }
 
-/* Tahun di atas foto */
-.prestasi-card .card-year {
+.prestasi-foto-wrapper.no-image {
+    background: linear-gradient(135deg, #f0f4ff 0%, #e5e9f2 100%);
+}
+
+.prestasi-badge {
     position: absolute;
-    top: 10px;
-    left: 10px;
-    background: rgba(26, 35, 126, 0.85);
-    color: #ffffff;
-    padding: 4px 12px;
+    top: 12px;
+    right: 12px;
+    background: linear-gradient(135deg, #f6ad55 0%, #ed8936 100%);
+    color: #fff;
+    padding: 5px 12px;
     border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-/* Badge jenis lomba */
-.prestasi-card .card-badge {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: rgba(255, 193, 7, 0.9);
-    color: #1a237e;
-    padding: 3px 10px;
-    border-radius: 20px;
-    font-size: 10px;
+    font-size: 0.72rem;
     font-weight: 700;
-    letter-spacing: 0.3px;
-    backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    text-transform: uppercase;
+    box-shadow: 0 4px 12px rgba(246,173,85,0.35);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
 }
 
-/* ============ CARD BODY ============ */
-.prestasi-card .card-body {
-    padding: 12px 14px 14px;
+.prestasi-info {
+    padding: 18px 20px 22px;
     text-align: center;
 }
 
-.prestasi-card .card-body .student-name {
-    font-size: 14px;
-    font-weight: 600;
-    color: #1a237e;
-    margin: 0 0 2px 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.prestasi-nama {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 8px;
+    line-height: 1.3;
 }
 
-.prestasi-card .card-body .lomba-name {
-    font-size: 12px;
-    color: #666;
-    margin: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.prestasi-lomba {
+    font-size: 0.85rem;
+    color: #667eea;
+    font-weight: 500;
+    line-height: 1.5;
 }
 
-.prestasi-card .card-body .lomba-name i {
-    color: #ffc107;
-    margin-right: 4px;
-    font-size: 10px;
-}
-
-/* ============ RESPONSIVE ============ */
-@media (max-width: 768px) {
-    .prestasi-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-        gap: 15px;
-        padding: 5px;
-    }
-
-    .prestasi-section {
-        padding: 30px 15px;
-    }
-
-    .prestasi-section .section-title h2 {
-        font-size: 24px;
-    }
-
-    .prestasi-card .card-body .student-name {
-        font-size: 12px;
-    }
-
-    .prestasi-card .card-body .lomba-name {
-        font-size: 10px;
-    }
-
-    .prestasi-card .card-year {
-        font-size: 10px;
-        padding: 2px 10px;
-    }
-
-    .prestasi-card .card-badge {
-        font-size: 8px;
-        padding: 2px 8px;
-    }
-}
-
-@media (max-width: 480px) {
-    .prestasi-grid {
-        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-        gap: 12px;
-    }
-
-    .prestasi-card .card-body {
-        padding: 10px 8px 12px;
-    }
-}
-
-/* ============ LOADING & EMPTY STATE ============ */
-.prestasi-loading,
-.prestasi-empty {
+/* Empty */
+.empty-prestasi {
     grid-column: 1 / -1;
     text-align: center;
-    padding: 40px 20px;
-    color: #666;
+    padding: 60px 20px;
+    color: #a0aec0;
 }
 
-.prestasi-loading i,
-.prestasi-empty i {
-    font-size: 36px;
-    color: #1a237e;
+.empty-prestasi i {
+    font-size: 4rem;
+    color: #e5e9f2;
     margin-bottom: 15px;
-    display: block;
 }
 
-.prestasi-loading p,
-.prestasi-empty p {
-    font-size: 14px;
-    margin: 0;
+.empty-prestasi p {
+    font-size: 1rem;
 }
 
-/* ============ ANIMASI ============ */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
+/* Responsive */
+@media (max-width: 480px) {
+    .prestasi-grid {
+        grid-template-columns: 1fr;
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    
+    .prestasi-section .section-title h2 {
+        font-size: 1.5rem;
     }
-}
-
-.prestasi-card {
-    animation: fadeInUp 0.5s ease forwards;
-    opacity: 0;
-}
-
-.prestasi-card:nth-child(1) {
-    animation-delay: 0.05s;
-}
-.prestasi-card:nth-child(2) {
-    animation-delay: 0.10s;
-}
-.prestasi-card:nth-child(3) {
-    animation-delay: 0.15s;
-}
-.prestasi-card:nth-child(4) {
-    animation-delay: 0.20s;
-}
-.prestasi-card:nth-child(5) {
-    animation-delay: 0.25s;
-}
-.prestasi-card:nth-child(6) {
-    animation-delay: 0.30s;
-}
-.prestasi-card:nth-child(7) {
-    animation-delay: 0.35s;
-}
-.prestasi-card:nth-child(8) {
-    animation-delay: 0.40s;
-}
-.prestasi-card:nth-child(9) {
-    animation-delay: 0.45s;
-}
-.prestasi-card:nth-child(10) {
-    animation-delay: 0.50s;
-}
-.prestasi-card:nth-child(11) {
-    animation-delay: 0.55s;
-}
-.prestasi-card:nth-child(12) {
-    animation-delay: 0.60s;
 }

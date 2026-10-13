@@ -1,195 +1,928 @@
 /* ============================================
-   BREADCRUMB SECTION
+   BREADCRUMB & NAVBAR — FULL REBUILD v2
+   Dual layout: Sidebar (desktop) + Top (kesiswaan)
+   ============================================ */
+
+/* ============================================
+   ROOT
+   ============================================ */
+* {
+    box-sizing: border-box;
+}
+
+/* ============================================
+   MODE SIDEBAR — Navbar vertikal kiri
+   ============================================ */
+body.section-mode {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+        "sidebar breadcrumb"
+        "sidebar main"
+        "sidebar footer";
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background: #f5f7fb;
+    font-family: 'Poppins', sans-serif;
+}
+
+body.section-mode #navbar-placeholder {
+    grid-area: sidebar;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 100;
+}
+
+body.section-mode .breadcrumb-section {
+    grid-area: breadcrumb;
+}
+
+body.section-mode > section:not(.breadcrumb-section):not(.navbar),
+body.section-mode > main {
+    grid-area: main;
+}
+
+body.section-mode #footer-placeholder {
+    grid-area: footer;
+}
+
+/* SIDEBAR NAVBAR */
+.navbar.navbar-section {
+    background: linear-gradient(180deg, #667eea 0%, #764ba2 100%) !important;
+    height: 100vh !important;
+    width: 260px;
+    padding: 0 !important;
+    position: relative !important;
+    top: auto !important;
+    display: flex !important;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 2px 0 20px rgba(102,126,234,0.15);
+}
+
+.navbar.navbar-section .container {
+    display: flex !important;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    gap: 0 !important;
+    height: 100%;
+    width: 100%;
+}
+
+/* Logo */
+.navbar.navbar-section .navbar-logo {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 25px 20px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    flex-shrink: 0;
+    text-decoration: none;
+    color: #fff;
+}
+
+.navbar.navbar-section .navbar-logo .logo-img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.2));
+}
+
+.navbar.navbar-section .navbar-logo .logo-text {
+    text-align: center;
+    line-height: 1.2;
+}
+
+.navbar.navbar-section .navbar-logo .logo-text h1 {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #fff;
+    margin: 0;
+    letter-spacing: 0.5px;
+}
+
+.navbar.navbar-section .navbar-logo .logo-text p {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.7);
+    margin: 0;
+    font-weight: 500;
+}
+
+/* Menu vertikal */
+.navbar.navbar-section .navbar-menu {
+    flex: 1;
+    display: block !important;
+    padding: 15px 12px 25px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.navbar.navbar-section .navbar-menu::-webkit-scrollbar {
+    width: 4px;
+}
+
+.navbar.navbar-section .navbar-menu::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+}
+
+.navbar.navbar-section .navbar-menu ul {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    flex-wrap: nowrap !important;
+    gap: 3px !important;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar.navbar-section .navbar-menu ul li {
+    width: 100%;
+    list-style: none;
+}
+
+.navbar.navbar-section .navbar-menu ul li a {
+    display: flex !important;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px !important;
+    border-radius: 10px !important;
+    font-size: 0.86rem !important;
+    font-weight: 500;
+    color: rgba(255,255,255,0.88) !important;
+    background: transparent !important;
+    width: 100%;
+    transition: all 0.25s ease;
+    text-decoration: none !important;
+    font-family: 'Poppins', sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.navbar.navbar-section .navbar-menu ul li a i {
+    width: 20px;
+    min-width: 20px;
+    text-align: center;
+    font-size: 0.92rem !important;
+    flex-shrink: 0;
+}
+
+.navbar.navbar-section .navbar-menu ul li a span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.navbar.navbar-section .navbar-menu ul li a:hover {
+    background: rgba(255,255,255,0.15) !important;
+    color: #fff !important;
+    transform: translateX(3px);
+}
+
+.navbar.navbar-section .navbar-menu ul li a.active {
+    background: rgba(255,255,255,0.25) !important;
+    color: #fff !important;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.navbar.navbar-section .nav-home {
+    background: rgba(255,255,255,0.12) !important;
+    margin-bottom: 6px;
+}
+
+.navbar.navbar-section .nav-divider {
+    width: 100% !important;
+    height: 1px !important;
+    background: rgba(255,255,255,0.2) !important;
+    margin: 8px 0 !important;
+    padding: 0 !important;
+}
+
+.navbar.navbar-section .nav-section-label {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.68rem !important;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: rgba(255,255,255,0.55) !important;
+    padding: 14px 14px 6px !important;
+    pointer-events: none;
+    list-style: none;
+    white-space: normal;
+}
+
+.navbar.navbar-section .nav-section-label i {
+    font-size: 0.7rem;
+}
+
+.navbar.navbar-section .navbar-toggle {
+    display: none !important;
+}
+
+/* ============================================
+   MODE NO-SIDEBAR — Navbar atas horizontal (kesiswaan)
+   ============================================ */
+body.no-sidebar-mode {
+    display: block;
+    background: #f5f7fb;
+    font-family: 'Poppins', sans-serif;
+}
+
+body.no-sidebar-mode #navbar-placeholder {
+    position: sticky;
+    top: 0;
+    height: auto;
+    z-index: 1000;
+}
+
+body.no-sidebar-mode .navbar.navbar-section {
+    height: auto !important;
+    width: 100% !important;
+    padding: 8px 0 !important;
+    flex-direction: row !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1000;
+    overflow: visible !important;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+body.no-sidebar-mode .navbar.navbar-section .container {
+    flex-direction: row !important;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px !important;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: auto;
+}
+
+body.no-sidebar-mode .navbar.navbar-section .navbar-logo {
+    flex-direction: row;
+    padding: 4px 0;
+    border-bottom: none;
+    gap: 10px;
+}
+
+body.no-sidebar-mode .navbar.navbar-section .navbar-logo .logo-img {
+    width: 50px;
+    height: 50px;
+}
+
+body.no-sidebar-mode .navbar.navbar-section .navbar-logo .logo-text {
+    text-align: left;
+}
+
+body.no-sidebar-mode .navbar.navbar-section .navbar-logo .logo-text h1 {
+    font-size: 0.8rem;
+}
+
+body.no-sidebar-mode .navbar.navbar-section .navbar-logo .logo-text p {
+    font-size: 0.68rem;
+}
+
+body.no-sidebar-mode .navbar.navbar-section .navbar-menu {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    flex: 1;
+    justify-content: flex-end;
+}
+
+body.no-sidebar-mode .navbar.navbar-section .navbar-menu ul {
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 4px !important;
+}
+
+body.no-sidebar-mode .navbar.navbar-section .navbar-menu ul li {
+    width: auto !important;
+}
+
+body.no-sidebar-mode .navbar.navbar-section .navbar-menu ul li a {
+    padding: 8px 14px !important;
+    border-radius: 20px !important;
+    white-space: nowrap;
+    font-size: 0.82rem !important;
+}
+
+body.no-sidebar-mode .navbar.navbar-section .navbar-menu ul li a:hover {
+    transform: translateY(-1px);
+}
+
+body.no-sidebar-mode .navbar.navbar-section .nav-divider {
+    width: 1px !important;
+    height: 24px !important;
+    margin: 0 8px !important;
+}
+
+body.no-sidebar-mode .navbar.navbar-section .nav-section-label {
+    padding: 0 10px !important;
+}
+
+body.no-sidebar-mode .navbar.navbar-section .navbar-toggle {
+    display: none !important;
+}
+
+/* ============================================
+   BREADCRUMB
    ============================================ */
 .breadcrumb-section {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    padding: 100px 0 40px;
-    margin-top: 0;
+    padding: 40px 40px 35px;
     color: #fff;
+    position: relative;
+    overflow: hidden;
 }
 
-.breadcrumb {
+.breadcrumb-section::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 300px;
+    height: 300px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.breadcrumb-section::after {
+    content: '';
+    position: absolute;
+    bottom: -80px;
+    left: -80px;
+    width: 250px;
+    height: 250px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.breadcrumb-section .container {
+    position: relative;
+    z-index: 1;
+    max-width: 100%;
+}
+
+.breadcrumb-big {
     display: flex;
     align-items: center;
-    gap: 10px;
     flex-wrap: wrap;
-    font-size: 14px;
-    background: rgba(255, 255, 255, 0.15);
-    padding: 12px 20px;
-    border-radius: 30px;
-    backdrop-filter: blur(10px);
-    width: fit-content;
+    gap: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
-.breadcrumb a {
-    color: #fff;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.breadcrumb a:hover {
-    opacity: 0.8;
-    transform: translateX(2px);
-}
-
-.breadcrumb span {
-    color: rgba(255, 255, 255, 0.6);
-}
-
-.breadcrumb .active {
-    font-weight: 600;
-    color: #fff;
-}
-
-/* ============================================
-   PAGE HEADER (untuk halaman anak)
-   ============================================ */
-.page-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    padding: 120px 0 60px;
-    text-align: center;
-    color: #fff;
-}
-
-.page-header h1 {
-    font-size: 2.5rem;
-    font-weight: 800;
-    margin-bottom: 15px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-}
-
-.page-header p {
-    font-size: 1.1rem;
-    opacity: 0.9;
-    max-width: 700px;
-    margin: 0 auto;
-}
-
-/* ============================================
-   BACK BUTTON
-   ============================================ */
-.btn-back-home {
+.breadcrumb-big .bc-item {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 10px 20px;
-    background: #fff;
-    color: #667eea;
-    border-radius: 25px;
+    color: rgba(255, 255, 255, 0.88);
     text-decoration: none;
-    font-weight: 600;
-    font-size: 14px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    padding: 6px 14px;
+    border-radius: 12px;
     transition: all 0.3s ease;
-    margin-top: 20px;
+    font-weight: 600;
+    line-height: 1.3;
 }
 
-.btn-back-home:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+.breadcrumb-big .bc-item i {
+    font-size: 1rem;
+}
+
+.breadcrumb-big a.bc-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.breadcrumb-big .bc-home {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.breadcrumb-big .bc-separator {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+}
+
+.breadcrumb-big .bc-separator i {
+    font-size: 0.8rem;
+}
+
+.breadcrumb-big .bc-active {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.2);
+    font-weight: 800;
+    font-size: 1.4rem;
+    padding: 8px 18px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
 /* ============================================
-   NAV SUBMENU (dropdown kesiswaan)
+   KONTEN UTAMA
    ============================================ */
-.nav-parent {
-    position: relative;
+body.section-mode > section:not(.breadcrumb-section):not(.navbar),
+body.section-mode .page-content {
+    padding: 30px 40px 40px !important;
+    background: #f5f7fb;
 }
 
-.nav-parent-link {
+body.no-sidebar-mode > section:not(.breadcrumb-section):not(.navbar),
+body.no-sidebar-mode .page-content {
+    padding: 30px 40px 40px !important;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+body.section-mode .footer,
+body.no-sidebar-mode .footer {
+    background: #1a202c;
+    color: #fff;
+    padding: 40px 40px 20px;
+}
+
+/* ============================================
+   LOGO NAVBAR GLOBAL (index.html)
+   ============================================ */
+.navbar-logo {
     display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 6px;
-}
-
-.nav-parent-link i.fa-chevron-down {
-    font-size: 10px;
+    text-align: center;
+    flex-shrink: 0;
+    padding: 8px 0;
+    text-decoration: none;
+    color: inherit;
     transition: transform 0.3s ease;
 }
 
-.nav-parent:hover .nav-parent-link i.fa-chevron-down {
-    transform: rotate(180deg);
+.navbar-logo:hover {
+    transform: scale(1.02);
 }
 
-.nav-submenu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background: #fff;
-    min-width: 250px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-    border-radius: 12px;
-    padding: 10px 0;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(10px);
-    transition: all 0.3s ease;
-    z-index: 999;
-    list-style: none;
+.navbar-logo .logo-img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.15));
+}
+
+.navbar-logo .logo-text {
+    text-align: center;
+    line-height: 1.2;
+}
+
+.navbar-logo .logo-text h1 {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #fff;
     margin: 0;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
 }
 
-.nav-parent:hover .nav-submenu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
+.navbar-logo .logo-text p {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.7);
+    margin: 0;
+    font-weight: 500;
 }
 
-.nav-submenu li {
+/* ============================================
+   SIDEBAR KESISWAAN (internal, di dalam konten)
+   ============================================ */
+.kesiswaan-layout {
+    display: flex;
+    gap: 25px;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.kesiswaan-sidebar {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    padding: 20px;
+    width: 260px;
+    min-width: 260px;
+    height: fit-content;
+    position: sticky;
+    top: 90px;
+    border: 1px solid #e5e9f2;
+    flex-shrink: 0;
+}
+
+.kesiswaan-sidebar-menu {
+    list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.nav-submenu li a {
+.kesiswaan-sidebar-menu li {
+    margin-bottom: 4px;
+}
+
+.kesiswaan-sidebar-menu a {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 12px 20px;
-    color: #333 !important;
+    padding: 11px 14px;
+    color: #4a5568;
     text-decoration: none;
-    transition: all 0.2s ease;
-    font-size: 14px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.25s ease;
 }
 
-.nav-submenu li a:hover {
-    background: #f0f4ff;
-    color: #667eea !important;
-    padding-left: 25px;
-}
-
-.nav-submenu li a i {
+.kesiswaan-sidebar-menu a i {
     width: 18px;
+    text-align: center;
     color: #667eea;
-    font-size: 14px;
+    font-size: 0.9rem;
 }
 
-/* Mobile responsive */
-@media (max-width: 768px) {
-    .nav-submenu {
-        position: static;
-        opacity: 1;
-        visibility: visible;
-        transform: none;
-        box-shadow: none;
-        background: #f9f9f9;
-        margin-top: 5px;
-        border-radius: 8px;
-        display: none;
-    }
-    
-    .nav-parent.open .nav-submenu {
+.kesiswaan-sidebar-menu a:hover {
+    background: #f0f4ff;
+    color: #667eea;
+}
+
+.kesiswaan-sidebar-menu a.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    font-weight: 600;
+}
+
+.kesiswaan-sidebar-menu a.active i {
+    color: #fff;
+}
+
+.kesiswaan-content {
+    flex: 1;
+    min-width: 0;
+}
+
+/* ============================================
+   RESPONSIVE — Mobile (< 900px)
+   ============================================ */
+@media (max-width: 900px) {
+    /* Sidebar mode → jadi navbar atas */
+    body.section-mode {
         display: block;
     }
     
-    .breadcrumb {
-        font-size: 12px;
-        padding: 10px 15px;
+    body.section-mode #navbar-placeholder {
+        position: sticky;
+        top: 0;
+        height: auto;
+        z-index: 1000;
     }
     
-    .page-header h1 {
-        font-size: 1.8rem;
+    .navbar.navbar-section {
+        height: auto !important;
+        width: 100% !important;
+        padding: 8px 0 !important;
+        flex-direction: row !important;
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 1000;
+        overflow: visible !important;
     }
+    
+    .navbar.navbar-section .container {
+        flex-direction: row !important;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 15px !important;
+        height: auto;
+    }
+    
+    .navbar.navbar-section .navbar-logo {
+        flex-direction: row;
+        padding: 4px 0;
+        border-bottom: none;
+        gap: 10px;
+    }
+    
+    .navbar.navbar-section .navbar-logo .logo-img {
+        width: 42px;
+        height: 42px;
+    }
+    
+    .navbar.navbar-section .navbar-logo .logo-text {
+        text-align: left;
+    }
+    
+    .navbar.navbar-section .navbar-logo .logo-text h1 {
+        font-size: 0.72rem;
+    }
+    
+    .navbar.navbar-section .navbar-logo .logo-text p {
+        font-size: 0.62rem;
+    }
+    
+    .navbar.navbar-section .navbar-toggle,
+    body.no-sidebar-mode .navbar.navbar-section .navbar-toggle {
+        display: block !important;
+        background: transparent;
+        border: none;
+        color: #fff;
+        font-size: 1.4rem;
+        cursor: pointer;
+        padding: 8px 12px;
+        border-radius: 8px;
+    }
+    
+    .navbar.navbar-section .navbar-toggle:hover {
+        background: rgba(255,255,255,0.15);
+    }
+    
+    .navbar.navbar-section .navbar-menu,
+    body.no-sidebar-mode .navbar.navbar-section .navbar-menu {
+        display: none !important;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #fff;
+        padding: 15px;
+        border-radius: 0 0 16px 16px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        max-height: 70vh;
+        overflow-y: auto;
+        z-index: 999;
+        flex-direction: column !important;
+    }
+    
+    .navbar.navbar-section .navbar-menu.active,
+    body.no-sidebar-mode .navbar.navbar-section .navbar-menu.active {
+        display: block !important;
+    }
+    
+    .navbar.navbar-section .navbar-menu ul,
+    body.no-sidebar-mode .navbar.navbar-section .navbar-menu ul {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 2px !important;
+    }
+    
+    .navbar.navbar-section .navbar-menu ul li,
+    body.no-sidebar-mode .navbar.navbar-section .navbar-menu ul li {
+        width: 100% !important;
+    }
+    
+    .navbar.navbar-section .navbar-menu ul li a,
+    body.no-sidebar-mode .navbar.navbar-section .navbar-menu ul li a {
+        color: #4a5568 !important;
+        padding: 12px 16px !important;
+        border-radius: 10px !important;
+        font-size: 0.9rem !important;
+    }
+    
+    .navbar.navbar-section .navbar-menu ul li a:hover,
+    body.no-sidebar-mode .navbar.navbar-section .navbar-menu ul li a:hover {
+        background: #f0f4ff !important;
+        color: #667eea !important;
+        transform: none;
+    }
+    
+    .navbar.navbar-section .navbar-menu ul li a.active,
+    body.no-sidebar-mode .navbar.navbar-section .navbar-menu ul li a.active {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        color: #fff !important;
+    }
+    
+    .navbar.navbar-section .nav-divider,
+    body.no-sidebar-mode .navbar.navbar-section .nav-divider {
+        width: 100% !important;
+        height: 1px !important;
+        background: #e5e9f2 !important;
+        margin: 8px 0 !important;
+    }
+    
+    .navbar.navbar-section .nav-section-label,
+    body.no-sidebar-mode .navbar.navbar-section .nav-section-label {
+        color: #667eea !important;
+        padding: 10px 16px 5px !important;
+    }
+    
+    .navbar.navbar-section .nav-home,
+    body.no-sidebar-mode .navbar.navbar-section .nav-home {
+        background: #f0f4ff !important;
+        color: #667eea !important;
+    }
+    
+    /* Breadcrumb */
+    .breadcrumb-section {
+        padding: 25px 20px 20px;
+    }
+    
+    .breadcrumb-big {
+        font-size: 1rem;
+        gap: 8px;
+    }
+    
+    .breadcrumb-big .bc-item {
+        padding: 5px 12px;
+        font-size: 0.88rem;
+    }
+    
+    .breadcrumb-big .bc-active {
+        font-size: 1.05rem;
+        padding: 6px 14px;
+    }
+    
+    /* Konten */
+    body.section-mode > section:not(.breadcrumb-section):not(.navbar),
+    body.section-mode .page-content,
+    body.no-sidebar-mode > section:not(.breadcrumb-section):not(.navbar),
+    body.no-sidebar-mode .page-content {
+        padding: 20px !important;
+    }
+    
+    /* Kesiswaan internal */
+    .kesiswaan-layout {
+        flex-direction: column;
+    }
+    
+    .kesiswaan-sidebar {
+        width: 100%;
+        min-width: 100%;
+        position: static;
+    }
+}
+
+@media (max-width: 480px) {
+    .breadcrumb-big .bc-home span {
+        display: none;
+    }
+    
+    .breadcrumb-big .bc-home::before {
+        content: '🏠';
+    }
+}
+
+/* ============================================
+   FIX: Kesiswaan Navbar Section (layout: top)
+   Force horizontal meskipun .navbar-section default sidebar
+   ============================================ */
+body.no-sidebar-mode .navbar.navbar-section {
+    height: auto !important;
+    width: 100% !important;
+    min-height: auto !important;
+    padding: 10px 0 !important;
+    flex-direction: row !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1000 !important;
+    overflow: visible !important;
+}
+
+body.no-sidebar-mode .navbar.navbar-section .container {
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 0 20px !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    height: auto !important;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+body.no-sidebar-mode .navbar.navbar-section .navbar-logo {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    padding: 4px 0 !important;
+    border-bottom: none !important;
+    gap: 10px !important;
+    flex-shrink: 0;
+}
+
+body.no-sidebar-mode .navbar.navbar-section .navbar-logo .logo-img {
+    width: 50px !important;
+    height: 50px !important;
+}
+
+body.no-sidebar-mode .navbar.navbar-section .navbar-logo .logo-text {
+    text-align: left !important;
+}
+
+body.no-sidebar-mode .navbar.navbar-section .navbar-logo .logo-text h1 {
+    font-size: 0.8rem !important;
+    text-align: left;
+}
+
+body.no-sidebar-mode .navbar.navbar-section .navbar-logo .logo-text p {
+    font-size: 0.68rem !important;
+    text-align: left;
+}
+
+body.no-sidebar-mode .navbar.navbar-section .navbar-menu {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    flex: 1;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+body.no-sidebar-mode .navbar.navbar-section .navbar-menu ul {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    flex-wrap: wrap;
+    gap: 4px !important;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+body.no-sidebar-mode .navbar.navbar-section .navbar-menu ul li {
+    width: auto !important;
+    list-style: none;
+}
+
+body.no-sidebar-mode .navbar.navbar-section .navbar-menu ul li a {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px !important;
+    border-radius: 20px !important;
+    white-space: nowrap !important;
+    font-size: 0.82rem !important;
+    font-weight: 500;
+    color: rgba(255,255,255,0.88) !important;
+    background: transparent !important;
+    text-decoration: none !important;
+    transition: all 0.25s ease;
+}
+
+body.no-sidebar-mode .navbar.navbar-section .navbar-menu ul li a:hover {
+    background: rgba(255,255,255,0.15) !important;
+    color: #fff !important;
+    transform: translateY(-1px);
+}
+
+body.no-sidebar-mode .navbar.navbar-section .navbar-menu ul li a.active {
+    background: rgba(255,255,255,0.25) !important;
+    color: #fff !important;
+    font-weight: 700;
+}
+
+body.no-sidebar-mode .navbar.navbar-section .nav-home {
+    background: rgba(255,255,255,0.15) !important;
+}
+
+body.no-sidebar-mode .navbar.navbar-section .nav-divider {
+    width: 1px !important;
+    height: 24px !important;
+    background: rgba(255,255,255,0.3) !important;
+    margin: 0 8px !important;
+    flex-shrink: 0;
+    list-style: none;
+}
+
+body.no-sidebar-mode .navbar.navbar-section .nav-section-label {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.68rem !important;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: rgba(255,255,255,0.6) !important;
+    padding: 0 10px !important;
+    pointer-events: none;
+    list-style: none;
+    white-space: nowrap;
+}
+
+body.no-sidebar-mode .navbar.navbar-section .navbar-toggle {
+    display: none !important;
 }
