@@ -6,6 +6,7 @@
 <title>Buku Induk Digital - SDN Gambirono 01</title>
 <link rel="stylesheet" href="../css/style.css">
 <link rel="stylesheet" href="../css/breadcrumb.css">
+<link rel="stylesheet" href="../css/nilai-ijazah.css">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <link rel="icon" type="image/x-icon" href="../favicon.ico">
@@ -34,6 +35,7 @@
         </div>
         
         <div class="buku-induk-container">
+            <!-- FORM LOGIN NISN -->
             <div id="bukuLoginForm" class="buku-login">
                 <div class="buku-card">
                     <div class="buku-icon"><i class="fas fa-id-card"></i></div>
@@ -54,6 +56,7 @@
                 </div>
             </div>
             
+            <!-- HASIL BUKU INDUK -->
             <div id="hasilBukuInduk" class="hasil-buku" style="display: none;">
                 <div class="buku-result-card">
                     <div class="result-header">
@@ -62,17 +65,34 @@
                         <button onclick="logoutBuku()" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Ganti NISN</button>
                     </div>
                     <div class="result-body">
+                        <!-- Nama Siswa -->
                         <div class="nama-siswa-besar">
                             <h2 id="bukuNama">-</h2>
                             <p><i class="fas fa-id-card"></i> NISN: <strong id="bukuNISN">-</strong></p>
                         </div>
+                        
+                        <!-- Biodata + Foto -->
                         <div class="biodata-section">
                             <div class="biodata-header"><i class="fas fa-user-circle"></i><h4>Biodata Siswa</h4></div>
                             <div id="biodataSiswa" class="biodata-container"><p class="loading-text">Memuat biodata...</p></div>
                         </div>
+                        
+                        <!-- Riwayat Nilai -->
                         <div class="riwayat-section">
                             <div class="riwayat-header"><i class="fas fa-history"></i><h4>Riwayat Nilai</h4></div>
                             <div class="riwayat-kotak" id="riwayatKotak"><p class="loading-text">Memuat data nilai...</p></div>
+                        </div>
+                        
+                        <!-- ✅ NILAI IJAZAH — SECTION PENUTUP -->
+                        <div class="ijazah-section" id="nilaiIjazahSection" style="display: none;">
+                            <div class="ijazah-header-title">
+                                <i class="fas fa-certificate"></i>
+                                <h4>Nilai Ijazah</h4>
+                                <span class="ijazah-closing-badge">Terintegrasi</span>
+                            </div>
+                            <div id="nilaiIjazahContent" class="ijazah-container">
+                                <p class="loading-text">Memuat nilai ijazah...</p>
+                            </div>
                         </div>
                     </div>
                     <div class="result-footer">
@@ -81,6 +101,7 @@
                 </div>
             </div>
             
+            <!-- LOADING -->
             <div id="loadingBuku" class="buku-loading" style="display: none;">
                 <div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i><p>Memuat data buku induk...</p></div>
             </div>
