@@ -534,6 +534,66 @@ document.addEventListener('DOMContentLoaded', function() {
 
 const BUKU_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzDBHP0w7Yyvq1PtxJuA_c51yG7T0uexW9dP_8Oo4cVBrNl-3p28JpqRALBEkug1aH8/exec';
 
+// ============================================
+// HELPER: Format angka 2 digit belakang koma
+// ============================================
+function formatNilai2Desimal(nilai) {
+    if (nilai === null || nilai === undefined || nilai === '' || nilai === '-') return '-';
+    const num = parseFloat(nilai);
+    if (isNaN(num)) return '-';
+    return num.toFixed(2).replace('.', ',');
+}
+
+// Helper: cek apakah entri adalah "Nilai Ijazah"
+function isNilaiIjazah(item) {
+    const sem = String(item.semester || '').toLowerCase();
+    const kelas = String(item.kelas || '').toLowerCase();
+    return sem.includes('ijazah') || kelas.includes('ijazah');
+}
+
+// ============================================
+// HELPER: Handle URL Foto dari Google Drive
+// Format kolom Q: https://drive.google.com/thumbnail?id=FILE_ID&sz=w1000
+// ============================================
+function convertDriveUrl(url) {
+    if (!url) return '';
+    url = url.toString().trim();
+    
+    // ✅ Format sudah thumbnail — pakai langsung
+    if (url.includes('drive.google.com/thumbnail')) {
+        return url;
+    }
+    
+    // Bukan Google Drive → pakai as-is
+    if (!url.includes('drive.google.com') && !url.includes('docs.google.com')) {
+        return url;
+    }
+    
+    // Extract FILE_ID dari berbagai format
+    let fileId = '';
+    let match = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+    if (match) fileId = match[1];
+    
+    if (!fileId) {
+        match = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+        if (match) fileId = match[1];
+    }
+    
+    if (!fileId) {
+        match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+        if (match) fileId = match[1];
+    }
+    
+    if (fileId) {
+        return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
+    }
+    
+    return url;
+}
+
+// ============================================
+// CEK BUKU INDUK
+// ============================================
 window.cekBukuInduk = async function() {
     const nisnInput = document.getElementById('bukuNisnInput');
     if (!nisnInput) return;
@@ -563,6 +623,7 @@ window.cekBukuInduk = async function() {
         console.log('Data Buku Induk:', data);
         
         if (data.status === 'found') {
+            // Biodata + Foto
             if (data.biodata) {
                 displayBiodata(data.biodata);
             } else {
@@ -572,7 +633,21 @@ window.cekBukuInduk = async function() {
             document.getElementById('bukuNama').innerHTML = data.nama;
             document.getElementById('bukuNISN').innerHTML = data.nisn;
             
-            displayRiwayatKotak(data.riwayat);
+            // Pisahkan riwayat biasa dan nilai ijazah
+            const allRiwayat = data.riwayat || [];
+            const riwayatBiasa = allRiwayat.filter(r => !isNilaiIjazah(r));
+            const nilaiIjazahData = allRiwayat.find(r => isNilaiIjazah(r));
+            
+            // Tampilkan riwayat kelas 1-6 (tanpa ijazah)
+            displayRiwayatKotak(riwayatBiasa);
+            
+            // Tampilkan Nilai Ijazah sebagai section penutup
+            if (nilaiIjazahData) {
+                displayNilaiIjazah(nilaiIjazahData);
+                document.getElementById('nilaiIjazahSection').style.display = 'block';
+            } else {
+                document.getElementById('nilaiIjazahSection').style.display = 'none';
+            }
             
             document.getElementById('loadingBuku').style.display = 'none';
             document.getElementById('hasilBukuInduk').style.display = 'block';
@@ -592,6 +667,9 @@ window.cekBukuInduk = async function() {
     }
 };
 
+// ============================================
+// BIODATA (DENGAN FOTO 2×3)
+// ============================================
 function displayBiodata(biodata) {
     const container = document.getElementById('biodataSiswa');
     if (!container) return;
@@ -604,6 +682,12 @@ function displayBiodata(biodata) {
             </div>
         `;
         return;
+    }
+    
+    // ✅ Handle foto — konversi link Drive ke direct image
+    let fotoUrl = biodata.foto || '';
+    if (fotoUrl) {
+        fotoUrl = convertDriveUrl(fotoUrl);
     }
     
     let tglLahir = biodata.tanggalLahir || '-';
@@ -622,7 +706,31 @@ function displayBiodata(biodata) {
     if (jk.toLowerCase() === 'l' || jk.toLowerCase() === 'laki-laki') jk = 'Laki-laki';
     else if (jk.toLowerCase() === 'p' || jk.toLowerCase() === 'perempuan') jk = 'Perempuan';
     
+    // ✅ Foto HTML
+    const fotoHtml = fotoUrl ? `
+        <div class="foto-siswa-wrapper">
+            <img src="${fotoUrl}" 
+                 alt="Foto ${biodata.nama || 'Siswa'}" 
+                 class="foto-siswa"
+                 onerror="this.parentElement.innerHTML='<div class=\\'foto-siswa-placeholder\\'><i class=\\'fas fa-user\\'></i><span>Foto tidak tersedia</span></div><div class=\\'foto-siswa-label\\'>Foto 2×3</div>'">
+            <div class="foto-siswa-label">Foto 2×3</div>
+        </div>
+    ` : `
+        <div class="foto-siswa-wrapper">
+            <div class="foto-siswa-placeholder">
+                <i class="fas fa-user"></i>
+                <span>Foto tidak tersedia</span>
+            </div>
+            <div class="foto-siswa-label">Foto 2×3</div>
+        </div>
+    `;
+    
     container.innerHTML = `
+        <!-- ✅ FOTO DI ATAS NAMA -->
+        <div class="foto-siswa-section">
+            ${fotoHtml}
+        </div>
+        
         <div class="biodata-grid">
             <div class="biodata-col">
                 <div class="biodata-item">
@@ -696,6 +804,9 @@ function displayBiodata(biodata) {
     `;
 }
 
+// ============================================
+// RIWAYAT NILAI (KOTAK PER SEMESTER)
+// ============================================
 function displayRiwayatKotak(riwayatList) {
     const container = document.getElementById('riwayatKotak');
     if (!container) return;
@@ -705,15 +816,11 @@ function displayRiwayatKotak(riwayatList) {
         return;
     }
     
-    // ✅ SORT: Kelas ASC → Semester ASC
+    // Sort: Kelas ASC → Semester ASC
     riwayatList.sort((a, b) => {
         const kelasA = parseInt(a.kelas) || 0;
         const kelasB = parseInt(b.kelas) || 0;
-        
-        // Urutkan berdasarkan kelas dulu
         if (kelasA !== kelasB) return kelasA - kelasB;
-        
-        // Kalau kelas sama, urutkan berdasarkan semester
         const semA = parseInt(a.semester) || 0;
         const semB = parseInt(b.semester) || 0;
         return semA - semB;
@@ -735,7 +842,13 @@ function displayRiwayatKotak(riwayatList) {
             { nama: 'BTA', nilai: item.bta }
         ];
         
-        const rataRata = item.rt || (item.jml / 10).toFixed(1);
+        // Hitung rata-rata numerik
+        const nilaiNumerik = mapelList
+            .map(m => parseFloat(m.nilai))
+            .filter(n => !isNaN(n));
+        
+        const jml = parseFloat(item.jml) || nilaiNumerik.reduce((a, b) => a + b, 0);
+        const rataRata = parseFloat(item.rt) || (jml / (nilaiNumerik.length || 1));
         
         let rataClass = '';
         if (rataRata >= 85) rataClass = 'rata-rata-bagus';
@@ -762,10 +875,12 @@ function displayRiwayatKotak(riwayatList) {
             else if (mapel.nilai >= 60) nilaiClass = 'nilai-cukup';
             else nilaiClass = 'nilai-kurang';
             
+            const nilaiFormatted = formatNilai2Desimal(mapel.nilai);
+            
             html += `
                 <div class="nilai-item">
                     <span class="mapel">${mapel.nama}</span>
-                    <span class="nilai ${nilaiClass}">${mapel.nilai}</span>
+                    <span class="nilai ${nilaiClass}">${nilaiFormatted}</span>
                 </div>
             `;
         });
@@ -774,10 +889,10 @@ function displayRiwayatKotak(riwayatList) {
                 </div>
                 <div class="semester-footer">
                     <div class="jml">
-                        <i class="fas fa-chart-simple"></i> Jumlah Nilai: <strong>${item.jml || (mapelList.reduce((sum, m) => sum + m.nilai, 0))}</strong>
+                        <i class="fas fa-chart-simple"></i> Jumlah Nilai: <strong>${formatNilai2Desimal(jml)}</strong>
                     </div>
                     <div class="rata-rata ${rataClass}">
-                        <i class="fas fa-star"></i> Rata-rata: ${rataRata}
+                        <i class="fas fa-star"></i> Rata-rata: ${formatNilai2Desimal(rataRata)}
                     </div>
                 </div>
             </div>
@@ -787,6 +902,93 @@ function displayRiwayatKotak(riwayatList) {
     container.innerHTML = html;
 }
 
+// ============================================
+// ✅ NILAI IJAZAH (SECTION PENUTUP) - 2 DESIMAL
+// ============================================
+function displayNilaiIjazah(dataIjazah) {
+    const container = document.getElementById('nilaiIjazahContent');
+    if (!container) return;
+    
+    const mapelIjazah = [
+        { nama: 'Pendidikan Agama', nilai: dataIjazah.pai },
+        { nama: 'Pendidikan Pancasila', nilai: dataIjazah.pp },
+        { nama: 'Bahasa Indonesia', nilai: dataIjazah.bin },
+        { nama: 'Matematika', nilai: dataIjazah.mtk },
+        { nama: 'IPAS', nilai: dataIjazah.ipas },
+        { nama: 'PJOK', nilai: dataIjazah.pjok },
+        { nama: 'SBdP', nilai: dataIjazah.sbdp },
+        { nama: 'Bahasa Inggris', nilai: dataIjazah.big },
+        { nama: 'Bahasa Jawa', nilai: dataIjazah.bjawa },
+        { nama: 'BTA', nilai: dataIjazah.bta }
+    ];
+    
+    const nilaiNumerik = mapelIjazah
+        .map(m => parseFloat(m.nilai))
+        .filter(n => !isNaN(n));
+    
+    const jml = parseFloat(dataIjazah.jml) || nilaiNumerik.reduce((a, b) => a + b, 0);
+    const rataRata = parseFloat(dataIjazah.rt) || (jml / (nilaiNumerik.length || 1));
+    
+    let rataClass = 'rata-rata-kurang';
+    if (rataRata >= 85) rataClass = 'rata-rata-bagus';
+    else if (rataRata >= 70) rataClass = '';
+    else if (rataRata >= 60) rataClass = 'rata-rata-cukup';
+    
+    let html = `
+        <div class="ijazah-header">
+            <div class="ijazah-badge">
+                <i class="fas fa-certificate"></i>
+                <span>Nilai Ijazah</span>
+            </div>
+            <div class="ijazah-tahun">
+                <i class="fas fa-calendar-check"></i>
+                Tahun Lulus: <strong>${dataIjazah.tahun || '-'}</strong>
+            </div>
+        </div>
+        <div class="ijazah-grid">
+    `;
+    
+    mapelIjazah.forEach(mapel => {
+        let nilaiClass = '';
+        if (mapel.nilai >= 85) nilaiClass = 'nilai-bagus';
+        else if (mapel.nilai >= 70) nilaiClass = '';
+        else if (mapel.nilai >= 60) nilaiClass = 'nilai-cukup';
+        else nilaiClass = 'nilai-kurang';
+        
+        const nilaiFormatted = formatNilai2Desimal(mapel.nilai);
+        
+        html += `
+            <div class="ijazah-item">
+                <span class="ijazah-mapel">${mapel.nama}</span>
+                <span class="ijazah-nilai ${nilaiClass}">${nilaiFormatted}</span>
+            </div>
+        `;
+    });
+    
+    html += `
+        </div>
+        <div class="ijazah-footer">
+            <div class="ijazah-jml">
+                <i class="fas fa-calculator"></i>
+                Jumlah Nilai: <strong>${formatNilai2Desimal(jml)}</strong>
+            </div>
+            <div class="ijazah-rata ${rataClass}">
+                <i class="fas fa-star"></i>
+                Rata-rata: <strong>${formatNilai2Desimal(rataRata)}</strong>
+            </div>
+        </div>
+        <div class="ijazah-note">
+            <i class="fas fa-info-circle"></i>
+            Nilai ijazah merupakan nilai kelulusan siswa 
+        </div>
+    `;
+    
+    container.innerHTML = html;
+}
+
+// ============================================
+// LOGOUT
+// ============================================
 window.logoutBuku = function() {
     document.getElementById('hasilBukuInduk').style.display = 'none';
     document.getElementById('bukuLoginForm').style.display = 'block';
@@ -794,6 +996,9 @@ window.logoutBuku = function() {
     sessionStorage.removeItem('buku_nisn');
 };
 
+// ============================================
+// AUTO-LOAD DARI SESSION
+// ============================================
 document.addEventListener('DOMContentLoaded', function() {
     const savedNISN = sessionStorage.getItem('buku_nisn');
     if (savedNISN) {
